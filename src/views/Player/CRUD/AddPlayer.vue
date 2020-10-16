@@ -28,12 +28,34 @@
           <input type="text" class="input" />
         </div>
       </div>
+
+      <div class="field">
+        <div class="control">
+          <label for="" class="label">ຕຳແໜ່ງ</label>
+          <div class="select" style="width:100%;">
+            <select style="width:100%;">
+              <option>Select dropdown</option>
+              <option>With options</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <button class="button is-primary"></button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data: () => ({
+    value: "",
+  }),
+};
 </script>
 
 <style scopde>

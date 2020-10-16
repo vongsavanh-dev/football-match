@@ -2,7 +2,7 @@
   <div class="hidden">
     <vs-sidebar absolute v-model="active" open>
       <template class="logo-dashboard">
-        <img class="dashboard-logo" src="../assets/logo.png" alt="" />
+        <img class="dashboard-logo" src="../assets/footballLOGO.png" alt="" />
       </template>
 
       <vs-sidebar-group>
@@ -31,12 +31,14 @@
             <h2>ຂໍ້ມູນນັກເຕະ</h2>
           </vs-sidebar-item>
         </div>
-        <vs-sidebar-item id="Facebook" class="text-header-dashboard">
-          <template #icon>
-            <i class="fas fa-crosshairs"></i>
-          </template>
-          <h2>ຂໍ້ມູນຕຳແໜ່ງ</h2>
-        </vs-sidebar-item>
+        <div @click="Position()">
+          <vs-sidebar-item id="Facebook" class="text-header-dashboard">
+            <template #icon>
+              <i class="fas fa-crosshairs"></i>
+            </template>
+            <h2>ຂໍ້ມູນຕຳແໜ່ງ</h2>
+          </vs-sidebar-item>
+        </div>
       </vs-sidebar-group>
 
       <vs-sidebar-item id="chat" class="text-header-dashboard">
@@ -56,11 +58,12 @@ export default {
   methods: {
     Team() {
       this.$router.push({ name: "listteam" });
-      console.log("name");
     },
     Player() {
       this.$router.push({ name: "Listplayer" });
-      console.log("name");
+    },
+    Position() {
+      this.$router.push({ name: "Position" });
     },
   },
 };
@@ -68,8 +71,8 @@ export default {
 
 <style lang="css" scoped>
 .dashboard-logo {
-  height: 100px;
-  width: 100px;
+  height: 200px;
+  width: 200px;
   margin-left: auto;
   margin-right: auto;
   margin-top: 20px;

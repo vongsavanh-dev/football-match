@@ -32,6 +32,13 @@
           </label>
         </div>
       </div>
+      <div class="field btn">
+        <div class="control">
+          <button class="button is-fullwidth">
+            ບັນທຶກຂໍ້ມູນທີມ
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -70,5 +77,13 @@ label {
   margin-bottom: 10px;
   font-size: 18px;
   font-weight: bold;
+}
+.btn button {
+  font-family: BoonBaan;
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #3380ff;
+  color: #ffff;
 }
 </style>

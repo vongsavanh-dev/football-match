@@ -3,6 +3,8 @@ import VueRouter from "vue-router";
 import Login from "../views/UI/Login.vue";
 import Listteam from "../views/Team/list-team.vue";
 import Listplayer from '../views/Player/ListPlayer.vue'
+import Position from '../views/Position/ListPosition.vue'
+import PlayerTeam from '../views/PlayerTeam/ListPlayerTeam.vue'
 
 Vue.use(VueRouter);
 
@@ -31,6 +33,16 @@ const routes = [
     name: 'Listplayer',
     component:Listplayer,
   },
+  {
+    path: '/PlayerTeam',
+    name: 'PlayerTeam',
+    component:PlayerTeam,
+  },
+  {
+    path: '/Position',
+    name: 'Position',
+    component:Position,
+  }
 ];
 
 const router = new VueRouter({
