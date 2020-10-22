@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="header-title">
-      <i class="fas fa-info-circle"></i><span>ບັນທຶກ ຂໍ້ມູນນັກເຕະ</span>
+      <i class="fas fa-info-circle"></i><span>ແກ້ໄຂ ຂໍ້ມູນນັກເຕະ</span>
     </div>
     <div class="section-content">
       <div class="field">
@@ -41,9 +41,10 @@
         </div>
       </div>
 
-     <div class="field btn">
+      
+      <div class="field btn">
         <div class="control">
-          <button class="button is-fullwidth" style="color:#ffff;">ບັນທຶກ ຂໍ້ມູນນັກເຕະ</button>
+          <button class="button is-fullwidth" style="color:#ffff;">ອັບເດດ ຂໍ້ມູນນັກເຕະ</button>
         </div>
       </div>
     </div>

@@ -1,0 +1,19 @@
+$datepickerZindex: 99100;
+.mx-datepicker-main {
+    z-index: $datepickerZindex;
+    padding-bottom: 10px;
+}
+
+.control {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.mx-datepicker-main {
+    position: relative;
+}
+
+.mx-datepicker-main .mx-datepicker-popup {
+    position: absolute;
+    top: 500px;
+}

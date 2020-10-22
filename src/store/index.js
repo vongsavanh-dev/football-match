@@ -1,25 +1,35 @@
 import Vue from "vue";
 import Vuex from "vuex";
+// Modules
+import User from './User';
+
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
-    modalAddState: false,
-    modalEditState: false,
-     modalDeleteState: false,
-  },
-  mutations: {
-    modalAdd_State(state, value) {
-      state.modalAddState = value;
+    state: {
+        modalAddState: false,
+        modalEditState: false,
+        modalDeleteState: false,
+        modalNotificationState: false,
     },
-     modalEdit_State(state, value){
-      state.modalEditState = value;
+    mutations: {
+        modalAdd_State(state, value) {
+            state.modalAddState = value;
+        },
+        modalEdit_State(state, value) {
+            state.modalEditState = value;
+        },
+        modalDelete_State(state, value) {
+            state.modalDeleteState = value;
+        },
+        modalNotification_State(state, value) {
+            state.modalNotificationState = value;
+        },
     },
-    modalDelete_State(state, value){
-      state.modalDeleteState = value;
-    }
-  },
-  actions: {},
-  modules: {},
+    actions: {},
+
+    modules: {
+        User
+    },
 });

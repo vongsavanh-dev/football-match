@@ -2,7 +2,7 @@
 <div class="container">
     <div class="box-title">
         <h4>
-            ລາຍຊື່ ນັກເຕະໃນທີມ
+            ລາຍການແຂ່ງຂັນ ທັງໝົດ
         </h4>
         <span class="btn-add">
             <vs-button class="btn-icon" circle icon flat @click="OpenModalAdd()">
@@ -19,57 +19,39 @@
                         ລຳດັບ
                     </vs-th>
                     <vs-th>
-                        ຮູບພາບ
-                    </vs-th>
-                    <vs-th id="teamname">
-                        ຊື່
+                        ຊື່ທີມທີໜື່ງ
                     </vs-th>
                     <vs-th>
-                        ນາມສະກຸນ
+                        ຊື່ທີມທີສອງ
                     </vs-th>
                     <vs-th>
-                        ວັນເດືອນປີເກີດ
+                        ເວລາການແຂ່ງຂັນ
                     </vs-th>
                     <vs-th>
-                        ເບີເສື້ອ
+                        ສະຖານະການແຂ່ງຂັນ
                     </vs-th>
-                    <vs-th>
-                        ຕຳແໜ່ງ
-                    </vs-th>
-                    <vs-th>
-                        ສັງກັດທີມ
-                    </vs-th>
-
-                    <vs-th id="table-header-button"> </vs-th>
+                    <vs-th> </vs-th>
                 </vs-tr>
             </template>
             <template #tbody>
-                <vs-tr :key="index" v-for="(playerteam, index) in $vs.getPage(playerteams, page, max)" :data="playerteam">
+                <vs-tr :key="index " v-for="(match, index) in $vs.getPage(matchs, page, max)" :data="match">
                     <vs-td>
-                        {{ index + 1}}
+                        {{index + 1 }}
                     </vs-td>
                     <vs-td>
-                        {{ index + 1}}
+                        {{ match.team_1 }}
                     </vs-td>
                     <vs-td>
-                        {{ playerteam.name }}
+                        {{ match.team_2 }}
                     </vs-td>
                     <vs-td>
-                        {{ playerteam.sur_name }}
+                        {{ match.match_date }}
                     </vs-td>
                     <vs-td>
-                        {{ playerteam.date_of_birth }}
+                        {{ match.status }}
                     </vs-td>
-                    <vs-td>
-                        {{ playerteam.player_number }}
-                    </vs-td>
-                    <vs-td>
-                        {{ playerteam.player_position }}
-                    </vs-td>
-                    <vs-td>
-                        {{ playerteam.team }}
-                    </vs-td>
-                    <vs-td>
+
+                    <vs-td style="text-align: right; width: 100px">
                         <div class="buttons">
                             <vs-button circle icon flat @click="OpenModalEdit()">
                                 <i class="fas fa-pencil-alt"></i>
@@ -82,50 +64,49 @@
                 </vs-tr>
             </template>
             <template #footer>
-                <vs-pagination v-model="page" :length="$vs.getLength(playerteams, max)" />
+                <vs-pagination v-model="page" :length="$vs.getLength(matchs, max)" />
+
             </template>
         </vs-table>
-        <ModalAdd>
-            <template v-slot="{ close }">
-                <AddPlayerTeam @close="close" @success="FetchData()" />
-            </template>
-        </ModalAdd>
-
-        <ModalEdit>
-            <template v-slot="{ close }">
-                <EditPlayerTeam @close="close" @success="FetchData()" />
-            </template>
-        </ModalEdit>
-
-        <ModalDelete>
-            <template v-slot="{ close }">
-                <DeletePlayerTeam @close="close" @success="FetchData()" />
-            </template>
-        </ModalDelete>
-
     </div>
+    <ModalAdd>
+        <template v-slot="{ close }">
+            <AddMatch @close="close" @success="FetchData()" />
+        </template>
+    </ModalAdd>
+    <ModalEdit>
+        <template v-slot="{ close }">
+            <EditMatch @close="close" @success="FetchData()" />
+        </template>
+    </ModalEdit>
+
+    <ModalDelete>
+        <template v-slot="{ close }">
+            <DeleteMatch @close="close" @success="FetchData()" />
+        </template>
+    </ModalDelete>
 </div>
 </template>
 
 <script>
-import AddPlayerTeam from './CRUD/AddPlayerTeam'
-import EditPlayerTeam from './CRUD/EditPlayerTeam'
-import DeletePlayerTeam from './CRUD/DeletePlayerTeam'
+import AddMatch from "./CRUD/AddMatch";
+import EditMatch from "./CRUD/EditMatch";
+import DeleteMatch from "./CRUD/DeleteMatch";
 export default {
+
     components: {
-        AddPlayerTeam,
-        EditPlayerTeam,
-        DeletePlayerTeam,
+        AddMatch,
+        EditMatch,
+        DeleteMatch,
     },
     data() {
         return {
             active: 1,
             page: 1,
             max: 5,
-            playerteams: [],
-            playerteamId: '',
-            teamId: '',
-
+            matchs: [],
+            matchIndex: {},
+            matchId: '',
         }
     },
     methods: {
@@ -140,24 +121,28 @@ export default {
         },
         FetchData() {
             /*   this.isLoading = true; */
-            const id = this.$route.params.team_id
-            this.$axios.get(`team/${id}/player`).then(res => {
-                console.log(res)
+            this.$axios.get('match').then(res => {
+                // console.log(res)
                 setTimeout(() => {
-                    this.playerteams = res.data.player_lists;
+                    /*   this.isLoading = false; */
+                    this.$emit('close');
+                }, 200);
+                setTimeout(() => {
+                    this.matchs = res.data.matchLists;
                 }, 100);
             }).catch(() => {
 
             });
         },
+
     },
     created() {
         this.FetchData();
     }
-};
+}
 </script>
 
-<style scoped>
+<style>
 .container {
     width: 100%;
     height: auto;
@@ -184,14 +169,8 @@ export default {
 }
 
 #table-index {
-    width: 10px;
-}
-
-#table-header-button {
-    width: 100px;
-}
-
-#teamname {
-    width: 200px;
+    width: 20px;
+    text-align: center;
+    margin-top: 50%;
 }
 </style>

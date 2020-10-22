@@ -9,18 +9,17 @@ export default {
     computed: {
         active: {
             set(val) {
-                this.$store.commit("modalAdd_State", val);
+                this.$store.commit('modalNotification_State', val);
             },
             get() {
-                return this.$store.state.modalAddState;
-            },
-        },
+                return this.$store.state.modalNotificationState;
+            }
+        }
     },
     methods: {
         close() {
             this.active = false;
-
         },
-    },
-};
+    }
+}
 </script>

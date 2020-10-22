@@ -11,7 +11,7 @@
       <vs-button class="btn" transparent>
         ຢືນຢັນ
       </vs-button>
-      <vs-button class="btn" @click="$emit('close')" dark transparent>
+      <vs-button class="btn cancel" @click="$emit('close')" dark transparent>
         ຍົກເລີກ
       </vs-button>
     </div>
@@ -33,8 +33,13 @@ span {
   font-family: BoonBaan;
   font-size: 16px;
   position: relative;
-  bottom: 0;
+  bottom: 10px;
   left: 180px;
-  margin: 0;
+  margin-left:5px;
+
 }
+ .cancel{
+  background-color:red;
+}
+
 </style>
