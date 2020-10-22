@@ -63,7 +63,7 @@
                 </label>
                 <div class="select" style="width: 100%">
                     <select style="width: 100%" v-model="matchs.status">
-                        <option :key="index " v-for="(StatusMatch, index) in StatusMatchs" :data="StatusMatch">
+                        <option v-bind:value="StatusMatch.status" :key="index " v-for="(StatusMatch, index) in StatusMatchs" :data="StatusMatch">
                             {{StatusMatch.name}}
                         </option>
                     </select>
@@ -128,8 +128,7 @@ export default {
                 team2: this.value,
                 match_date: '',
                 status: '',
-            }
-
+            },
         };
     },
     methods: {
@@ -147,12 +146,9 @@ export default {
         },
         //get team_name form Tale Team
         FetchData() {
-            /*   this.isLoading = true; */
             this.$axios.get('team').then(res => {
-                // console.log(res)
                 setTimeout(() => {
                     this.teams = res.data.data;
-
                 }, 100);
             }).catch(() => {
 
@@ -164,7 +160,7 @@ export default {
             this.$axios.get('match').then(res => {
                 setTimeout(() => {
                     this.StatusMatchs = res.data.statsus_list;
-                    // console.log(this.StatusMatchs)
+                    console.log(this.StatusMatchs)
                 }, 100);
             }).catch(() => {
 
@@ -173,17 +169,15 @@ export default {
 
         SaveData() {
             this.$axios.post('match', this.matchs).then(res => {
-                // console.log(res)
-                if (res /* .data.success == true */ ) {
+                console.log('res')
+                if (res) {
                     setTimeout(() => {
-                        // loading.close();
                         this.$emit('close');
                         this.$emit('success');
                         this.$notification.OpenNotification_AddItem_OnSuccess('top-right', 'primary', 3000);
                     }, 300);
                 }
             }).catch(error => {
-                // loading.close();
                 if (error.response.status == 422) {
                     var obj = error.response.data.errors; // ໃຊ້ການລູບຂໍ້ມູນເພາະວ່າຂໍ້ມູນ errors ທີ່ສົ່ງມາຈາກ Server ນັ້ນເປັນ Array Object
                     for (let [key, value] of Object.entries(obj)) {

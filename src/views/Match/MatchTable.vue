@@ -53,7 +53,7 @@
 
                     <vs-td style="text-align: right; width: 100px">
                         <div class="buttons">
-                            <vs-button circle icon flat @click="OpenModalEdit()">
+                            <vs-button circle icon flat @click="OpenModalEdit(match.id)">
                                 <i class="fas fa-pencil-alt"></i>
                             </vs-button>
                             <vs-button circle icon flat @click="OpenModalDelete()">
@@ -76,7 +76,7 @@
     </ModalAdd>
     <ModalEdit>
         <template v-slot="{ close }">
-            <EditMatch @close="close" @success="FetchData()" />
+            <EditMatch :listMatch="listmatch" @close="close" @success="FetchData()" />
         </template>
     </ModalEdit>
 
@@ -105,15 +105,27 @@ export default {
             page: 1,
             max: 5,
             matchs: [],
-            matchIndex: {},
+            listmatch: {},
             matchId: '',
         }
     },
     methods: {
+        filtermatch(matchId) {
+            return (
+                this.matchs.filter((item) => {
+                    return item.id == matchId;
+                })[0] || {}
+            );
+        },
+
         OpenModalAdd() {
             this.$store.commit("modalAdd_State", true);
         },
-        OpenModalEdit() {
+        OpenModalEdit(matchId) {
+            this.listmatch = {
+                ...this.filtermatch(matchId)
+            };
+            console.log(this.listmatch)
             this.$store.commit("modalEdit_State", true);
         },
         OpenModalDelete() {
@@ -129,6 +141,7 @@ export default {
                 }, 200);
                 setTimeout(() => {
                     this.matchs = res.data.matchLists;
+                    console.log(this.matchs)
                 }, 100);
             }).catch(() => {
 
