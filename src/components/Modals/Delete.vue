@@ -1,5 +1,5 @@
 <template>
-  <vs-dialog v-model="active">
+  <vs-dialog  prevent-close  v-model="active">
     <slot v-bind="{ close }" />
   </vs-dialog>
 </template>

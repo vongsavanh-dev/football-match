@@ -17,3 +17,29 @@ $datepickerZindex: 99100;
     position: absolute;
     top: 500px;
 }
+.vs-table__tr{
+    white-space: nowrap;
+}
+//center table
+.vs-table__tr .vs-table__td{
+    vertical-align: middle;
+    white-space: nowrap;
+}
+.input{
+    font-family: BoonBaan;
+}
+select{
+    font-family: BoonBaan;
+}
+.vs-button--icon .vs-button__content{
+    font-size: 16px;
+}
+.label:not(:last-child) {
+    margin-bottom: 0.5em;
+    font-size: 19px;
+}
+
+
+
+
+

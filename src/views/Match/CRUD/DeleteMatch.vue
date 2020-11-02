@@ -8,7 +8,7 @@
     </div>
     <hr />
     <div class="buttons btn">
-      <vs-button class="btn" transparent>
+      <vs-button class="btn" transparent  @click="DeleteMatch(match_id)">
         ຢືນຢັນ
       </vs-button>
       <vs-button class="btn cancel" @click="$emit('close')" dark transparent>
@@ -19,7 +19,23 @@
 </template>
 
 <script>
-export default {};
+export default {
+   props: ['match_id'],
+  methods: {
+        DeleteMatch(matchId) {
+            this.$axios.delete('match/' + matchId).then(res => {
+                if (res) {
+                    setTimeout(() => {
+                        this.loading = false;
+                        this.$emit('close');
+                        this.$emit('success');
+                        this.$notification.OpenNotification_DeleteItem_OnSuccess('top-right', 'danger', 3000);
+                    }, 300);
+                }
+            }).catch(() => {});
+        }
+    }
+};
 </script>
 
 <style scoped>

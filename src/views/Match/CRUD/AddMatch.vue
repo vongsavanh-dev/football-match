@@ -160,7 +160,6 @@ export default {
             this.$axios.get('match').then(res => {
                 setTimeout(() => {
                     this.StatusMatchs = res.data.statsus_list;
-                    console.log(this.StatusMatchs)
                 }, 100);
             }).catch(() => {
 
@@ -169,7 +168,6 @@ export default {
 
         SaveData() {
             this.$axios.post('match', this.matchs).then(res => {
-                console.log('res')
                 if (res) {
                     setTimeout(() => {
                         this.$emit('close');

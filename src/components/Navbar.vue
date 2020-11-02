@@ -24,10 +24,10 @@ export default {
         LogoutUsers() {
             // const loading = this.$vs.loading();
             this.LogoutUser().then(res => {
-                setTimeout(() => {
-                    this.$notification.OpenNotification_Logout_Success('top-right', 'danger', 3000);
-                    // loading.close();
-                }, 500);
+                // setTimeout(() => {
+                //     this.$notification.OpenNotification_Logout_Success('top-right', 'danger', 3000);
+                //     // loading.close();
+                // }, 500);
                 if (res.data.success == true) {
                     setTimeout(() => {
                         this.$notification.OpenNotification_Logout_Success('top-right', 'danger', 3000);

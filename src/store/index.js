@@ -9,6 +9,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         modalAddState: false,
+        // modalViewState: false,
         modalEditState: false,
         modalDeleteState: false,
         modalNotificationState: false,
@@ -17,6 +18,9 @@ export default new Vuex.Store({
         modalAdd_State(state, value) {
             state.modalAddState = value;
         },
+        // modalView_State(state, value) {
+        //     state.modalViewState = value;
+        // },
         modalEdit_State(state, value) {
             state.modalEditState = value;
         },

@@ -14,7 +14,14 @@
                     <h2>ຈັດການຂໍ້ມູນຫຼັກ</h2>
                 </vs-sidebar-item>
             </template>
-
+            <div @click="Tournament()">
+                <vs-sidebar-item id="Instagram" class="text-header-dashboard">
+                    <template #icon>
+                        <i class="fas fa-futbol"></i>
+                    </template>
+                    <h2>ຂໍ້ມູນທົວນາເມັ້ນ</h2>
+                </vs-sidebar-item>
+            </div>
             <div @click="Team()">
                 <vs-sidebar-item id="Instagram" class="text-header-dashboard">
                     <template #icon>
@@ -70,6 +77,11 @@ export default {
         active: "home",
     }),
     methods: {
+        Tournament(){
+            this.$router.push({
+                name:"Tournament"
+            })
+        },
         Team() {
             this.$router.push({
                 name: "listteam"

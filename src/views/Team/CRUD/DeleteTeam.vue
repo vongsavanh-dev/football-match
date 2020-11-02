@@ -39,6 +39,9 @@ export default {
                 }
             }).catch(() => {});
         }
+    },
+    created() {
+
     }
 };
 </script>

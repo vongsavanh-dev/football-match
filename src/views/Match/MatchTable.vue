@@ -22,15 +22,26 @@
                         ຊື່ທີມທີໜື່ງ
                     </vs-th>
                     <vs-th>
+
+                    </vs-th>
+
+                    <vs-th id="match-status">
+                        ສະຖານະ
+                    </vs-th>
+                  <vs-th>
+
+                    </vs-th>
+                    <vs-th>
                         ຊື່ທີມທີສອງ
                     </vs-th>
+
                     <vs-th>
                         ເວລາການແຂ່ງຂັນ
                     </vs-th>
-                    <vs-th>
-                        ສະຖານະການແຂ່ງຂັນ
-                    </vs-th>
+
                     <vs-th> </vs-th>
+                    <vs-th id="icon-menu"> </vs-th>
+
                 </vs-tr>
             </template>
             <template #tbody>
@@ -39,16 +50,27 @@
                         {{index + 1 }}
                     </vs-td>
                     <vs-td>
-                        {{ match.team_1 }}
+                       {{ match.team_1 }}
                     </vs-td>
-                    <vs-td>
-                        {{ match.team_2 }}
-                    </vs-td>
-                    <vs-td>
-                        {{ match.match_date }}
+                    <vs-td style="width:60px;">
+                    <img :src="match.team1_logo" alt="" class="image-log-team">
                     </vs-td>
                     <vs-td>
                         {{ match.status }}
+                    </vs-td>
+                      <vs-td style="width:60px;">
+                        <img :src="match.team2_logo" alt="" class="image-log-team">
+                    </vs-td>
+                    <vs-td>
+                      {{ match.team_2 }}
+                    </vs-td>
+
+                    <vs-td>
+                        {{ match.match_date }}
+                    </vs-td>
+
+                      <vs-td>
+
                     </vs-td>
 
                     <vs-td style="text-align: right; width: 100px">
@@ -56,8 +78,11 @@
                             <vs-button circle icon flat @click="OpenModalEdit(match.id)">
                                 <i class="fas fa-pencil-alt"></i>
                             </vs-button>
-                            <vs-button circle icon flat @click="OpenModalDelete()">
+                            <vs-button circle danger icon flat @click="OpenModalDelete(match.id)">
                                 <i class="fas fa-trash-alt"></i>
+                            </vs-button>
+                            <vs-button circle icon flat @click="AddScore(match.id)">
+                                <i class="far fa-calendar-plus"></i>
                             </vs-button>
                         </div>
                     </vs-td>
@@ -76,13 +101,13 @@
     </ModalAdd>
     <ModalEdit>
         <template v-slot="{ close }">
-            <EditMatch :listMatch="listmatch" @close="close" @success="FetchData()" />
+            <EditMatch :listMatch="listmatch" @close="close" @success="FetchData()"/>
         </template>
     </ModalEdit>
 
     <ModalDelete>
         <template v-slot="{ close }">
-            <DeleteMatch @close="close" @success="FetchData()" />
+            <DeleteMatch @close="close" :match_id="matchId" @success="FetchData()" />
         </template>
     </ModalDelete>
 </div>
@@ -93,6 +118,8 @@ import AddMatch from "./CRUD/AddMatch";
 import EditMatch from "./CRUD/EditMatch";
 import DeleteMatch from "./CRUD/DeleteMatch";
 export default {
+
+
 
     components: {
         AddMatch,
@@ -105,6 +132,7 @@ export default {
             page: 1,
             max: 5,
             matchs: [],
+            statuslist:[],
             listmatch: {},
             matchId: '',
         }
@@ -117,6 +145,15 @@ export default {
                 })[0] || {}
             );
         },
+        AddScore(matchId) {
+            this.$router.push({
+                name: "MatchScore",
+                params: {
+                    match_id: matchId,
+
+                }
+            });
+        },
 
         OpenModalAdd() {
             this.$store.commit("modalAdd_State", true);
@@ -125,34 +162,43 @@ export default {
             this.listmatch = {
                 ...this.filtermatch(matchId)
             };
-            console.log(this.listmatch)
+            // console.log(this.listmatch)
             this.$store.commit("modalEdit_State", true);
         },
-        OpenModalDelete() {
+        OpenModalDelete(matchId) {
+            this.matchId = matchId
             this.$store.commit("modalDelete_State", true);
         },
+
         FetchData() {
-            /*   this.isLoading = true; */
             this.$axios.get('match').then(res => {
                 // console.log(res)
                 setTimeout(() => {
-                    /*   this.isLoading = false; */
                     this.$emit('close');
                 }, 200);
                 setTimeout(() => {
                     this.matchs = res.data.matchLists;
-                    console.log(this.matchs)
+                    // console.log(this.matchs)
                 }, 100);
             }).catch(() => {
 
             });
         },
 
+        // getMatch_score(){
+        //     const id = this.$route.params.match_id;
+        //     this.$axios.get(`match/${id}/matchscore`).then(res =>{
+        //         console.log(res)
+        //     })
+        // },
     },
     created() {
         this.FetchData();
+        // this.getMatch_score();
+
     }
 }
+
 </script>
 
 <style>
@@ -180,10 +226,22 @@ export default {
     font-size: 18px;
     float: right;
 }
+.image-log-team {
+    width: 100%;
+    margin-top: 8px;
+}
 
 #table-index {
     width: 20px;
     text-align: center;
     margin-top: 50%;
 }
+#match-status{
+    width: 100px;
+   margin-left: 200px;
+}
+#icon-menu{
+    width:150px;
+}
+
 </style>

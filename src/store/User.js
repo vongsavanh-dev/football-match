@@ -67,7 +67,7 @@ const actions = {
                     /*    context.commit('setUserProfile', response.data.userInfo); */
                     /*   window.localStorage.setItem('user_profile', JSON.stringify(response.data.userInfo)); */
 
-                    router.push({ name: 'listteam' });
+                    router.push({ name: 'dashboard' });
                     setTimeout(() => {
                         window.location.reload();
                     }, 300);

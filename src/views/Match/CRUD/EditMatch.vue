@@ -6,9 +6,15 @@
     <div class="section-content" style="margin-top: 40px">
         <div class="field">
             <div class="control">
-                <label for="" class="label">ເລືອກທີມທີໜື່ງ</label>
+                <label for="" class="label">
+                    ເລືອກທີມທີໜື່ງ
+                    <span class="has-text-danger">* {{ errors.first('team_1') }}</span>
+                    <span class="has-text-danger">
+                        {{server_errors.team_1}}
+                    </span>
+                </label>
                 <div class="select" style="width: 100%">
-                    <select style="width: 100%" v-model="listMatch.team_1_id">
+                    <select style="width: 100%" v-model="listMatch.team_1_id" name="team_1">
                         <option v-for="(listMatchs,index) in teams" :key="index" :value="listMatchs.id">
                             {{listMatchs.team_name}}
                         </option>
@@ -19,9 +25,15 @@
         </div>
         <div class="field">
             <div class="control">
-                <label for="" class="label">ເລືອກທີມທີສອງ</label>
+                <label for="" class="label">
+                    ເລືອກທີມທີສອງ
+                    <span class="has-text-danger">* {{ errors.first('team_2') }}</span>
+                    <span class="has-text-danger">
+                        {{server_errors.team_2}}
+                    </span>
+                </label>
                 <div class="select" style="width: 100%">
-                    <select style="width: 100%" v-model="listMatch.team_2_id">
+                    <select style="width: 100%" v-model="listMatch.team_2_id" name="team_2">
                         <option v-for="(listMatchs,index) in teams" :key="index" :value="listMatchs.id">
                             {{listMatchs.team_name}}
                         </option>
@@ -33,8 +45,14 @@
 
         <div class="field">
             <div class="control">
-                <label for="" class="label">ວັນເວລາແຂ່ງຂັນ</label>
-                <DatePicker v-bind:value="listMatch.match_date" style="width:100%;" type="datetime" v-model="time1" valueType="format" slot="activator" :popup-style="{ top: '100%', left:'15%'}" :append-to-body="false"></DatePicker>
+                <label for="" class="label">
+                    ວັນເວລາແຂ່ງຂັນ
+                     <span class="has-text-danger">* {{ errors.first('match_date') }}</span>
+                     <span class="has-text-danger">
+                        {{server_errors.match_date}}
+                    </span>
+                    </label>
+                <DatePicker  name="match_date"  style="width:100%;" type="datetime" v-model="time1" valueType="format" slot="activator" :popup-style="{ top: '100%', left:'15%'}" :append-to-body="false"></DatePicker>
             </div>
         </div>
 
@@ -42,12 +60,15 @@
             <div class="control">
                 <label for="" class="label">
                     ສະຖານະການແຂ່ງຂັນ
-                    <span class="text-danger">* </span>
+                     <span class="has-text-danger">* {{ errors.first('status') }}</span>
+                     <span class="has-text-danger">
+                        {{server_errors.status}}
+                    </span>
                 </label>
                 <div class="select" style="width: 100%">
-                    <select style="width: 100%" v-model="listMatch.id">
-                        <option v-for="(listMatchs,index) in listMatch" :key="index" :value="listMatchs.id">
-                            {{listMatch.status}}
+                    <select style="width: 100%" v-model="listMatch.status" name="status">
+                        <option v-for="(statuslists, index) in statuslist" :key="index" :value="statuslists.status">
+                            {{statuslists.status}}
                         </option>
                     </select>
                 </div>
@@ -56,7 +77,7 @@
 
         <div class="field btn">
             <div class="control">
-                <button class="button is-fullwidth" style="color:#ffff;">
+                <button class="button is-fullwidth" style="color:#ffff;" @click="ValidateForm()">
                     ອັບເດດ ຂໍ້ມູນການແຂ່ງຂັນ
                 </button>
             </div>
@@ -68,6 +89,30 @@
 <script>
 import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
+import {
+    Validator
+} from 'vee-validate';
+
+
+const dict = {
+    custom: {
+        team_1: {
+            required: '(ກະລຸນາປ້ອນກ່ອນ...)',
+        },
+        team_2: {
+            required: '(ກະລຸນາປ້ອນກ່ອນ...)',
+        },
+        match_date: {
+            required: '(ກະລຸນາປ້ອນກ່ອນ...)',
+        },
+        status: {
+            required: '(ກະລຸນາປ້ອນກ່ອນ...)',
+        },
+    }
+};
+
+Validator.localize('en', dict);
+
 export default {
     components: {
         DatePicker
@@ -78,8 +123,18 @@ export default {
     data() {
         return {
             value: "",
-            time1: null,
+            time1: '',
             teams: '',
+            statuslist:[],
+            status:'',
+
+    server_errors: {
+                     team_1: '',
+                     team_2: '',
+                     match_date: '',
+                     status: '',
+
+         },
         };
     },
 
@@ -88,15 +143,68 @@ export default {
             this.$axios.get('team').then(res => {
                 setTimeout(() => {
                     this.teams = res.data.data;
-                    console.log(this.teams)
                 }, 100);
             }).catch(() => {
 
             });
         },
+
+         //get status_list form match
+          FetchStatusList() {
+            this.$axios.get('match').then(res => {
+                setTimeout(() => {
+                    this.statuslist = res.data.statsus_list;
+                }, 100);
+            }).catch(() => {
+            });
+        },
+
+        ValidateForm() {
+            this.$validator.validateAll().then((result) => {
+                if (result) {
+                    this.UpdateData();
+                }
+            });
+        },
+
+          UpdateData() {
+            let formData = new FormData();
+            formData.append('team1', this.listMatch.team_1_id);
+            formData.append('team2', this.listMatch.team_2_id);
+            formData.append('match_date', this.listMatch.match_date);
+            formData.append('status',this.listMatch.status);
+            console.log(this.status)
+            // if (this.file) {
+            //     formData.append('logo', this.file);
+            // }
+            formData.append('_method', 'PUT');
+            this.$axios.post('match/' + this.listMatch.id, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+            }).then(res => {
+                if (res) {
+                    setTimeout(() => {
+                        this.$emit('close');
+                        this.$emit('success');
+                        this.$notification.OpenNotification_EditItem_OnSuccess('top-right', 'primary', 3000, );
+                    }, 500);
+                }
+            }).catch(error => {
+                if (error.response.status == 422) {
+                    var obj = error.response.data.errors; // ໃຊ້ການລູບຂໍ້ມູນເພາະວ່າຂໍ້ມູນ errors ທີ່ສົ່ງມາຈາກ Server ນັ້ນເປັນ Array Object
+                    for (let [key, value] of Object.entries(obj)) {
+                        this.server_errors[key] = value[0];
+                    }
+                }
+            });
+        },
+
     },
     created() {
         this.FetchMatch();
+        this.FetchStatusList();
+         this.time1 =this.listMatch.match_date;
     }
 };
 </script>

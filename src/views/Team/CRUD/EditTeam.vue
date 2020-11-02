@@ -20,35 +20,45 @@
             <div class="control">
                 <label for="" class="label">
                     ຜູ້ສະໜັບສະໜຸນ
-                    <span class="has-text-danger">* {{ errors.first('sponser') }}</span>
+                    <span class="has-text-danger">* {{ errors.first('initial_name') }}</span>
                     <span class="has-text-danger">
-                        {{server_errors.sponser}}
+                        {{server_errors.initial_name}}
                     </span>
                 </label>
-                <input type="text" class="input" name="sponser" v-model="listTeam.sponser" v-validate="'required'" />
+                <input type="text" class="input" name="initial_name" v-model="listTeam.initial_name" v-validate="'required'" />
             </div>
         </div>
         <div class="upload-profile">
-            <h2>
-                ເລືອກຮູບພາບ
-                <span class="has-text-danger">* {{ errors.first('logo') }}</span>
-                <span class="has-text-danger">
-                    {{server_errors.logo_url}}
-                </span>
-            </h2>
 
-            <div class="file is-fullwidth">
-                <label class="file-label">
-                    <input class="file-input" type="file" name="logo" ref="file" v-on:change="ImgFileUpload()" />
-                    <span class="file-cta">
-                        <span class="file-icon">
-                            <i class="fas fa-upload"></i>
-                        </span>
-                        <span class="file-label">
-                            Choose a file…
-                        </span>
-                    </span>
-                </label>
+<!--            <div class="file is-fullwidth">-->
+<!--                <label class="file-label">-->
+<!--                    <input class="file-input" type="file" name="logo" ref="file" v-on:change="ImgFileUpload()" />-->
+<!--                    <span class="file-cta">-->
+<!--                        <span class="file-icon">-->
+<!--                            <i class="fas fa-upload"></i>-->
+<!--                        </span>-->
+<!--                        <span class="file-label">-->
+<!--                            Choose a file…-->
+<!--                        </span>-->
+<!--                    </span>-->
+<!--                </label>-->
+<!--            </div>-->
+
+            <div class="filed">
+                <div class="control">
+                    <label for="" class="label" style="font-size:18px;">
+                        ເລືອກຮູບພາບ
+                    </label>
+                </div>
+            </div>
+            <div class="image-preview">
+                <img class="preview" :src=" image || listTeam.logo_url"/>
+            </div>
+            <div class="filed">
+                <div class="control">
+                    <input type="file" @change="previewImage" name="logo" accept="image/*"
+                           class="input"/>
+                </div>
             </div>
 
         </div>
@@ -67,19 +77,17 @@
 import {
     Validator
 } from 'vee-validate';
-// import listTeamVue from '../list-team.vue';
+
 
 const dict = {
     custom: {
         team_name: {
             required: '(ກະລຸນາປ້ອນກ່ອນ...)',
         },
-        sponser: {
+        initial_name: {
             required: '(ກະລຸນາປ້ອນກ່ອນ...)',
         },
-        // logo_url: {
-        //     required: '(ກະລຸນາປ້ອນກ່ອນ...)',
-        // }
+
     }
 };
 Validator.localize('en', dict);
@@ -91,19 +99,35 @@ export default {
     data: () => ({
         /* team: [], */
         active: false,
+        image:null,
+        imageFile:'',
         server_errors: {
             team_name: '',
-            sponser: '',
-            logo: '',
+            initial_name: '',
 
         },
         file: '',
     }),
     methods: {
-        ImgFileUpload() {
-            this.file = this.$refs.file.files[0];
-            console.log(this.file)
-            // this.file = this.$refs.file.files[0];
+        // ImgFileUpload() {
+        //     this.file = this.$refs.file.files[0];
+        //     // console.log(this.file)
+        //     // this.file = this.$refs.file.files[0];
+        // },
+
+        previewImage: function (event) {
+            var input = event.target;
+            if (input.files && input.files[0]) {
+                this.imageFile = input.files[0];
+                // console.log(this.imageFile)
+                var reader = new FileReader();
+                reader.onload = (e) => {
+                    this.image = e.target.result;
+                };
+                reader.readAsDataURL(input.files[0]);
+
+            }
+
         },
         ValidateForm() {
             this.$validator.validateAll().then((result) => {
@@ -116,9 +140,9 @@ export default {
             /*    const loading = this.BtnLoading(); */
             let formData = new FormData();
             formData.append('team_name', this.listTeam.team_name);
-            formData.append('sponser', this.listTeam.sponser);
-            if (this.file) {
-                formData.append('logo', this.file);
+            formData.append('initial_name', this.listTeam.initial_name);
+            if (this.imageFile) {
+                formData.append('logo', this.imageFile);
             }
             // formData.append('logo_name', this.listTeam.logo_name);
 
@@ -130,9 +154,6 @@ export default {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },
-                // params: {
-                //     '_method': 'PUT'
-                // }
             }).then(res => {
                 if (res /* .data.success == true */ ) {
                     setTimeout(() => {
@@ -153,10 +174,11 @@ export default {
             });
         },
     },
-    // created() {
-    //     let data = listTeam;
-    //     console.log(data);
-    // }
+    created() {
+
+
+
+    }
 };
 </script>
 

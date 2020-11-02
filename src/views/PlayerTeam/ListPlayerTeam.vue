@@ -5,7 +5,7 @@
             ລາຍຊື່ ນັກເຕະໃນທີມ
         </h4>
         <span class="btn-add">
-            <vs-button class="btn-icon" circle icon flat @click="OpenModalAdd()">
+            <vs-button class="btn-icon" circle icon flat  @click="OpenModalAdd()">
                 <i class="fas fa-plus"></i>
             </vs-button>
         </span>
@@ -26,6 +26,12 @@
                     </vs-th>
                     <vs-th>
                         ນາມສະກຸນ
+                    </vs-th>
+                        <vs-th>
+                        Name
+                    </vs-th>
+                    <vs-th>
+                        SurName
                     </vs-th>
                     <vs-th>
                         ວັນເດືອນປີເກີດ
@@ -49,13 +55,19 @@
                         {{ index + 1}}
                     </vs-td>
                     <vs-td>
-                        {{ index + 1}}
+                         <img :src="playerteam.image_url" alt="">
                     </vs-td>
                     <vs-td>
                         {{ playerteam.name }}
                     </vs-td>
                     <vs-td>
                         {{ playerteam.sur_name }}
+                    </vs-td>
+                       <vs-td>
+                        {{ playerteam.eng_name }}
+                    </vs-td>
+                    <vs-td>
+                        {{ playerteam.eng_surname }}
                     </vs-td>
                     <vs-td>
                         {{ playerteam.date_of_birth }}
@@ -71,10 +83,13 @@
                     </vs-td>
                     <vs-td>
                         <div class="buttons">
-                            <vs-button circle icon flat @click="OpenModalEdit()">
+                                <vs-button circle icon flat @click="ViewPlayer(playerteam.id)">
+                                <i class="fas fa-eye"></i>
+                            </vs-button>
+                            <vs-button circle icon flat @click="OpenModalEdit(playerteam.id)">
                                 <i class="fas fa-pencil-alt"></i>
                             </vs-button>
-                            <vs-button circle icon flat @click="OpenModalDelete()">
+                            <vs-button circle danger icon flat @click="OpenModalDelete(playerteam.id)">
                                 <i class="fas fa-trash-alt"></i>
                             </vs-button>
                         </div>
@@ -85,21 +100,23 @@
                 <vs-pagination v-model="page" :length="$vs.getLength(playerteams, max)" />
             </template>
         </vs-table>
-        <ModalAdd>
+        <ModalAdd @close="handleModalAddClosed">
             <template v-slot="{ close }">
-                <AddPlayerTeam @close="close" @success="FetchData()" />
+                <AddPlayerTeam v-if="!showPlayerPreview" @close="close"
+                        :listposition="position" @success="FetchData()" />
+                <ViewPlayer v-else :Player_View="listplayer"  @success="FetchData()" />
             </template>
         </ModalAdd>
 
         <ModalEdit>
             <template v-slot="{ close }">
-                <EditPlayerTeam @close="close" @success="FetchData()" />
+                <EditPlayerTeam @close="close" :listplayerteam="listplayer" :listposition="position" @success="FetchData()" />
             </template>
         </ModalEdit>
 
         <ModalDelete>
             <template v-slot="{ close }">
-                <DeletePlayerTeam @close="close" @success="FetchData()" />
+                <DeletePlayerTeam @close="close" :player_id ="playerteamId"  @success="FetchData()" />
             </template>
         </ModalDelete>
 
@@ -111,45 +128,76 @@
 import AddPlayerTeam from './CRUD/AddPlayerTeam'
 import EditPlayerTeam from './CRUD/EditPlayerTeam'
 import DeletePlayerTeam from './CRUD/DeletePlayerTeam'
+import ViewPlayer from './CRUD/ViewPlayer'
 export default {
     components: {
         AddPlayerTeam,
         EditPlayerTeam,
         DeletePlayerTeam,
+        ViewPlayer,
     },
     data() {
         return {
+            PlayerId:'',
             active: 1,
             page: 1,
             max: 5,
             playerteams: [],
+            listplayer:{}, //sa deng kor moun nuk tea nai team
             playerteamId: '',
-            teamId: '',
-
+            // teamId: '',
+            position:[],
+            showPlayerPreview: false,
         }
     },
     methods: {
+         fillterplayerteam(playerteamId){
+           return (
+               this.playerteams.filter((item) => {
+                    return item.id == playerteamId;
+               })[0] || {}
+           );
+        },
         OpenModalAdd() {
             this.$store.commit("modalAdd_State", true);
         },
-        OpenModalEdit() {
+        OpenModalEdit(playerteamId) {
+            this.listplayer ={
+                    ...this.fillterplayerteam(playerteamId)
+            };
+            // console.log(this.listplayer);
             this.$store.commit("modalEdit_State", true);
         },
-        OpenModalDelete() {
+        OpenModalDelete(playerteamId) {
+            this.playerteamId = playerteamId
             this.$store.commit("modalDelete_State", true);
+        },
+
+
+        ViewPlayer(playerteamId){
+            this.listplayer ={
+                ...this.fillterplayerteam(playerteamId)
+            };
+            this.showPlayerPreview = true;
+            this.$store.commit("modalAdd_State", true);
+        },
+        handleModalAddClosed() {
+            this.showPlayerPreview = false;
         },
         FetchData() {
             /*   this.isLoading = true; */
             const id = this.$route.params.team_id
             this.$axios.get(`team/${id}/player`).then(res => {
-                console.log(res)
                 setTimeout(() => {
                     this.playerteams = res.data.player_lists;
+                    this.position = res.data.position;
                 }, 100);
             }).catch(() => {
 
             });
         },
+
+
     },
     created() {
         this.FetchData();
@@ -188,10 +236,14 @@ export default {
 }
 
 #table-header-button {
-    width: 100px;
+   width: 150px;
+
 }
 
 #teamname {
     width: 200px;
+}
+.buttons{
+    width: 150px;
 }
 </style>

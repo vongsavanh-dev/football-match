@@ -1,5 +1,5 @@
 <template>
-<vs-dialog v-model="active">
+<vs-dialog  prevent-close v-model="active" @close="close">
     <slot v-bind="{ close }" />
 </vs-dialog>
 </template>
@@ -19,7 +19,7 @@ export default {
     methods: {
         close() {
             this.active = false;
-
+            this.$emit('close');
         },
     },
 };

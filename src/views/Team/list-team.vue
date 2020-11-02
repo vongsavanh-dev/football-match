@@ -25,7 +25,7 @@
                         ຊື່ທີມ
                     </vs-th>
                     <vs-th id="sponser">
-                        ຜູ້ສະໜັບສະໜູນ
+                        ຊື່ຫຍໍ້
                     </vs-th>
                     <vs-th id="table-header-button"> </vs-th>
                 </vs-tr>
@@ -43,7 +43,7 @@
                         {{ team.team_name }}
                     </vs-td>
                     <vs-td>
-                        {{ team.sponser }}
+                        {{ team.initial_name }}
                     </vs-td>
 
                     <vs-td style="text-align: right; width: 100px">
@@ -51,10 +51,10 @@
                             <vs-button circle icon flat @click="OpenModalEdit(team.id)">
                                 <i class="fas fa-pencil-alt"></i>
                             </vs-button>
-                            <vs-button circle icon flat @click="OpenModalDelete(team.id)">
+                            <vs-button circle  danger icon flat @click="OpenModalDelete(team.id)">
                                 <i class="fas fa-trash-alt"></i>
                             </vs-button>
-                            <vs-button circle icon flat @click="AddPlayer(team.id)">
+                            <vs-button circle  icon flat @click="AddPlayer(team.id)">
                                 <i class="fas fa-user-plus"></i>
                             </vs-button>
                         </div>
@@ -90,15 +90,12 @@
 import AddTeam from "./CRUD/AddTeam";
 import EditTeam from "./CRUD/EditTeam";
 import DeleteTeam from "./CRUD/DeleteTeam";
-// import loading from '../Loading'
 
 export default {
     components: {
         AddTeam,
         EditTeam,
         DeleteTeam,
-        /*    Loading */
-
     },
     data: () => ({
         active: 1,
@@ -145,7 +142,6 @@ export default {
             this.$axios.get('team').then(res => {
                 // console.log(res)
                 setTimeout(() => {
-                    /*   this.isLoading = false; */
                     this.$emit('close');
                 }, 200);
                 setTimeout(() => {
@@ -207,6 +203,7 @@ export default {
 
 .image-log-team {
     width: 60px;
+    height:60px;
     margin-top: 8px;
 }
 </style>

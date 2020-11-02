@@ -29,6 +29,8 @@
         </div>
       </div>
 
+   
+
       <div class="field">
         <div class="control">
           <label for="" class="label">ຕຳແໜ່ງ</label>
@@ -40,6 +42,10 @@
           </div>
         </div>
       </div>
+
+
+
+    
 
      <div class="field btn">
         <div class="control">

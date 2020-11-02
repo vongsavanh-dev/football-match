@@ -19,37 +19,31 @@
         <div class="field">
             <div class="control">
                 <label for="" class="label">
-                    ຜູ້ສະໜັບສະໜຸນ
-                    <span class="has-text-danger">* {{ errors.first('sponser') }}</span>
+                    ຊື່ຫຍໍ້
+                    <span class="has-text-danger">* {{ errors.first('initial_name') }}</span>
                     <span class="has-text-danger">
-                        {{server_errors.sponser}}
+                        {{server_errors.initial_name}}
                     </span>
                 </label>
-                <input type="text" class="input" name="sponser" v-model="teams.sponser" v-validate="'required'" />
+                <input type="text" class="input" name="initial_name" v-model="teams.initial_name" v-validate="'required'" />
             </div>
         </div>
         <div class="upload-profile">
             <h2>
                 ເລືອກຮູບພາບ
-                <span class="has-text-danger">* {{ errors.first('logo_url') }}</span>
+                <span class="has-text-danger">* {{ errors.first('image') }}</span>
                 <span class="has-text-danger">
-                    {{server_errors.logo_url}}
+                    {{server_errors.image}}
                 </span>
             </h2>
-
-            <div class="file is-fullwidth">
-                <label class="file-label">
-                    <input class="file-input" type="file" name="logo" ref="file" v-on:change="ImgFileUpload()" v-validate="'required'" />
-                    <span class="file-cta">
-                        <span class="file-icon">
-                            <i class="fas fa-upload"></i>
-                        </span>
-                        <span class="file-label">
-                            Choose a file…
-                        </span>
-                    </span>
-                </label>
-            </div>
+      <div class="image-preview" v-if="image.length > 0">
+        <img class="preview" :src="image"/>
+      </div>
+      <div class="filed">
+          <div class="control">
+            <input type="file" @change="previewImage" name="image" accept="image/*" class="input" v-validate="'required'"  />
+          </div>
+      </div>
 
         </div>
         <div class="field btn">
@@ -73,10 +67,10 @@ const dict = {
         team_name: {
             required: '(ກະລຸນາປ້ອນກ່ອນ...)',
         },
-        sponser: {
+        initial_name: {
             required: '(ກະລຸນາປ້ອນກ່ອນ...)',
         },
-        logo_url: {
+        image: {
             required: '(ກະລຸນາປ້ອນກ່ອນ...)',
         }
     }
@@ -86,23 +80,42 @@ Validator.localize('en', dict);
 export default {
     data: () => ({
         active: false,
+         imageFile: null,
+         image:'',
         server_errors: {
             team_name: '',
-            sponser: '',
+            initial_name: '',
             logo: '',
-            file: ''
+            file: '',
+            image_name:'',
+            image:''
         },
         teams: {
             team_name: '',
-            sponser: '',
+            initial_name: '',
             logo_url: '',
         }
     }),
     methods: {
-        ImgFileUpload() {
-            this.teams.logo = this.$refs.file.files[0];
-            // console.log(this.logo_url)
-            // this.file = this.$refs.file.files[0];
+
+
+        // ImgFileUpload() {
+        //     this.teams.logo = this.$refs.file.files[0];
+        //     // console.log(this.teams.logo)
+
+ previewImage: function (event) {
+      var input = event.target;
+      if (input.files && input.files[0]) {
+        this.imageFile = input.files[0];
+        // console.log(this.imageFile)
+        var reader = new FileReader();
+        reader.onload = (e) => {
+          this.image = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+         
+      }
+
         },
         ValidateForm() {
             this.$validator.validateAll().then((result) => {
@@ -111,21 +124,20 @@ export default {
                 }
             });
         },
-
         SaveData() {
             const loading = this.BtnLoading();
             let formData = new FormData();
             formData.append('team_name', this.teams.team_name);
-            formData.append('sponser', this.teams.sponser);
-            formData.append('logo', this.teams.logo);
-            console.log(this.teams)
+            formData.append('initial_name', this.teams.initial_name);
+            formData.append('logo', this.imageFile);
+            // console.log(this.teams)
             // formData.append('file', this.file);
             this.$axios.post('team', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             }).then(res => {
-                if (res /* .data.success == true */ ) {
+                if (res) {
                     setTimeout(() => {
                         loading.close();
                         this.$emit('close');
