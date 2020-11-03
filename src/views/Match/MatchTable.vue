@@ -177,8 +177,8 @@ export default {
                     this.$emit('close');
                 }, 200);
                 setTimeout(() => {
-                    this.matchs = res.data.matchLists;
-                    // console.log(this.matchs)
+                    this.matchs = res.data.data;
+                    console.log(this.matchs)
                 }, 100);
             }).catch(() => {
 

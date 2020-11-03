@@ -52,24 +52,24 @@
             </div>
         </div>
 
-        <div class="field">
-            <div class="control">
-                <label for="" class="label">
-                    ສະຖານະການແຂ່ງຂັນ
-                    <span class="text-danger">* {{ errors.first('status') }}</span>
-                    <span class="text-danger">
-                        {{server_errors.status}}
-                    </span>
-                </label>
-                <div class="select" style="width: 100%">
-                    <select style="width: 100%" v-model="matchs.status">
-                        <option v-bind:value="StatusMatch.status" :key="index " v-for="(StatusMatch, index) in StatusMatchs" :data="StatusMatch">
-                            {{StatusMatch.name}}
-                        </option>
-                    </select>
-                </div>
-            </div>
-        </div>
+<!--        <div class="field">-->
+<!--            <div class="control">-->
+<!--                <label for="" class="label">-->
+<!--                    ສະຖານະການແຂ່ງຂັນ-->
+<!--                    <span class="text-danger">* {{ errors.first('status') }}</span>-->
+<!--                    <span class="text-danger">-->
+<!--                        {{server_errors.status}}-->
+<!--                    </span>-->
+<!--                </label>-->
+<!--                <div class="select" style="width: 100%">-->
+<!--                    <select style="width: 100%" v-model="matchs.status">-->
+<!--                        <option v-bind:value="StatusMatch.status" :key="index " v-for="(StatusMatch, index) in StatusMatchs" :data="StatusMatch">-->
+<!--                            {{StatusMatch.name}}-->
+<!--                        </option>-->
+<!--                    </select>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
 
         <div class="field btn">
             <div class="control">
@@ -99,9 +99,9 @@ const dict = {
         match_date: {
             required: '(ກະລຸນາປ້ອນກ່ອນ...)',
         },
-        status: {
-            required: '(ກະລຸນາປ້ອນກ່ອນ...)',
-        }
+        // status: {
+        //     required: '(ກະລຸນາປ້ອນກ່ອນ...)',
+        // }
     }
 };
 Validator.localize('en', dict);
@@ -115,19 +115,19 @@ export default {
             value: "",
             match_date: '',
             teams: [], //get team_name from Table team
-            StatusMatchs: [], //get status from Table match
+            // StatusMatchs: [], //get status from Table match
 
             server_errors: {
                 team_1: '',
                 team_2: '',
                 match_date: '',
-                status: ''
+                // status: ''
             },
             matchs: {
                 team1: this.value,
                 team2: this.value,
                 match_date: '',
-                status: '',
+                // status: '',
             },
         };
     },
@@ -155,16 +155,16 @@ export default {
             });
         },
         // get status from Table match
-        FetchStatusMatch() {
-            /*   this.isLoading = true; */
-            this.$axios.get('match').then(res => {
-                setTimeout(() => {
-                    this.StatusMatchs = res.data.statsus_list;
-                }, 100);
-            }).catch(() => {
-
-            });
-        },
+        // FetchStatusMatch() {
+        //     /*   this.isLoading = true; */
+        //     this.$axios.get('match').then(res => {
+        //         setTimeout(() => {
+        //             this.StatusMatchs = res.data.statsus_list;
+        //         }, 100);
+        //     }).catch(() => {
+        //
+        //     });
+        // },
 
         SaveData() {
             this.$axios.post('match', this.matchs).then(res => {
@@ -197,7 +197,7 @@ export default {
     },
     created() {
         this.FetchData();
-        this.FetchStatusMatch();
+        // this.FetchStatusMatch();
     }
 
 };

@@ -1,28 +1,26 @@
 <template>
     <div>
         <div class="header-title">
-            <i class="fas fa-info-circle"></i><span>ອັບເດດ ຂໍ້ມູນທົວນາເມັ້ນ</span>
+            <i class="fas fa-info-circle"></i><span>Member</span>
         </div>
         <div class="section-content">
-            <div class="filed">
+            <div class="field">
                 <div class="control">
-                    <label for="label" class="label">
-                        ຊື່ທົວນາເມັ້ນ
-                        <span class="has-text-danger">* {{ errors.first('name') }}</span>
-                        <span class="has-text-danger">
-                        {{server_errors.name}}
-                    </span>
+                    <label for="" class="label">
+                        ເລືອກທີມ
                     </label>
-                    <input type="text" class="input" name="name"
-                           v-model="EditGroup.name"
-                           v-validate="'required'" />
+                    <div class="select" style="width: 100%">
+                        <select style="width: 100%" v-model="GroupMember.team_id">
+                            <option v-bind:value="team.id" :key="index " v-for="(team, index) in teams" :data="team">{{team.team_name}}</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="field btn">
             <div class="control">
                 <button class="button is-fullwidth" style="color:#ffff" @click="ValidateForm()">
-                    ອັບເດດ ຂໍ້ມູນທີມ
+                   Add Member
                 </button>
             </div>
         </div>
@@ -35,46 +33,66 @@
     } from 'vee-validate';
 
     const dict = {
-        custom: {
-            name: {
-                required: '(ກະລຸນາປ້ອນກ່ອນ...)',
-            },
-
-        }
+        // custom: {
+        //     name: {
+        //         required: '(ກະລຸນາປ້ອນກ່ອນ...)',
+        //     },
+        //
+        // }
     };
     Validator.localize('en', dict);
     export default {
-        props:['EditGroup'],
         data(){
             return{
-                name:'',
-                server_errors: {
-                    tournament_name: '',
-                },
+                teams:'',
+
+                // server_errors: {
+                //     name: '',
+                //
+                // },
+                GroupMember:{
+                    team_id:''
+                }
             }
         },
         methods:{
             ValidateForm() {
                 this.$validator.validateAll().then((result) => {
                     if (result) {
-                        this.EditData();
+                        this.SaveData();
                     }
                 });
             },
-            EditData() {
-                const id = this.$route.params.tournament_id;
-                this.$axios.put(`tournament/${id}/group/${this.EditGroup.id}`, this.EditGroup).then(res => {
+
+            //get team_name form Tale Team
+            FetchData() {
+                this.$axios.get('team').then(res => {
+                    setTimeout(() => {
+                        this.teams = res.data.data;
+                    }, 100);
+                }).catch(() => {
+
+                });
+            },
+
+            SaveData() {
+                const tournament_id = this.$route.params.tournament_id;
+                const id = this.$route.params.group_id;
+                this.$axios.post(`tournament/${tournament_id}/group/${id}/group-member`, this.GroupMember).then(res => {
                     if (res) {
                         setTimeout(() => {
                             this.$emit('close');
                             this.$emit('success');
-                            this.$notification.OpenNotification_EditItem_OnSuccess('top-right',
-                                'success', 3000);
+                            this.$notification.OpenNotification_AddItem_OnSuccess('top-right', 'primary', 3000);
                         }, 300);
                     }
-                }).catch(() => {});
-            }
+                }).catch();
+            },
+
         },
+        created() {
+            this.FetchData();
+        }
     }
 </script>
 

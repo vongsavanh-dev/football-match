@@ -50,6 +50,9 @@
 
                         <vs-td style="text-align: right; width: 100px">
                             <div class="buttons">
+                                <vs-button circle icon flat @click="Addmember(group.id)">
+                                    <i class="fas fa-plus"></i>
+                                </vs-button>
                                 <vs-button circle icon flat @click="OpenModalEdit(group.id)">
                                     <i class="fas fa-pencil-alt"></i>
                                 </vs-button>
@@ -122,6 +125,20 @@
             OpenModalDelete(groupId) {
                 this.groupId = groupId
                 this.$store.commit("modalDelete_State", true);
+            },
+
+            // // insert team to group
+            Addmember(groupId){
+                //console.log(this.$route.params.tournament_id)
+                this.$router.push({
+                    name: "groupmember",
+                    params: {
+                        tournament_id: this.$route.params.tournament_id,
+                        group_id: groupId,
+
+                    }
+                });
+
             },
 
             FetchData() {

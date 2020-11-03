@@ -166,8 +166,8 @@
                     //     this.$emit('close');
                     // }, 200);
                     setTimeout(() => {
-                        this.ListTournament = res.data;
-                        console.log(this.ListTournament)
+                        this.ListTournament = res.data.data;
+                        // console.log(this.ListTournament)
                     }, 100);
                 }).catch(() => {
 

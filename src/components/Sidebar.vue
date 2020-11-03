@@ -30,22 +30,6 @@
                     <h2>ຂໍ້ມູນທີມ</h2>
                 </vs-sidebar-item>
             </div>
-            <div @click="Player()">
-                <vs-sidebar-item id="twitter" class="text-header-dashboard">
-                    <template #icon>
-                        <i class="fas fa-futbol"></i>
-                    </template>
-                    <h2>ຂໍ້ມູນນັກເຕະ</h2>
-                </vs-sidebar-item>
-            </div>
-            <div @click="Position()">
-                <vs-sidebar-item id="Facebook" class="text-header-dashboard">
-                    <template #icon>
-                        <i class="fas fa-crosshairs"></i>
-                    </template>
-                    <h2>ຂໍ້ມູນຕຳແໜ່ງ</h2>
-                </vs-sidebar-item>
-            </div>
         </vs-sidebar-group>
 
         <!--  <vs-sidebar-group> -->
@@ -54,7 +38,7 @@
                 <template #icon>
                     <i class="fas fa-edit"></i>
                 </template>
-                <h2>ຕາຕະລາງ</h2>
+                <h2>ຈັດຕາຕະລາງ</h2>
             </vs-sidebar-item>
         </div>
 
@@ -87,16 +71,7 @@ export default {
                 name: "listteam"
             });
         },
-        Player() {
-            this.$router.push({
-                name: "Listplayer"
-            });
-        },
-        Position() {
-            this.$router.push({
-                name: "Position"
-            });
-        },
+
         MatchTable() {
             this.$router.push({
                 name: "Match"

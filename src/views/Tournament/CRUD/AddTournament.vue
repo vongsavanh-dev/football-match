@@ -18,20 +18,20 @@
                            v-validate="'required'" />
                 </div>
             </div>
-            <div class="filed">
-                <div class="control">
-                    <label for="label" class="label">
-                        ຈຳນວນທີມທີ່ເຂົ້າຮ່ວມ
-                        <span class="has-text-danger">* {{ errors.first('amount_teams') }}</span>
-                        <span class="has-text-danger">
-                        {{server_errors.amount_teams}}
-                    </span>
-                    </label>
-                    <input type="text" class="input" name="amount_teams"
-                           v-model="Tournament.teams"
-                           v-validate="'required'" />
-                </div>
-            </div>
+<!--            <div class="filed">-->
+<!--                <div class="control">-->
+<!--                    <label for="label" class="label">-->
+<!--                        ຈຳນວນທີມທີ່ເຂົ້າຮ່ວມ-->
+<!--                        <span class="has-text-danger">* {{ errors.first('amount_teams') }}</span>-->
+<!--                        <span class="has-text-danger">-->
+<!--                        {{server_errors.amount_teams}}-->
+<!--                    </span>-->
+<!--                    </label>-->
+<!--                    <input type="text" class="input" name="amount_teams"-->
+<!--                           v-model="Tournament.teams"-->
+<!--                           v-validate="'required'" />-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
             <div class="field btn">
                 <div class="control">
@@ -53,9 +53,9 @@
             tournament_name: {
                 required: '(ກະລຸນາປ້ອນກ່ອນ...)',
             },
-            amount_teams: {
-                required: '(ກະລຸນາປ້ອນກ່ອນ...)',
-            },
+            // amount_teams: {
+            //     required: '(ກະລຸນາປ້ອນກ່ອນ...)',
+            // },
 
         }
     };
@@ -65,7 +65,7 @@ data(){
     return{
         server_errors: {
             tournament_name: '',
-            amount_teams:'',
+            // amount_teams:'',
         },
         Tournament:{
             name:'',
