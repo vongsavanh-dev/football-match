@@ -43,38 +43,11 @@
         </div>
       </div>
 
-      <div class="field">
-        <div class="control">
-          <label for="" class="label">Score Type</label>
-          <div class="select" style="width: 100%">
-            <select style="width: 100%" v-model="addteam_score.score_type_id">
-              <option
-                :key="index"
-                v-for="(scoretype, index) in scoretypes"
-                :data="scoretype"
-                :value="scoretype.id"
-              >
-                {{ scoretype.type }}
-              </option>
-            </select>
-          </div>
-        </div>
-      </div>
 
       <div class="field">
         <div class="control">
           <label for="" class="label"> Time </label>
           <input type="text" class="input" v-model="addteam_score.time" name="time">
-          <!-- <DatePicker
-            style="width: 100%"
-            type="time"
-            name="match_score"
-            v-model="addteam_score.time_score"
-            slot="activator"
-            :popup-style="{ top: '100%', left: '15%' }"
-            :append-to-body="false"
-          >
-          </DatePicker> -->
         </div>
       </div>
 
@@ -93,48 +66,35 @@
 // import DatePicker from "vue2-datepicker";
 // import "vue2-datepicker/index.css";
 export default {
-  props: ["listplayer_team"],
+  props: ["listplayer_firstTeam"],
   // components: {
   //   DatePicker,
   // },
   data() {
     return {
-      scoretypes: [],
       player_team1: {},
-      // time_score: "",
+      listteam:'',
 
       addteam_score: {
         player_id: '',
         assist_player_id: '',
-        score_type_id: "",
          time: "",
       },
     };
   },
   methods: {
 
+
     //  get player team_1 from team
     getPlayer() {
-      this.player_team = this.listplayer_team;
+      // this.player_teams = this.listplayer_firstTeam;
       this.$axios
-        .get(`team/${this.listplayer_team.team_1_id}/player`)
+        .get(`team/${this.listplayer_firstTeam.team_1_id}/player`)
         .then((res) => {
           // console.log(res)
           setTimeout(() => {
             this.player_team1 = res.data.player_lists;
             // console.log(this.player_team1);
-          }, 100);
-        })
-        .catch(() => {});
-    },
-
-    //get ScoreType from TableScoreType
-    getScoreType() {
-      this.$axios
-        .get("scoretype")
-        .then((res) => {
-          setTimeout(() => {
-            this.scoretypes = res.data;
           }, 100);
         })
         .catch(() => {});
@@ -163,7 +123,6 @@ export default {
   },
   created() {
     this.getPlayer();
-    this.getScoreType();
   },
 };
 </script>

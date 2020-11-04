@@ -18,7 +18,7 @@
                     <vs-th id="table-index">
                         ລຳດັບ
                     </vs-th>
-                    <vs-th>
+                    <vs-th style="width: 50px; white-space: nowrap; ">
                         ຊື່ທີມທີໜື່ງ
                     </vs-th>
                     <vs-th>
@@ -26,13 +26,16 @@
                     </vs-th>
 
                     <vs-th id="match-status">
-                        ສະຖານະ
+
                     </vs-th>
                   <vs-th>
 
                     </vs-th>
                     <vs-th>
                         ຊື່ທີມທີສອງ
+                    </vs-th>
+                    <vs-th>
+                        ສະຖານະ
                     </vs-th>
 
                     <vs-th>
@@ -49,22 +52,24 @@
                     <vs-td>
                         {{index + 1 }}
                     </vs-td>
-                    <vs-td>
+                    <vs-td style="text-align: right">
                        {{ match.team_1 }}
                     </vs-td>
                     <vs-td style="width:60px;">
                     <img :src="match.team1_logo" alt="" class="image-log-team">
                     </vs-td>
-                    <vs-td>
-                        {{ match.status }}
+                    <vs-td style="text-align: center">
+                        {{ index +1 }}  -  {{ index +1 }}
                     </vs-td>
                       <vs-td style="width:60px;">
                         <img :src="match.team2_logo" alt="" class="image-log-team">
                     </vs-td>
-                    <vs-td>
+                    <vs-td style="text-align: left">
                       {{ match.team_2 }}
                     </vs-td>
-
+                    <vs-td>
+                        {{ match.status }}
+                    </vs-td>
                     <vs-td>
                         {{ match.match_date }}
                     </vs-td>
@@ -118,9 +123,6 @@ import AddMatch from "./CRUD/AddMatch";
 import EditMatch from "./CRUD/EditMatch";
 import DeleteMatch from "./CRUD/DeleteMatch";
 export default {
-
-
-
     components: {
         AddMatch,
         EditMatch,
@@ -150,11 +152,9 @@ export default {
                 name: "MatchScore",
                 params: {
                     match_id: matchId,
-
                 }
             });
         },
-
         OpenModalAdd() {
             this.$store.commit("modalAdd_State", true);
         },
@@ -184,18 +184,9 @@ export default {
 
             });
         },
-
-        // getMatch_score(){
-        //     const id = this.$route.params.match_id;
-        //     this.$axios.get(`match/${id}/matchscore`).then(res =>{
-        //         console.log(res)
-        //     })
-        // },
     },
     created() {
         this.FetchData();
-        // this.getMatch_score();
-
     }
 }
 
@@ -243,5 +234,7 @@ export default {
 #icon-menu{
     width:150px;
 }
+
+
 
 </style>

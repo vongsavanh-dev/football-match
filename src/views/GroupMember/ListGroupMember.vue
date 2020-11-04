@@ -123,8 +123,7 @@
                         this.$emit('close');
                     }, 200);
                     setTimeout(() => {
-                        this.ListGroupMember = res.data.data;
-                        // console.log(this.ListGroupMember)
+                        this.ListGroupMember = res.data.member;
                     }, 100);
                 }).catch(() => {
 

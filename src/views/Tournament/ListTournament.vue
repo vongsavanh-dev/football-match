@@ -22,14 +22,18 @@
                             ຊື່ທົວນາເມັ້ນ
                         </vs-th>
                         <vs-th>
+                            ຈຳນວນມື້
+                        </vs-th>
+                        <vs-th>
+                            ຈຳນວນນັດ
+                        </vs-th>
+                        <vs-th>
                             ຈຳນວນທີມ
                         </vs-th>
                         <vs-th>
                             ຈຳນວນນັກເຕະ
                         </vs-th>
-                        <vs-th>
-                            ຈຳນວນນັດ
-                        </vs-th>
+
                         <vs-th>
                             goal_against
                         </vs-th>
@@ -53,13 +57,17 @@
                             {{ tournament.name }}
                         </vs-td>
                         <vs-td>
+                            {{ tournament.days }}
+                        </vs-td>
+
+                        <vs-td>
+                            {{ tournament.matches}}
+                        </vs-td>
+                        <vs-td>
                             {{ tournament.teams }}
                         </vs-td>
                         <vs-td>
                             {{ tournament.players }}
-                        </vs-td>
-                        <vs-td>
-                            {{ tournament.play }}
                         </vs-td>
 
                         <vs-td>

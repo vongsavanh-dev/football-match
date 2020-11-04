@@ -104,7 +104,10 @@ const routes = [{
     {
         path: '/admin-groupmember/:tournament_id/:group_id',
         name:'groupmember',
-        component:ListGroupMember
+        component:ListGroupMember,
+        meta: {
+            middleware: [Middlewares.auth],
+        }
     },
 
 

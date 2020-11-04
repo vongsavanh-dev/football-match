@@ -18,20 +18,34 @@
                            v-validate="'required'" />
                 </div>
             </div>
-<!--            <div class="filed">-->
-<!--                <div class="control">-->
-<!--                    <label for="label" class="label">-->
-<!--                        ຈຳນວນທີມທີ່ເຂົ້າຮ່ວມ-->
-<!--                        <span class="has-text-danger">* {{ errors.first('amount_teams') }}</span>-->
-<!--                        <span class="has-text-danger">-->
-<!--                        {{server_errors.amount_teams}}-->
-<!--                    </span>-->
-<!--                    </label>-->
-<!--                    <input type="text" class="input" name="amount_teams"-->
-<!--                           v-model="Tournament.teams"-->
-<!--                           v-validate="'required'" />-->
-<!--                </div>-->
-<!--            </div>-->
+            <div class="filed">
+                <div class="control">
+                    <label for="label" class="label">
+                        ຈຳນວນນັດທີ່ເຕະ
+                        <span class="has-text-danger">* {{ errors.first('amount_matchs') }}</span>
+                        <span class="has-text-danger">
+                        {{server_errors.amount_matchs}}
+                    </span>
+                    </label>
+                    <input type="text" class="input" name="amount_matchs"
+                           v-model="Tournament.matches"
+                           v-validate="'required|numeric'" />
+                </div>
+            </div>
+            <div class="filed">
+                <div class="control">
+                    <label for="label" class="label">
+                        ຈຳນວນມື້ທັງໝົດ
+                        <span class="has-text-danger">* {{ errors.first('amount_days') }}</span>
+                        <span class="has-text-danger">
+                        {{server_errors.amount_days}}
+                    </span>
+                    </label>
+                    <input type="text" class="input" name="amount_days"
+                           v-model="Tournament.days"
+                           v-validate="'required|numeric'" />
+                </div>
+            </div>
         </div>
             <div class="field btn">
                 <div class="control">
@@ -53,9 +67,12 @@
             tournament_name: {
                 required: '(ກະລຸນາປ້ອນກ່ອນ...)',
             },
-            // amount_teams: {
-            //     required: '(ກະລຸນາປ້ອນກ່ອນ...)',
-            // },
+            amount_matchs: {
+                required: '(ກະລຸນາປ້ອນກ່ອນ...)',numeric: '(ປ້ອນສະເພາະຕົວເລກ...)',
+            },
+            amount_days: {
+                required: '(ກະລຸນາປ້ອນກ່ອນ...)',numeric: '(ປ້ອນສະເພາະຕົວເລກ...)',
+            },
 
         }
     };
@@ -65,11 +82,14 @@ data(){
     return{
         server_errors: {
             tournament_name: '',
-            // amount_teams:'',
+            amount_matchs:'',
+            amount_days:'',
+
         },
         Tournament:{
             name:'',
-            teams:'',
+            matches:'',
+            days:'',
         }
     }
 },
@@ -83,6 +103,7 @@ methods:{
     },
     SaveData() {
         this.$axios.post('tournament', this.Tournament).then(res => {
+            console.log(res)
             if (res) {
                 setTimeout(() => {
                     this.$emit('close');

@@ -39,7 +39,10 @@ const getters = {
     }
 };
 const mutations = {
-    CommitToken(state, token) {
+    // CommitToken(state, token) {
+    //     state.token = token
+    // },
+    AdminSignin(state, token) {
         state.token = token
     },
 
@@ -60,17 +63,22 @@ const actions = {
                     password: data.password
                 })
                 .then(response => {
-                    resolve(response)
-                    const token = response.data.access_token;
-                    localStorage.setItem('access_token', token); // ເກັ ບ Token ໄວ້ໃນ Localstorage ເພື່ອຈະນຳໄປໃຊ້ຂໍຂໍ້ມູນ
-                    context.commit('CommitToken', token);
-                    /*    context.commit('setUserProfile', response.data.userInfo); */
-                    /*   window.localStorage.setItem('user_profile', JSON.stringify(response.data.userInfo)); */
+                    if (response) {
+                        resolve(response)
+                        const token = response.data.access_token;
+                        localStorage.setItem('access_token', token);   // ເກັບ Token ໄວ້ໃນ Localstorage ເພື່ອຈະນຳໄປໃຊ້ຂໍຂໍ້ມູນ
+                        context.commit('AdminSignin', token);
+                        context.commit('setUserProfile', response.data.user);
+                        window.localStorage.setItem('user_profile', JSON.stringify(response.data.user));
+                        axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+                        router.push({ name: 'dashboard' });
 
-                    router.push({ name: 'dashboard' });
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 300);
+                    } else {
+                        // context.commit('error_msg_login', response.data.msg);
+                        // setTimeout(() => {
+                        //    context.commit('error_msg_login', '');
+                        // }, 3000);
+                    }
                 })
                 .catch(error => {
                     reject(error)
@@ -105,7 +113,7 @@ const actions = {
                     .finally(response => {
                         resolve(response)
                         localStorage.removeItem('access_token') // Remove Item Of Localstorage...
-                        localStorage.removeItem('user_profile') // Remove Item Of Localstorage...
+                        // localStorage.removeItem('user_profile') // Remove Item Of Localstorage...
                         context.commit('destroyToken')
                         router.push({
                             name: 'login'

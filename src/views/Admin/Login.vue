@@ -59,7 +59,6 @@ export default {
     }),
 
     AdminSignIn() {
-      /* const loading = this.$vs.loading(); */
       this.AdminLogin(this.users)
         .then(() => {
           setTimeout(() => {

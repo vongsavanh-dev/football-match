@@ -42,14 +42,14 @@
             </vs-sidebar-item>
         </div>
 
-        <div @click="MatchScore()">
-            <vs-sidebar-item id="chat" class="text-header-dashboard">
-                <template #icon>
-                    <i class="fas fa-edit"></i>
-                </template>
-                <h2>ຜົນການແຂ່ງຂັນ</h2>
-            </vs-sidebar-item>
-        </div>
+<!--        <div @click="MatchScore()">-->
+<!--            <vs-sidebar-item id="chat" class="text-header-dashboard">-->
+<!--                <template #icon>-->
+<!--                    <i class="fas fa-edit"></i>-->
+<!--                </template>-->
+<!--                <h2>ຜົນການແຂ່ງຂັນ</h2>-->
+<!--            </vs-sidebar-item>-->
+<!--        </div>-->
         <!-- </vs-sidebar-group> -->
     </vs-sidebar>
 </div>
@@ -77,11 +77,11 @@ export default {
                 name: "Match"
             })
         },
-        MatchScore() {
-            this.$router.push({
-                name: "MatchScore"
-            })
-        }
+        // MatchScore() {
+        //     this.$router.push({
+        //         name: "MatchScore"
+        //     })
+        // }
     },
 };
 </script>

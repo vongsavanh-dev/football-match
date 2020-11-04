@@ -56,24 +56,7 @@
             </div>
         </div>
 
-        <div class="field">
-            <div class="control">
-                <label for="" class="label">
-                    ສະຖານະການແຂ່ງຂັນ
-                     <span class="has-text-danger">* {{ errors.first('status') }}</span>
-                     <span class="has-text-danger">
-                        {{server_errors.status}}
-                    </span>
-                </label>
-                <div class="select" style="width: 100%">
-                    <select style="width: 100%" v-model="listMatch.status" name="status">
-                        <option v-for="(statuslists, index) in statuslist" :key="index" :value="statuslists.status">
-                            {{statuslists.status}}
-                        </option>
-                    </select>
-                </div>
-            </div>
-        </div>
+
 
         <div class="field btn">
             <div class="control">
@@ -105,9 +88,7 @@ const dict = {
         match_date: {
             required: '(ກະລຸນາປ້ອນກ່ອນ...)',
         },
-        status: {
-            required: '(ກະລຸນາປ້ອນກ່ອນ...)',
-        },
+
     }
 };
 
@@ -126,7 +107,7 @@ export default {
             time1: '',
             teams: '',
             statuslist:[],
-            status:'',
+
 
     server_errors: {
                      team_1: '',

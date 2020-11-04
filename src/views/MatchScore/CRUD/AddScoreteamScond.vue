@@ -43,23 +43,6 @@
         </div>
       </div>
 
-      <div class="field">
-        <div class="control">
-          <label for="" class="label">Score Type</label>
-          <div class="select" style="width: 100%">
-            <select style="width: 100%" v-model="addscore_scondteam.score_type_id">
-              <option
-                :key="index"
-                v-for="(scoretype, index) in scoretypes"
-                :data="scoretype"
-                :value="scoretype.id"
-              >
-                {{ scoretype.type }}
-              </option>
-            </select>
-          </div>
-        </div>
-      </div>
 
       <div class="field">
         <div class="control">
@@ -102,46 +85,30 @@
 // import DatePicker from "vue2-datepicker";
 // import "vue2-datepicker/index.css";
 export default {
-  props: ["listplayer_teamSecond"],
+  props: ["listplayer_scondTeam"],
   // components: {
   //   DatePicker,
   // },
   data() {
     return {
-      scoretypes: [],
       player_team2: {},
-      // time_score: "",
-
       addscore_scondteam: {
         player_id: "",
         assist_player_id: "",
-        score_type_id: "",
         time: "",
       },
     };
   },
   methods: {
+
     //  get player team_1 from team
     getPlayerSecondTeam() {
-      this.player_team = this.listplayer_teamSecond;
+      // this.player_team = this.listplayer_scondTeam;
       this.$axios
-        .get(`team/${this.listplayer_teamSecond.team_2_id}/player`)
+        .get(`team/${this.listplayer_scondTeam.team_2_id}/player`)
         .then((res) => {
-          // console.log(res)
           setTimeout(() => {
             this.player_team2 = res.data.player_lists;
-          }, 100);
-        })
-        .catch(() => {});
-    },
-
-    //get ScoreType from TableScoreType
-    getScoreType() {
-      this.$axios
-        .get("scoretype")
-        .then((res) => {
-          setTimeout(() => {
-            this.scoretypes = res.data;
           }, 100);
         })
         .catch(() => {});
@@ -177,7 +144,6 @@ export default {
   },
   created() {
     this.getPlayerSecondTeam();
-    this.getScoreType();
   },
 };
 </script>

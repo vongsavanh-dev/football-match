@@ -20,19 +20,36 @@
                 </div>
             </div>
 
+
             <div class="filed">
                 <div class="control">
                     <label for="label" class="label">
-                        ຈຳນວນທີມທີ່ເຂົ້າຮ່ວມ
-                        <span class="has-text-danger">* {{ errors.first('amount_teams') }}</span>
+                        ຈຳນວນມື້
+                        <span class="has-text-danger">* {{ errors.first('amount_matches') }}</span>
                         <span class="has-text-danger">
-                        {{server_errors.amount_teams}}
+                        {{server_errors.amount_matches}}
                     </span>
                     </label>
-                    <input type="text" class="input" name="amount_teams"
-                           v-model="EditTournament.teams"
+                    <input type="text" class="input" name="amount_matches"
+                           v-model="EditTournament.matches"
 
-                           v-validate="'required'" />
+                           v-validate="'required|numeric'" />
+                </div>
+            </div>
+
+            <div class="filed">
+                <div class="control">
+                    <label for="label" class="label">
+                        ຈຳນວນມື້
+                        <span class="has-text-danger">* {{ errors.first('amount_days') }}</span>
+                        <span class="has-text-danger">
+                        {{server_errors.amount_days}}
+                    </span>
+                    </label>
+                    <input type="text" class="input" name="amount_days"
+                           v-model="EditTournament.days"
+
+                           v-validate="'required|numeric'" />
                 </div>
             </div>
         </div>
@@ -56,12 +73,15 @@
             tournament_name: {
                 required: '(ກະລຸນາປ້ອນກ່ອນ...)',
             },
-            amount_teams: {
-                required: '(ກະລຸນາປ້ອນກ່ອນ...)',
+            amount_matches: {
+                required: '(ກະລຸນາປ້ອນກ່ອນ...)',numeric: '(ປ້ອນສະເພາະຕົວເລກ...)',
+            amount_days: {
+                required: '(ກະລຸນາປ້ອນກ່ອນ...)',numeric: '(ປ້ອນສະເພາະຕົວເລກ...)',
             },
 
         }
-    };
+    }
+    }
     Validator.localize('en', dict);
     export default {
         props:['EditTournament'],
@@ -71,7 +91,8 @@
                 teams:'',
                 server_errors: {
                     tournament_name: '',
-                    amount_teams:'',
+                    amount_mathces:'',
+                    amount_days:'',
                 },
             }
         },
