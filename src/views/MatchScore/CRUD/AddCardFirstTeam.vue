@@ -6,14 +6,14 @@
     <div class="section-content">
       <div class="field">
         <div class="control">
-          <label for="" class="label">ນັກເຕະຍິງປະຕູ</label>
+          <label for="" class="label">ນັກເຕະ</label>
           <div class="select" style="width: 100%">
-            <select style="width: 100%" v-model="addteam_score.player_id">
+            <select style="width: 100%" v-model="AddCard_firstTeam.player_id">
               <option
-                :key="index"
-                v-for="(player, index) in player_team1"
-                :data="player"
-                v-bind:value="player.id"
+                  :key="index"
+                  v-for="(player, index) in player_team1"
+                  :data="player"
+                  v-bind:value="player.id"
               >
                 {{ player.name }}
               </option>
@@ -24,17 +24,17 @@
 
       <div class="field">
         <div class="control">
-          <label for="" class="label">ນັກເຕະ Assist</label>
+          <label for="" class="label">Player Assist</label>
           <div class="select" style="width: 100%">
             <select
-              style="width: 100%"
-              v-model="addteam_score.assist_player_id"
+                style="width: 100%"
+                v-model="AddCard_firstTeam.assist_player_id"
             >
               <option
-                :key="index"
-                v-for="(player, index) in player_team1"
-                :data="player"
-                 v-bind:value="player.id"
+                  :key="index"
+                  v-for="(player, index) in player_team1"
+                  :data="player"
+                  v-bind:value="player.id"
               >
                 {{ player.name }}
               </option>
@@ -47,7 +47,7 @@
       <div class="field">
         <div class="control">
           <label for="" class="label"> Time </label>
-          <input type="text" class="input" v-model="addteam_score.time" name="time">
+          <input type="text" class="input" v-model="AddCard_firstTeam.time" name="time">
         </div>
       </div>
 
@@ -66,7 +66,7 @@
 // import DatePicker from "vue2-datepicker";
 // import "vue2-datepicker/index.css";
 export default {
-  props: ["listplayer_firstTeam"],
+  props: ["Card_firstTeam"],
   // components: {
   //   DatePicker,
   // },
@@ -75,49 +75,50 @@ export default {
       player_team1: {},
       listteam:'',
 
-      addteam_score: {
+      AddCard_firstTeam: {
         player_id: '',
         assist_player_id: '',
-         time: "",
+        time: "",
       },
     };
   },
   methods: {
+
+
     //  get player team_1 from team
     getPlayer() {
       // this.player_teams = this.listplayer_firstTeam;
       this.$axios
-        .get(`team/${this.listplayer_firstTeam.team_1_id}/player`)
-        .then((res) => {
-          // console.log(res)
-          setTimeout(() => {
-            this.player_team1 = res.data.player_lists;
-            // console.log(this.player_team1);
-          }, 100);
-        })
-        .catch(() => {});
+          .get(`team/${this.Card_firstTeam.team_1_id}/player`)
+          .then((res) => {
+            setTimeout(() => {
+              this.player_team1 = res.data.player_lists;
+              // console.log(this.player_team1);
+            }, 100);
+          })
+          .catch(() => {});
     },
 
-    SaveData() {
-       const id = this.$route.params.match_id;
-          this.$axios.post(`match/${id}/matchscore`, this.addteam_score).then(res => {
-            // console.log(this.addteam_score)
-              if (res) {
-                  setTimeout(() => {
-                      this.$emit('close');
-                      this.$emit('success');
-                      this.$notification.OpenNotification_AddItem_OnSuccess('top-right', 'primary', 3000);
-                  }, 300);
-              }
-          }).catch(error => {
-              if (error.response.status == 422) {
-                  var obj = error.response.data.errors; // ໃຊ້ການລູບຂໍ້ມູນເພາະວ່າຂໍ້ມູນ errors ທີ່ສົ່ງມາຈາກ Server ນັ້ນເປັນ Array Object
-                  for (let [key, value] of Object.entries(obj)) {
-                      this.server_errors[key] = value[0];
-                  }
-              }
-          });
-      },
+    // SaveData() {
+    //   const id = this.$route.params.match_id;
+    //   this.$axios.post(`match/${id}/matchscore`, this.addteam_score).then(res => {
+    //     // console.log(this.addteam_score)
+    //     if (res) {
+    //       setTimeout(() => {
+    //         this.$emit('close');
+    //         this.$emit('success');
+    //         this.$notification.OpenNotification_AddItem_OnSuccess('top-right', 'primary', 3000);
+    //       }, 300);
+    //     }
+    //   }).catch(error => {
+    //     if (error.response.status == 422) {
+    //       var obj = error.response.data.errors; // ໃຊ້ການລູບຂໍ້ມູນເພາະວ່າຂໍ້ມູນ errors ທີ່ສົ່ງມາຈາກ Server ນັ້ນເປັນ Array Object
+    //       for (let [key, value] of Object.entries(obj)) {
+    //         this.server_errors[key] = value[0];
+    //       }
+    //     }
+    //   });
+    // },
   },
   created() {
     this.getPlayer();
@@ -127,7 +128,7 @@ export default {
 
 
 
-<style scopde>
+<style scoped>
 .header-title {
   font-family: BoonBaan;
   color: blue;
