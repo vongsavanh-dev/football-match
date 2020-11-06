@@ -32,6 +32,14 @@
             </div>
         </vs-sidebar-group>
 
+      <div @click="Standing()">
+        <vs-sidebar-item id="chat" class="text-header-dashboard">
+          <template #icon>
+            <i class="fas fa-edit"></i>
+          </template>
+          <h2>ຮອບຕັດເຊືອກ</h2>
+        </vs-sidebar-item>
+      </div>
         <!--  <vs-sidebar-group> -->
         <div @click="MatchTable()">
             <vs-sidebar-item id="chat" class="text-header-dashboard">
@@ -77,11 +85,11 @@ export default {
                 name: "Match"
             })
         },
-        // MatchScore() {
-        //     this.$router.push({
-        //         name: "MatchScore"
-        //     })
-        // }
+      Standing() {
+            this.$router.push({
+                name: "Standing"
+            })
+        }
     },
 };
 </script>

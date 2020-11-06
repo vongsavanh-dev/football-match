@@ -59,7 +59,7 @@
                     <img :src="match.team1_logo" alt="" class="image-log-team">
                     </vs-td>
                     <vs-td style="text-align: center">
-                        {{ index +1 }}  -  {{ index +1 }}
+                        {{ match.team_1_score }}  -  {{ match.team_2_score }}
                     </vs-td>
                       <vs-td style="width:60px;">
                         <img :src="match.team2_logo" alt="" class="image-log-team">
@@ -132,7 +132,7 @@ export default {
         return {
             active: 1,
             page: 1,
-            max: 5,
+            max: 8,
             matchs: [],
             statuslist:[],
             listmatch: {},

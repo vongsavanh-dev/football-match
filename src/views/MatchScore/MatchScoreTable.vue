@@ -2,8 +2,28 @@
   <div class="container">
     <div class="box-title">
       <h4>
-        ບັນທຶກຄະແນນ
+        ບັນທຶກຄະແນນການແຂ່ງຂັນ
       </h4>
+      <div class="container" >
+      <div class="columns">
+        <div class="column is-5 image-team-circle " >
+          <img class="img-right" :src="listplayers_team.team1_logo" alt="">
+        </div>
+
+        <div class="column is-2">
+        <h3 style="margin-top: 40px;">  {{listplayers_team.team_1_score}} - {{listplayers_team.team_2_score}}</h3>
+   <div class="container" style="margin-left: 50px;">
+     <vs-button style="text-align: center;" @click="FinishMatch()">
+       ບັນທີກຜົນ
+     </vs-button>
+   </div>
+
+        </div>
+        <div class="column is-5 image-team-circle">
+          <img class="img-left" :src="listplayers_team.team2_logo" alt="">
+        </div>
+      </div>
+      </div>
     </div>
     <div class="columns">
       <div class="column is-6">
@@ -17,9 +37,12 @@
         </span>
         <vs-table>
           <template #thead>
-            <vs-tr class="table-header">
+            <vs-tr class="table-header" >
               <vs-th id="table-index">
                 ລຳດັບ
+              </vs-th>
+              <vs-th >
+                ຮູບພາບ
               </vs-th>
               <vs-th style="white-space: nowrap;text-align:left;">
                 ນັກເຕະທີ່ຍິງ
@@ -27,12 +50,18 @@
               <vs-th style="white-space: nowrap;text-align:left;">
                 Assist
               </vs-th>
+              <vs-th style="white-space: nowrap;text-align:left;">
+                ຍິງໃນນາທີ
+              </vs-th>
             </vs-tr>
           </template>
           <template #tbody>
-            <vs-tr :key="index " v-for="(player, index) in $vs.getPage(player_firstteam, page, max)" :data="player">
+            <vs-tr :key="index " v-for="(player, index) in $vs.getPage(player_Score, page, max)" :data="player">
               <vs-td>
                 {{ index + 1 }}
+              </vs-td>
+              <vs-td >
+                <img :src="player.team_logo" alt="" style="width: 50px;height:50px;">
               </vs-td>
               <vs-td style="  white-space: nowrap;text-align:left;">
                 {{ player.player_name }}
@@ -40,18 +69,15 @@
               <vs-td style="  white-space: nowrap;text-align:left;">
                 {{ player.assist_player_name }}
               </vs-td>
+              <vs-td style="  white-space: nowrap;text-align:left;">
+                {{ player.time }}
+              </vs-td>
             </vs-tr>
           </template>
-          <template #footer></template>
+          <template #footer>
+            <vs-pagination v-model="page" :length="$vs.getLength(player_Score, max)"/>
+          </template>
         </vs-table>
-<!--        <ModalAdd @close="handleModalAddCardClosed">-->
-<!--          <template v-slot="{ close }">-->
-<!--            <AddCardFirstTeam  v-if="!showModalCardfirstTeam" @close="close"-->
-<!--                              @success="FetchData()"/>-->
-<!--            <AddCardScondTeam  v-else @close="close"-->
-<!--                               @success="FetchData()"/>-->
-<!--          </template>-->
-<!--        </ModalAdd>-->
       </div>
 
 
@@ -72,30 +98,45 @@
               <vs-th id="table-index">
                 ລຳດັບ
               </vs-th>
-              <vs-th>
-                ນັກເຕະທີ່ຍິງ
+              <vs-th id="table-index">
+                ຮູບພາບ
               </vs-th>
               <vs-th>
-                Assist
+                ນັກເຕະ
+              </vs-th>
+              <vs-th style="text-align: center">
+                ປະເພດ Card
+              </vs-th>
+              <vs-th>
+                ນາທີ
               </vs-th>
             </vs-tr>
           </template>
           <template #tbody>
-            <vs-tr :key="index " v-for="(player, index) in $vs.getPage(player_scondteam, page, max)" :data="player">
+            <vs-tr :key="index " v-for="(playercard, index) in $vs.getPage(player_Card, page2, max)" :data="playercard">
 
               <vs-td>
                 {{ index + 1 }}
               </vs-td>
-              <vs-td style="white-space: nowrap;text-align:left;">
-                {{ player.player_name }}
+              <vs-td>
+                <img :src="playercard.team_logo" alt="" style="width: 50px;height:50px;">
               </vs-td>
               <vs-td style="white-space: nowrap;text-align:left;">
-                {{ player.assist_player_name }}
+                {{ playercard.player }}
+              </vs-td>
+              <vs-td style="white-space: nowrap;text-align:center;" v-if="playercard.card_type == 'Red'">
+                <i class="fas fa-circle" style="color: red;font-size: 30px;"></i>
+              </vs-td>
+              <vs-td style="white-space: nowrap;text-align:center;" v-else>
+                <i class="fas fa-circle" style="color: yellow;font-size: 30px;"></i>
+              </vs-td>
+              <vs-td style="white-space: nowrap;text-align:left;">
+                {{ playercard.time }}
               </vs-td>
             </vs-tr>
           </template>
           <template #footer>
-            <vs-pagination v-model="page" :length="$vs.getLength(player_scondteam, max)"/>
+            <vs-pagination v-model="page2" :length="$vs.getLength(player_Card, max)"/>
           </template>
         </vs-table>
         <ModalAdd>
@@ -107,7 +148,7 @@
             <AddScoreSecondTeam  @close="close" :listplayer_scondTeam="listplayers_team"
                                 @success="FetchData()" v-if="showModalSecondScore"/>
 
-            <AddCardScondTeam  v-if="showModalCardSecondtTeam"  @close="close" @success="FetchData()"/>
+            <AddCardScondTeam  v-if="showModalCardSecondtTeam" :Card_secondTeam="listplayers_team"  @close="close" @success="FetchData()"/>
           </template>
         </ModalAdd>
       </div>
@@ -135,6 +176,7 @@ export default {
 
       active: 1,
       page: 1,
+      page2:1,
       max: 5,
       showModalSecondScore: false,
       showModalCardfirstTeam: false,
@@ -144,6 +186,8 @@ export default {
       player_firstteam: [],
       player_scondteam: [],
       listplayers_match: [],
+      player_Score:[],
+      player_Card:[],
     }
   },
   methods: {
@@ -204,10 +248,65 @@ export default {
       }
       this.$store.commit("modalAdd_State", true);
     },
+
+
+    //get matchScore
+    GetMatchScore(){
+      this.$axios
+          .get(`match/${this.$route.params.match_id}/matchscore`)
+          .then((res) => {
+            setTimeout(() => {
+              this.isLoading = false;
+              this.$emit("close");
+            }, 200);
+            setTimeout(() => {
+              this.player_Score = res.data.data
+            }, 100);
+          })
+          .catch(() => {
+          });
+    },
+
+    GetMatchCard(){
+      this.$axios
+          .get(`match/${this.$route.params.match_id}/matchCardDetail`)
+          .then((res) => {
+            console.log(res)
+            setTimeout(() => {
+              this.isLoading = false;
+              this.$emit("close");
+            }, 200);
+            setTimeout(() => {
+              this.player_Card = res.data.data
+            }, 100);
+          })
+          .catch(() => {
+          });
+    },
+
+    //FinishMatch
+    FinishMatch(){
+      this.$axios
+          .get(`match/${this.$route.params.match_id}/finished`)
+          .then(() => {
+            setTimeout(() => {
+              this.$emit("close");
+            }, 200);
+            setTimeout(() => {
+              this.$emit('close');
+              this.$emit('success');
+              this.$notification.OpenNotification_AddItem_OnSuccess('top-right', 'primary', 3000);
+            }, 300);
+          })
+          .catch(() => {
+          });
+    }
   },
   created() {
     this.FetchData();
     this.FetchDataSecondTeam();
+    this.GetMatchScore();
+    this.GetMatchCard();
   }
 
 }
@@ -225,6 +324,27 @@ export default {
   font-size: 12px;
   float: right;
 }
+.image-team-circle{
+  position: relative;
+  margin-bottom: 100px;
+
+}
+.image-team-circle img{
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+}
+.image-team-circle .img-right{
+position: absolute;
+  right: 0px;
+
+}
+.image-team-circle .img-left{
+position: absolute;
+  left: 0;
+}
+
+
 
 
 </style>

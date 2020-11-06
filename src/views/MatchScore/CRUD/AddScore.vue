@@ -54,7 +54,7 @@
       <div class="field btn">
         <div class="control">
           <button class="button is-fullwidth" style="color: #ffff" @click="SaveData()">
-            ບັນທຶກ ຂໍ້ມູນນັກເຕະ
+            ບັນທຶກ ຂໍ້ມູນນ
           </button>
         </div>
       </div>

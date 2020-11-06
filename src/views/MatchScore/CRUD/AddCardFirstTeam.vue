@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="header-title">
-      <i class="fas fa-info-circle"></i><span>ບັນທຶກ ຄະແນນ</span>
+      <i class="fas fa-info-circle"></i><span>Card</span>
     </div>
     <div class="section-content">
       <div class="field">
@@ -24,20 +24,11 @@
 
       <div class="field">
         <div class="control">
-          <label for="" class="label">Player Assist</label>
+          <label for="" class="label">Card</label>
           <div class="select" style="width: 100%">
-            <select
-                style="width: 100%"
-                v-model="AddCard_firstTeam.assist_player_id"
-            >
-              <option
-                  :key="index"
-                  v-for="(player, index) in player_team1"
-                  :data="player"
-                  v-bind:value="player.id"
-              >
-                {{ player.name }}
-              </option>
+            <select class="input" v-model="AddCard_firstTeam.card_type">
+              <option value="1">Yellow</option>
+              <option value="2">Red</option>
             </select>
           </div>
         </div>
@@ -77,7 +68,7 @@ export default {
 
       AddCard_firstTeam: {
         player_id: '',
-        assist_player_id: '',
+        card_type: '',
         time: "",
       },
     };
@@ -99,26 +90,26 @@ export default {
           .catch(() => {});
     },
 
-    // SaveData() {
-    //   const id = this.$route.params.match_id;
-    //   this.$axios.post(`match/${id}/matchscore`, this.addteam_score).then(res => {
-    //     // console.log(this.addteam_score)
-    //     if (res) {
-    //       setTimeout(() => {
-    //         this.$emit('close');
-    //         this.$emit('success');
-    //         this.$notification.OpenNotification_AddItem_OnSuccess('top-right', 'primary', 3000);
-    //       }, 300);
-    //     }
-    //   }).catch(error => {
-    //     if (error.response.status == 422) {
-    //       var obj = error.response.data.errors; // ໃຊ້ການລູບຂໍ້ມູນເພາະວ່າຂໍ້ມູນ errors ທີ່ສົ່ງມາຈາກ Server ນັ້ນເປັນ Array Object
-    //       for (let [key, value] of Object.entries(obj)) {
-    //         this.server_errors[key] = value[0];
-    //       }
-    //     }
-    //   });
-    // },
+    SaveData() {
+      const id = this.$route.params.match_id;
+      this.$axios.post(`match/${id}/matchCardDetail`, this.AddCard_firstTeam).then(res => {
+        console.log(res)
+        if (res) {
+          setTimeout(() => {
+            this.$emit('close');
+            this.$emit('success');
+            this.$notification.OpenNotification_AddItem_OnSuccess('top-right', 'primary', 3000);
+          }, 300);
+        }
+      }).catch(error => {
+        if (error.response.status == 422) {
+          var obj = error.response.data.errors; // ໃຊ້ການລູບຂໍ້ມູນເພາະວ່າຂໍ້ມູນ errors ທີ່ສົ່ງມາຈາກ Server ນັ້ນເປັນ Array Object
+          for (let [key, value] of Object.entries(obj)) {
+            this.server_errors[key] = value[0];
+          }
+        }
+      });
+    },
   },
   created() {
     this.getPlayer();

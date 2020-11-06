@@ -4,8 +4,8 @@
          <span class="pro">{{Player_View.player_position}}</span>
          <img class="round" :src="Player_View.image_url"/>
          <div class="Player-name">
-           <h2> Name: {{Player_View.name}}</h2>
-             <h2> ID: {{Player_View.id}}</h2>
+           <h2> ຊື່ ນາມສະກຸນ: {{Player_View.name}} {{Player_View.sur_name}}</h2>
+           <h2>ອາຍຸ : {{Player_View.age}}</h2>
              <hr>
          </div>
      </div>
@@ -17,11 +17,11 @@
                   <h3 class="skill-player">ໃບແດງ</h3>
                   <h3 class="skill-player">ໃບເຫຼືອງ</h3>
               </div>
-              <div class="column is-2">
-                  <h3 class="skill-player">{{playerStatic.goal_score}}</h3>
-                  <h3 class="skill-player">{{playerStatic.assist_score}}</h3>
-                  <h3 class="skill-player">{{playerStatic.red_card}}</h3>
-                  <h3 class="skill-player">{{playerStatic.yellow_card}}</h3>
+              <div class="column is-2" style="white-space: nowrap">
+                  <h3 class="skill-player">{{playerStatic.goal_score}} ປະຕູ</h3>
+                  <h3 class="skill-player">{{playerStatic.assist_score}} ປະຕູ</h3>
+                  <h3 class="skill-player">{{playerStatic.red_card}} ໃບ</h3>
+                  <h3 class="skill-player">{{playerStatic.yellow_card}} ໃບ</h3>
               </div>
           </div>
         </div>
@@ -45,7 +45,7 @@ props:['Player_View'],
             this.$axios.get(`player/${this.Player_View.id}/static`).then(res => {
                 // console.log(res)
                 setTimeout(() => {
-                    this.playerStatic = res.data.data;
+                    this.playerStatic = res.data.static;
                     console.log(this.playerStatic)
                 }, 100);
             }).catch(() => {
