@@ -141,6 +141,9 @@
                             this.$emit('success');
                             this.$notification.OpenNotification_AddItem_OnSuccess('top-right', 'primary', 3000);
                         }, 300);
+                        this.$router.push({
+                          name:'Match'
+                        })
                     }
                 }).catch(() => {
 

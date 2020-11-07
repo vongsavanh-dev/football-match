@@ -63,7 +63,6 @@
                                 v-validate="'required'"
                                 name="date_of_birth"
                                 placeholder="ປ້ອນວັນເດືອນປີເກີດ..."
-
                                 type="date" v-model="listplayerteam.date_of_birth"
                                 valueType="format" slot="activator"
                                 :popup-style="{ top: '100%', left: '15%' }"

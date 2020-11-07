@@ -49,6 +49,14 @@
                 <h2>ຈັດຕາຕະລາງ</h2>
             </vs-sidebar-item>
         </div>
+      <div @click="TeamStanding()">
+        <vs-sidebar-item id="chat" class="text-header-dashboard">
+          <template #icon>
+            <i class="fas fa-edit"></i>
+          </template>
+          <h2>TeamStanding</h2>
+        </vs-sidebar-item>
+      </div>
 
 <!--        <div @click="MatchScore()">-->
 <!--            <vs-sidebar-item id="chat" class="text-header-dashboard">-->
@@ -89,7 +97,13 @@ export default {
             this.$router.push({
                 name: "Standing"
             })
-        }
+        },
+      TeamStanding(){
+          this.$router.push({
+            name:'TeamStanding'
+          })
+      }
+
     },
 };
 </script>

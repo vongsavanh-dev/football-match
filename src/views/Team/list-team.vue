@@ -133,7 +133,6 @@ export default {
                 name: "playerteam",
                 params: {
                     team_id: teamId,
-
                 }
             });
         },

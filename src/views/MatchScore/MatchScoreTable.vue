@@ -11,7 +11,7 @@
         </div>
 
         <div class="column is-2">
-        <h3 style="margin-top: 40px;">  {{listplayers_team.team_1_score}} - {{listplayers_team.team_2_score}}</h3>
+        <h3 style="margin-top: 40px;" >  {{listplayers_team.team_1_score}} - {{listplayers_team.team_2_score}}</h3>
    <div class="container" style="margin-left: 50px;">
      <vs-button style="text-align: center;" @click="FinishMatch()">
        ບັນທີກຜົນ
@@ -143,12 +143,12 @@
           <template v-slot="{ close }">
             <AddScorefirstTeam v-if="showModalfirstScores" @close="close"
                                :listplayer_firstTeam="listplayers_team"
-                               @success="FetchData()"/>
-            <AddCardFirstTeam  v-if="showModalCardfirstTeam" :Card_firstTeam="listplayers_team"  @close="close"  @success="FetchData()"/>
+                               @success="GetMatchScore();FetchDataSecondTeam() "/>
+            <AddCardFirstTeam  v-if="showModalCardfirstTeam" :Card_firstTeam="listplayers_team"  @close="close"  @success="GetMatchCard()"/>
             <AddScoreSecondTeam  @close="close" :listplayer_scondTeam="listplayers_team"
-                                @success="FetchData()" v-if="showModalSecondScore"/>
+                                @success="GetMatchScore();FetchDataSecondTeam()" v-if="showModalSecondScore"/>
 
-            <AddCardScondTeam  v-if="showModalCardSecondtTeam" :Card_secondTeam="listplayers_team"  @close="close" @success="FetchData()"/>
+            <AddCardScondTeam  v-if="showModalCardSecondtTeam" :Card_secondTeam="listplayers_team"  @close="close" @success="GetMatchCard()"/>
           </template>
         </ModalAdd>
       </div>
@@ -297,6 +297,9 @@ export default {
               this.$emit('success');
               this.$notification.OpenNotification_AddItem_OnSuccess('top-right', 'primary', 3000);
             }, 300);
+            this.$router.push({
+              name:'Match'
+            })
           })
           .catch(() => {
           });

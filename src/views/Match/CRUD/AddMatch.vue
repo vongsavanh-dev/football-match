@@ -46,7 +46,13 @@
                         {{server_errors.match_date}}
                     </span>
                 </label>
-                <DatePicker style="width:100%;" type="datetime" name="match_date" v-model="matchs.match_date" slot="activator" :popup-style="{ top: '100%', left: '15%' }" :append-to-body="false">
+                <DatePicker style="width:100%;"
+                            type="datetime"
+                            name="match_date"
+                            valueType="format"
+                            v-model="matchs.match_date"
+                            slot="activator" :popup-style="{ top: '100%', left: '15%' }"
+                            :append-to-body="false">
 
                 </DatePicker>
             </div>
@@ -127,7 +133,6 @@ export default {
                 team1: this.value,
                 team2: this.value,
                 match_date: '',
-                // status: '',
             },
         };
     },
@@ -168,6 +173,7 @@ export default {
 
         SaveData() {
             this.$axios.post('match', this.matchs).then(res => {
+              console.log(res)
                 if (res) {
                     setTimeout(() => {
                         this.$emit('close');

@@ -11,7 +11,8 @@ import  Group from '../views/Group/ListGroup.vue'
 import Middlewares from '../Middlewares/Index'
 import Dashboard from '../views/Dashboard'
 import ListGroupMember from '../views/GroupMember/ListGroupMember'
-import  ListTeamStanding from '../views/Standing/ListTeamStanding'
+import  ListStanding from '../views/Standing/ListStanding'
+import ListTeamStanding from '../views/TeamStanding/ListTeamStanding'
 
 Vue.use(VueRouter);
 
@@ -116,11 +117,19 @@ const routes = [{
         path: '/admin-teamstading',
         // path: '/admin-teamstading/:tournament_id',
         name:'Standing',
-        component:ListTeamStanding,
+        component:ListStanding,
         meta: {
             middleware: [Middlewares.auth],
         }
     },
+    {
+        path: '/admin-teamstanding',
+        name:'TeamStanding',
+        component:ListTeamStanding,
+        meta:{
+            middleware: [Middlewares.auth]
+        }
+    }
 
 
 

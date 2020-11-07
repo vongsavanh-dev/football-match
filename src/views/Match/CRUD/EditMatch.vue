@@ -52,7 +52,12 @@
                         {{server_errors.match_date}}
                     </span>
                     </label>
-                <DatePicker  name="match_date"  style="width:100%;" type="datetime" v-model="time1" valueType="format" slot="activator" :popup-style="{ top: '100%', left:'15%'}" :append-to-body="false"></DatePicker>
+                <DatePicker  name="match_date"  style="width:100%;"
+                             type="datetime"
+                             v-model="listMatch.match_date"
+                             valueType="format"
+                             slot="activator" :popup-style="{ top: '100%', left:'15%'}"
+                             :append-to-body="false"></DatePicker>
             </div>
         </div>
 
@@ -154,7 +159,7 @@ export default {
             formData.append('team2', this.listMatch.team_2_id);
             formData.append('match_date', this.listMatch.match_date);
             formData.append('status',this.listMatch.status);
-            console.log(this.status)
+            // console.log(this.status)
             // if (this.file) {
             //     formData.append('logo', this.file);
             // }
