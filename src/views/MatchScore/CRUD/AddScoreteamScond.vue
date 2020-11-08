@@ -6,9 +6,15 @@
     <div class="section-content">
       <div class="field">
         <div class="control">
-          <label for="" class="label">Player</label>
+          <label for="" class="label">
+            ນັກເຕະ
+            <span class="has-text-danger">* {{ errors.first('player_id') }}</span>
+            <span class="has-text-danger">
+                        {{server_errors.player_id}}
+            </span>
+          </label>
           <div class="select" style="width: 100%">
-            <select style="width: 100%" v-model="addscore_scondteam.player_id">
+            <select style="width: 100%" v-model="addscore_scondteam.player_id" name="player_id" v-validate="'required'" placeholder="ປ້ອນນັກເຕະ..." >
               <option
                 :key="index"
                 v-for="(player, index) in player_team2"
@@ -24,7 +30,7 @@
 
       <div class="field">
         <div class="control">
-          <label for="" class="label">Player Assist</label>
+          <label for="" class="label">ນັກເຕະ Assist</label>
           <div class="select" style="width: 100%">
             <select
               style="width: 100%"
@@ -46,12 +52,21 @@
 
       <div class="field">
         <div class="control">
-          <label for="" class="label"> Time </label>
+          <label for="" class="label">
+            ເວລາ
+            <span class="has-text-danger">* {{ errors.first('time') }}</span>
+            <span class="has-text-danger">
+                        {{server_errors.time}}
+            </span>
+          </label>
           <input
             type="text"
             class="input"
             v-model="addscore_scondteam.time"
             name="time"
+            v-validate="'required|numeric'"
+            placeholder="ປ້ອນເວລາ..."
+
           />
           <!-- <DatePicker
             style="width: 100%"
@@ -71,9 +86,9 @@
           <button
             class="button is-fullwidth"
             style="color: #ffff"
-            @click="SaveData()"
+            @click="ValidateForm()"
           >
-            ບັນທຶກ ຂໍ້ມູນນັກເຕະ
+            ບັນທຶກ ຂໍ້ມູນຄະແນນ
           </button>
         </div>
       </div>
@@ -82,15 +97,32 @@
 </template>
 
 <script>
-// import DatePicker from "vue2-datepicker";
-// import "vue2-datepicker/index.css";
+import {
+  Validator
+} from 'vee-validate';
+
+const dict = {
+  custom: {
+
+    player_id: {
+      required: '(ກະລຸນາປ້ອນກ່ອນ...)',
+    },
+    time: {
+      required: '(ກະລຸນາປ້ອນກ່ອນ...)', numeric: '(ປ້ອນສະເພາະຕົວເລກ...)',
+    },
+  }
+};
+Validator.localize('en', dict);
+
 export default {
   props: ["listplayer_scondTeam"],
-  // components: {
-  //   DatePicker,
-  // },
   data() {
     return {
+      server_errors: {
+        player_id: "",
+        time: "",
+
+      },
       player_team2: {},
       addscore_scondteam: {
         player_id: "",
@@ -112,6 +144,14 @@ export default {
           }, 100);
         })
         .catch(() => {});
+    },
+
+    ValidateForm() {
+      this.$validator.validateAll().then((result) => {
+        if (result) {
+          this.SaveData();
+        }
+      });
     },
 
     SaveData() {

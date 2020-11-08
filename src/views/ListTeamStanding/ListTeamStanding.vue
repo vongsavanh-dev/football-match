@@ -4,6 +4,9 @@
       <h4>
         ລາຍຊື່ທີມຜ່ານເຂົ້າຮອບ
       </h4>
+      <vs-button @click="CreateStandingMatch()">
+        CreateMatch
+      </vs-button>
       <span class="btn-add">
             <vs-button class="btn-icon" circle icon flat @click="OpenModalAdd()">
                 <i class="fas fa-plus"></i>
@@ -19,7 +22,13 @@
               ລຳດັບ
             </vs-th>
             <vs-th>
+              ຮູບພາບ
+            </vs-th>
+            <vs-th>
               ຊື່ທີມ
+            </vs-th>
+            <vs-th>
+              ສະຖານະ
             </vs-th>
             <vs-th id="table-header-button"> </vs-th>
           </vs-tr>
@@ -30,16 +39,22 @@
             {{index + 1}}
             </vs-td>
             <vs-td>
-              {{teamstanding.team_id}}
+              <img :src="teamstanding.logo_url" alt="" style="width:100px;height: 100px;">
+            </vs-td>
+            <vs-td>
+              {{teamstanding.team_name}}
+            </vs-td>
+            <vs-td>
+              {{teamstanding.status}}
             </vs-td>
             <vs-td style="text-align: right; width: 100px">
               <div class="buttons">
-                <vs-button circle icon flat @click="OpenModalEdit()">
-                  <i class="fas fa-pencil-alt"></i>
-                </vs-button>
-                <vs-button circle danger icon flat @click="OpenModalDelete()">
-                  <i class="fas fa-trash-alt"></i>
-                </vs-button>
+<!--                <vs-button circle icon flat @click="OpenModalEdit()">-->
+<!--                  <i class="fas fa-pencil-alt"></i>-->
+<!--                </vs-button>-->
+<!--                <vs-button circle danger icon flat @click="OpenModalDelete()">-->
+<!--                  <i class="fas fa-trash-alt"></i>-->
+<!--                </vs-button>-->
               </div>
             </vs-td>
           </vs-tr>
@@ -135,7 +150,7 @@ export default {
     getTeamStanding(){
       const tournament_id = this.$route.params.tournament_id;
       const id = this.$route.params.standing_id;
-      this.$axios.get(`tournament/${tournament_id}/standing/${id}`).then(res =>{
+      this.$axios.get(`tournament/${tournament_id}/standing/${id}/all`).then(res =>{
         setTimeout(() => {
           this.$emit('close');
         }, 200);

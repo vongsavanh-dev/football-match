@@ -6,9 +6,15 @@
     <div class="section-content">
       <div class="field">
         <div class="control">
-          <label for="" class="label">ນັກເຕະຍິງປະຕູ</label>
+          <label for="" class="label">
+            ນັກເຕະຍິງປະຕູ
+            <span class="has-text-danger">* {{ errors.first('player_id') }}</span>
+            <span class="has-text-danger">
+                        {{server_errors.player_id}}
+                    </span>
+          </label>
           <div class="select" style="width: 100%">
-            <select style="width: 100%" v-model="addteam_score.player_id">
+            <select style="width: 100%" v-model="addteam_score.player_id" name="player_id" v-validate="'required'" >
               <option
                 :key="index"
                 v-for="(player, index) in player_team1"
@@ -24,7 +30,7 @@
 
       <div class="field">
         <div class="control">
-          <label for="" class="label">ນັກເຕະ Assist</label>
+          <label for="label" class="label">ນັກເຕະ Assist</label>
           <div class="select" style="width: 100%">
             <select
               style="width: 100%"
@@ -46,15 +52,24 @@
 
       <div class="field">
         <div class="control">
-          <label for="" class="label"> Time </label>
-          <input type="text" class="input" v-model="addteam_score.time" name="time">
+          <label for="" class="label">
+            ເວລາ
+            <span class="has-text-danger"
+            >* {{ errors.first('time') }}</span
+            >
+            <span class="has-text-danger">
+              {{ server_errors.time }}
+            </span>
+          </label>
+          <input type="text" class="input" v-model="addteam_score.time" name="time"    v-validate="'required|numeric'"
+                 placeholder="ປ້ອນເວລາ...">
         </div>
       </div>
 
       <div class="field btn">
         <div class="control">
-          <button class="button is-fullwidth" style="color: #ffff" @click="SaveData()">
-            ບັນທຶກ ຂໍ້ມູນນ
+          <button class="button is-fullwidth" style="color: #ffff" @click="ValidateForm()">
+            ບັນທຶກ ຂໍ້ມູນຄະແນນ
           </button>
         </div>
       </div>
@@ -63,15 +78,30 @@
 </template>
 
 <script>
-// import DatePicker from "vue2-datepicker";
-// import "vue2-datepicker/index.css";
+
+import {
+  Validator
+} from 'vee-validate'
+const dict = {
+  custom: {
+    player_id: {
+      required: '(ກະລຸນາປ້ອນກ່ອນ...)',
+    },
+   time: {
+      required: '(ກະລຸນາປ້ອນກ່ອນ...)',numeric: '(ປ້ອນສະເພາະຕົວເລກ...)',
+    },
+  }
+};
+Validator.localize('en', dict);
 export default {
   props: ["listplayer_firstTeam"],
-  // components: {
-  //   DatePicker,
-  // },
   data() {
     return {
+      server_errors: {
+        player_id: '',
+        time: '',
+      },
+
       player_team1: {},
       listteam:'',
 
@@ -85,23 +115,25 @@ export default {
   methods: {
     //  get player team_1 from team
     getPlayer() {
-      // this.player_teams = this.listplayer_firstTeam;
       this.$axios
         .get(`team/${this.listplayer_firstTeam.team_1_id}/player`)
         .then((res) => {
-          // console.log(res)
           setTimeout(() => {
             this.player_team1 = res.data.player_lists;
-            // console.log(this.player_team1);
           }, 100);
         })
         .catch(() => {});
     },
-
+    ValidateForm() {
+      this.$validator.validateAll().then((result) => {
+        if (result) {
+          this.SaveData();
+        }
+      });
+    },
     SaveData() {
        const id = this.$route.params.match_id;
           this.$axios.post(`match/${id}/matchscore`, this.addteam_score).then(res => {
-            // console.log(this.addteam_score)
               if (res) {
                   setTimeout(() => {
                       this.$emit('close');

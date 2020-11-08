@@ -15,7 +15,9 @@
                     </label>
                     <input type="text" class="input" name="tournament_name"
                            v-model="Tournament.name"
-                           v-validate="'required'" />
+                           v-validate="'required'"
+                           placeholder="ຊື່ທົວນາເມັ້ນ..."
+                    />
                 </div>
             </div>
             <div class="filed">
@@ -29,7 +31,9 @@
                     </label>
                     <input type="text" class="input" name="amount_matchs"
                            v-model="Tournament.matches"
-                           v-validate="'required|numeric'" />
+                           v-validate="'required|numeric'"
+                           placeholder="ຈຳນວນນັດ..."
+                    />
                 </div>
             </div>
             <div class="filed">
@@ -43,14 +47,14 @@
                     </label>
                     <input type="text" class="input" name="amount_days"
                            v-model="Tournament.days"
-                           v-validate="'required|numeric'" />
+                           v-validate="'required|numeric'"  placeholder="ຈຳນວນມື້..." />
                 </div>
             </div>
         </div>
             <div class="field btn">
                 <div class="control">
                     <button class="button is-fullwidth" style="color:#ffff" @click="ValidateForm()">
-                        ບັນທຶກ ຂໍ້ມູນທີມ
+                      ບັນທຶກ ຂໍ້ມູນທົວນາເມັ້ນ
                     </button>
                 </div>
             </div>

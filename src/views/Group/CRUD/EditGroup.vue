@@ -1,13 +1,13 @@
 <template>
     <div>
         <div class="header-title">
-            <i class="fas fa-info-circle"></i><span>ອັບເດດ ຂໍ້ມູນທົວນາເມັ້ນ</span>
+            <i class="fas fa-info-circle"></i><span>ອັບເດດ ຂໍ້ມູນກຸ່ມ</span>
         </div>
         <div class="section-content">
             <div class="filed">
                 <div class="control">
                     <label for="label" class="label">
-                        ຊື່ທົວນາເມັ້ນ
+                        ຊື່ກຸ່ມ
                         <span class="has-text-danger">* {{ errors.first('name') }}</span>
                         <span class="has-text-danger">
                         {{server_errors.name}}
@@ -22,7 +22,7 @@
         <div class="field btn">
             <div class="control">
                 <button class="button is-fullwidth" style="color:#ffff" @click="ValidateForm()">
-                    ອັບເດດ ຂໍ້ມູນທີມ
+                  ອັບເດດ ຂໍ້ມູນກຸ່ມ
                 </button>
             </div>
         </div>

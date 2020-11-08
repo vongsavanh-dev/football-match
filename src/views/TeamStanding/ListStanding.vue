@@ -16,10 +16,10 @@
         <template #thead>
           <vs-tr class="table-header">
             <vs-th>
-              ຊື່ກຸ່ມ
+              ຊື່ທົວນາເມັ້ນ
             </vs-th>
             <vs-th>
-              ຈຳນວນທີມ
+              ຈຳນວນທີມເຂົ້າຮອບ
             </vs-th>
             <vs-th id="table-header-button"> </vs-th>
           </vs-tr>
@@ -27,10 +27,10 @@
         <template #tbody>
           <vs-tr >
             <vs-td>
-              {{standing.tournament_id}}
+              {{standing.tournament_name}}
             </vs-td>
             <vs-td>
-              {{standing.teams}}
+              {{standing.teams}} ທີມ
             </vs-td>
 
             <vs-td style="text-align: right; width: 100px">
@@ -86,11 +86,12 @@ export default {
     FetchData() {
       const id = this.$route.params.tournament_id;
       this.$axios.get(`tournament/${id}/standing`).then(res => {
+        console.log(res)
         setTimeout(() => {
           this.$emit('close');
         }, 200);
         setTimeout(() => {
-          this.standing = res.data
+          this.standing = res.data.data
         }, 100);
       }).catch(() => {
 

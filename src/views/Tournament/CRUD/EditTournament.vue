@@ -56,7 +56,7 @@
         <div class="field btn">
             <div class="control">
                 <button class="button is-fullwidth" style="color:#ffff" @click="ValidateForm()">
-                    ອັບເດດ ຂໍ້ມູນທີມ
+                  ອັບເດດ ຂໍ້ມູນທົວນາເມັ້ນ
                 </button>
             </div>
         </div>

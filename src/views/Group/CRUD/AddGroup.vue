@@ -15,7 +15,9 @@
                     </label>
                     <input type="text" class="input" name="name"
                            v-model="GroupAdd.name"
-                           v-validate="'required'" />
+                           v-validate="'required'"
+                           placeholder="ປ້ອນຊື່ກຸ່ມ..."
+                    />
                 </div>
             </div>
         </div>

@@ -1,16 +1,20 @@
 <template>
     <div>
         <div class="header-title">
-            <i class="fas fa-info-circle"></i><span>Member</span>
+            <i class="fas fa-info-circle"></i><span>ບັນທຶກຂໍ້ມູນທີມໃນກຸ່ມ</span>
         </div>
         <div class="section-content">
             <div class="field">
                 <div class="control">
                     <label for="" class="label">
                         ເລືອກທີມ
+                      <span class="has-text-danger">* {{ errors.first('name') }}</span>
+                      <span class="has-text-danger">
+                        {{server_errors.name}}
+                    </span>
                     </label>
                     <div class="select" style="width: 100%">
-                        <select style="width: 100%" v-model="GroupMember.team_id">
+                        <select style="width: 100%" v-model="GroupMember.team_id" name="name" v-validate="'required'">
                             <option v-bind:value="team.id" :key="index " v-for="(team, index) in teams" :data="team">{{team.team_name}}</option>
                         </select>
                     </div>
@@ -20,7 +24,7 @@
         <div class="field btn">
             <div class="control">
                 <button class="button is-fullwidth" style="color:#ffff" @click="ValidateForm()">
-                   Add Member
+                  ບັນທຶກຂໍ້ມູນ
                 </button>
             </div>
         </div>
@@ -33,23 +37,21 @@
     } from 'vee-validate';
 
     const dict = {
-        // custom: {
-        //     name: {
-        //         required: '(ກະລຸນາປ້ອນກ່ອນ...)',
-        //     },
-        //
-        // }
+        custom: {
+            name: {
+                required: '(ກະລຸນາປ້ອນກ່ອນ...)',
+            },
+
+        }
     };
     Validator.localize('en', dict);
     export default {
         data(){
             return{
                 teams:'',
-
-                // server_errors: {
-                //     name: '',
-                //
-                // },
+                server_errors: {
+                    name: '',
+                },
                 GroupMember:{
                     team_id:''
                 }

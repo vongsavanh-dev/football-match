@@ -1,14 +1,20 @@
 <template>
   <div>
     <div class="header-title">
-      <i class="fas fa-info-circle"></i><span>Card</span>
+      <i class="fas fa-info-circle"></i><span>ບັນທຶກຂໍ້ມູນ Card</span>
     </div>
     <div class="section-content">
       <div class="field">
         <div class="control">
-          <label for="" class="label">ນັກເຕະ</label>
+          <label for="" class="label">
+            ນັກເຕະ
+            <span class="has-text-danger">* {{ errors.first('player_id') }}</span>
+            <span class="has-text-danger">
+                        {{server_errors.player_id}}
+                    </span>
+          </label>
           <div class="select" style="width: 100%">
-            <select style="width: 100%" v-model="AddCard_firstTeam.player_id">
+            <select style="width: 100%" v-model="AddCard_firstTeam.player_id" name="player_id" v-validate="'required'" >
               <option
                   :key="index"
                   v-for="(player, index) in player_team1"
@@ -37,15 +43,24 @@
 
       <div class="field">
         <div class="control">
-          <label for="" class="label"> Time </label>
-          <input type="text" class="input" v-model="AddCard_firstTeam.time" name="time">
+          <label for="" class="label">
+            ເວລາ
+            <span class="has-text-danger"
+            >* {{ errors.first('time') }}</span
+            >
+            <span class="has-text-danger">
+              {{ server_errors.time }}
+            </span>
+          </label>
+          <input type="text" class="input" v-model="AddCard_firstTeam.time" name="time"  v-validate="'required|numeric'"
+                 placeholder="ປ້ອນເວລາ...">
         </div>
       </div>
 
       <div class="field btn">
         <div class="control">
-          <button class="button is-fullwidth" style="color: #ffff" @click="SaveData()">
-            ບັນທຶກ ຂໍ້ມູນນັກເຕະ
+          <button class="button is-fullwidth" style="color: #ffff" @click="ValidateForm()">
+            ບັນທຶກຂໍ້ມູນ Card
           </button>
         </div>
       </div>
@@ -54,15 +69,29 @@
 </template>
 
 <script>
-// import DatePicker from "vue2-datepicker";
-// import "vue2-datepicker/index.css";
+import {
+  Validator
+} from 'vee-validate'
+const dict = {
+  custom: {
+    player_id: {
+      required: '(ກະລຸນາປ້ອນກ່ອນ...)',
+    },
+    time: {
+      required: '(ກະລຸນາປ້ອນກ່ອນ...)',numeric: '(ປ້ອນສະເພາະຕົວເລກ...)',
+    },
+  }
+};
+Validator.localize('en', dict);
 export default {
   props: ["Card_firstTeam"],
-  // components: {
-  //   DatePicker,
-  // },
+
   data() {
     return {
+      server_errors: {
+        player_id: '',
+        time: '',
+      },
       player_team1: {},
       listteam:'',
 
@@ -89,7 +118,13 @@ export default {
           })
           .catch(() => {});
     },
-
+    ValidateForm() {
+      this.$validator.validateAll().then((result) => {
+        if (result) {
+          this.SaveData();
+        }
+      });
+    },
     SaveData() {
       const id = this.$route.params.match_id;
       this.$axios.post(`match/${id}/matchCardDetail`, this.AddCard_firstTeam).then(res => {
