@@ -55,7 +55,7 @@
                     <vs-td style="text-align: right">
                        {{ match.team_1 }}
                     </vs-td>
-                    <vs-td style="width:60px;">
+                    <vs-td style="width:200px;">
                     <img :src="match.team1_logo" alt="" class="image-log-team">
                     </vs-td>
                     <vs-td style="text-align: center">
@@ -130,7 +130,7 @@ export default {
     },
     data() {
         return {
-            active: 1,
+            // active: 1,
             page: 1,
             max: 8,
             matchs: [],

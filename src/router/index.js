@@ -11,8 +11,9 @@ import  Group from '../views/Group/ListGroup.vue'
 import Middlewares from '../Middlewares/Index'
 import Dashboard from '../views/Dashboard'
 import ListGroupMember from '../views/GroupMember/ListGroupMember'
-import  ListStanding from '../views/Standing/ListStanding'
-import ListTeamStanding from '../views/TeamStanding/ListTeamStanding'
+import  GroupStanding from '../views/GroupStanding/ListGroupStanding'
+import ListStanding from '../views/TeamStanding/ListStanding'
+import ListTeamStanding from '../views/ListTeamStanding/ListTeamStanding'
 
 Vue.use(VueRouter);
 
@@ -114,19 +115,33 @@ const routes = [{
     },
 
     {
-        path: '/admin-teamstading',
-        // path: '/admin-teamstading/:tournament_id',
-        name:'Standing',
-        component:ListStanding,
+        path: '/admin-groupstanding',
+        name:'GroupStanding',
+        component:GroupStanding,
         meta: {
             middleware: [Middlewares.auth],
         }
     },
+
     {
-        path: '/admin-teamstanding',
-        name:'TeamStanding',
-        component:ListTeamStanding,
+        path: '/admin-standing/:tournament_id',
+        name:'Standing',
+        component:ListStanding,
         meta:{
+            middleware: [Middlewares.auth]
+        }
+    },
+    {
+        // path:'/admin-listeamstanding/:tournament_id',
+        // name:'ListTeamStanding',
+        // component:ListTeamStanding,
+        // meta: {
+        //     middleware: [Middlewares.auth]
+        // }
+        path:'/admin-listeamstanding/:tournament_id/:standing_id',
+        name:'ListTeamStanding',
+        component:ListTeamStanding,
+        meta: {
             middleware: [Middlewares.auth]
         }
     }

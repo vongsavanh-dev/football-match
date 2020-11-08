@@ -132,6 +132,7 @@
             DeleteTournament,
         },
         data: () => ({
+          // active: 1,
             page: 1,
             max: 5,
             ListTournament:[],

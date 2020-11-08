@@ -7,7 +7,7 @@
 
         <vs-sidebar-group>
             <template #header>
-                <vs-sidebar-item arrow class="text-header-dashboard">
+                <vs-sidebar-item id="home" arrow class="text-header-dashboard">
                     <template #icon>
                         <i class="fas fa-folder-open"></i>
                     </template>
@@ -15,7 +15,7 @@
                 </vs-sidebar-item>
             </template>
             <div @click="Tournament()">
-                <vs-sidebar-item id="Instagram" class="text-header-dashboard">
+                <vs-sidebar-item id="tournament" class="text-header-dashboard">
                     <template #icon>
                         <i class="fas fa-futbol"></i>
                     </template>
@@ -23,7 +23,7 @@
                 </vs-sidebar-item>
             </div>
             <div @click="Team()">
-                <vs-sidebar-item id="Instagram" class="text-header-dashboard">
+                <vs-sidebar-item id="teams" class="text-header-dashboard">
                     <template #icon>
                         <i class="fas fa-sitemap"></i>
                     </template>
@@ -32,77 +32,55 @@
             </div>
         </vs-sidebar-group>
 
-      <div @click="Standing()">
-        <vs-sidebar-item id="chat" class="text-header-dashboard">
+      <div @click="GroupStanding()">
+        <vs-sidebar-item id="group" class="text-header-dashboard">
           <template #icon>
-            <i class="fas fa-edit"></i>
+            <i class="fas fa-meteor"></i>
           </template>
           <h2>ຮອບຕັດເຊືອກ</h2>
         </vs-sidebar-item>
       </div>
         <!--  <vs-sidebar-group> -->
         <div @click="MatchTable()">
-            <vs-sidebar-item id="chat" class="text-header-dashboard">
+            <vs-sidebar-item id="match" class="text-header-dashboard">
                 <template #icon>
                     <i class="fas fa-edit"></i>
                 </template>
                 <h2>ຈັດຕາຕະລາງ</h2>
             </vs-sidebar-item>
         </div>
-      <div @click="TeamStanding()">
-        <vs-sidebar-item id="chat" class="text-header-dashboard">
-          <template #icon>
-            <i class="fas fa-edit"></i>
-          </template>
-          <h2>TeamStanding</h2>
-        </vs-sidebar-item>
-      </div>
-
-<!--        <div @click="MatchScore()">-->
-<!--            <vs-sidebar-item id="chat" class="text-header-dashboard">-->
-<!--                <template #icon>-->
-<!--                    <i class="fas fa-edit"></i>-->
-<!--                </template>-->
-<!--                <h2>ຜົນການແຂ່ງຂັນ</h2>-->
-<!--            </vs-sidebar-item>-->
-<!--        </div>-->
-        <!-- </vs-sidebar-group> -->
     </vs-sidebar>
+
 </div>
 </template>
 
 <script>
 export default {
     data: () => ({
-        active: "home",
+        active: '',
     }),
     methods: {
         Tournament(){
             this.$router.push({
                 name:"Tournament"
-            })
+            }).catch(()=>{})
         },
         Team() {
             this.$router.push({
                 name: "listteam"
-            });
+            }).catch(()=>{})
         },
 
         MatchTable() {
             this.$router.push({
                 name: "Match"
-            })
+            }).catch(()=>{})
         },
-      Standing() {
+      GroupStanding() {
             this.$router.push({
-                name: "Standing"
-            })
+                name: "GroupStanding"
+            }).catch(()=>{})
         },
-      TeamStanding(){
-          this.$router.push({
-            name:'TeamStanding'
-          })
-      }
 
     },
 };
@@ -127,3 +105,9 @@ export default {
     padding-left: 10px;
 }
 </style>
+
+
+
+
+
+

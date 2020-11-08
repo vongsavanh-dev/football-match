@@ -96,7 +96,7 @@
             DeleteGroup
         },
         data: () => ({
-            active: 1,
+            // active: 1,
             page: 1,
             max: 5,
             ListGroup:[],

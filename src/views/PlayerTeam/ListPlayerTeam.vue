@@ -139,7 +139,7 @@ export default {
     data() {
         return {
             PlayerId:'',
-            active: 1,
+            // active: 1,
             page: 1,
             max: 5,
             playerteams: [],

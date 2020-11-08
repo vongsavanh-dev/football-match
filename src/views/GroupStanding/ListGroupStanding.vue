@@ -31,7 +31,7 @@
 
             <vs-td id="table-header-button" >
               <div class="buttons">
-                <vs-button circle   icon flat @click="AddStandingTeam()">
+                <vs-button circle   icon flat @click="AddStandingTeam(tournament.id)">
                   <i class="fas fa-folder-plus"></i>
                 </vs-button>
               </div>
@@ -74,7 +74,7 @@ export default {
     FetchData(){
       this.$axios.get('tournament').then(res => {
         setTimeout(() => {
-        this.tournament = res.data.data
+        this.tournaments = res.data.data
           // console.log(this.tournament)
         }, 100);
       }).catch(() => {
@@ -82,8 +82,13 @@ export default {
       });
     },
 
-    AddStandingTeam(){
-
+    AddStandingTeam(TournamentId){
+      this.$router.push({
+        name: "Standing",
+        params: {
+          tournament_id: TournamentId,
+        }
+      });
     }
   },
   created() {

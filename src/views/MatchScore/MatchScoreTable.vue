@@ -174,7 +174,7 @@ export default {
   data() {
     return {
 
-      active: 1,
+      // active: 1,
       page: 1,
       page2:1,
       max: 5,

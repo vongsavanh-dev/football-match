@@ -1,0 +1,104 @@
+<template>
+  <div class="center con-selects">
+    <div class="field">
+      <div class="header-title">
+        <i class="fas fa-info-circle"></i><span>ບັນທຶກ ຂໍ້ມູນ</span>
+      </div>
+      <label for="lable" class="label">
+        ເລືອກທີມເຂົ້າຮອບ
+      </label>
+      <vs-select
+          filter
+          multiple
+          placeholder="ເລືອກທີມ"
+          v-model="selectedTeams"
+
+      >
+        <vs-option v-for="(team, idx) in list_teams" :key="idx"
+                   :label="team.team_name" :value="team.id">
+          {{ team.team_name }}
+        </vs-option>
+      </vs-select>
+
+    </div>
+    <vs-button style="width:100%;font-size: 20px;" @click="SaveData()">
+      ບັນທຶກຂໍ້ມູນທີມ
+    </vs-button>
+  </div>
+</template>
+<script>
+export default {
+  props: ['list_teams'],
+  data: () => ({
+    selectedTeams: [],
+    team_id: [],
+  }),
+  methods: {
+    SaveData() {
+      const payload = {
+        team_id: this.selectedTeams
+      };
+      const tournament_id = this.$route.params.tournament_id;
+      const id = this.$route.params.standing_id;
+      this.$axios.post(`tournament/${tournament_id}/standing/${id}`, payload
+      ).then(res => {
+        if (res) {
+          setTimeout(() => {
+            this.$emit('close');
+            this.$emit('success');
+            this.$notification.OpenNotification_AddItem_OnSuccess('top-right', 'primary', 3000);
+          }, 300);
+          // this.$router.push({
+          //   name:'Match'
+          // })
+        }
+      }).catch((e) => {
+         if(e && e.response) {
+           const message = (e.response.data || {}).message;
+           console.log(message);
+         }
+      });
+    }
+  },
+  created() {
+
+
+  }
+
+}
+
+
+</script>
+<style scoped>
+.header-title {
+  font-family: BoonBaan, serif;
+  color: blue;
+  font-size: 22px;
+  text-align: center;
+}
+
+.header-title span {
+  margin: 10px;
+  font-weight: bold;
+  font-size: 22px;
+}
+
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
