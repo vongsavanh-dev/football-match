@@ -14,6 +14,8 @@ import ListGroupMember from '../views/GroupMember/ListGroupMember'
 import  GroupStanding from '../views/GroupStanding/ListGroupStanding'
 import ListStanding from '../views/TeamStanding/ListStanding'
 import ListTeamStanding from '../views/ListTeamStanding/ListTeamStanding'
+import MatchStanding from '../views/MatchStanding/MatchStandingTable'
+
 
 Vue.use(VueRouter);
 
@@ -144,7 +146,16 @@ const routes = [{
         meta: {
             middleware: [Middlewares.auth]
         }
+    },
+    {
+        path: '/admin-matchstanding',
+        name:'MatchStanding',
+        component:MatchStanding,
+        meta: {
+            middleware: [Middlewares.auth]
+        }
     }
+
 
 
 

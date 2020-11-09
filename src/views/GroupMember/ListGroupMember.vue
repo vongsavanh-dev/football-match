@@ -3,17 +3,12 @@
         <div class="box-title">
             <h4>
                 ລາຍຊື່ທີມພາຍໃນກຸ່ມ
-
             </h4>
-
-            <span class="btn-create-match">
-        <vs-button class="btn-icon" icon circle style="background: #3380ff" @click="CreateMatch()">
-         <i class="fas fa-play-circle"
-            style="font-size: 25px;color:#ffffff;"></i>
-        </vs-button>
-
-            </span>
-
+          <div class="create-match" style="margin-left:auto;margin-right: auto;width: 50%;">
+            <vs-button style="margin-left:auto;margin-right: auto;width: 20%;font-size: 20px;"  @click="CreateMatch()">
+              <i class="fas fa-play-circle"></i> ສ້າງເເມັດ
+            </vs-button>
+          </div>
             <span class="btn-add">
         <vs-button class="btn-icon" circle icon flat @click="OpenModalAdd()">
           <i class="fas fa-plus"></i>
@@ -129,6 +124,7 @@
 
                 });
             },
+
 
             CreateMatch(){
                 const tournament_id = this.$route.params.tournament_id;

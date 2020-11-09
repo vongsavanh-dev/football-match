@@ -4,9 +4,11 @@
       <h4>
         ລາຍຊື່ທີມຜ່ານເຂົ້າຮອບ
       </h4>
-      <vs-button @click="CreateStandingMatch()">
-        CreateMatch
-      </vs-button>
+      <div class="create-match" style="margin-left:auto;margin-right: auto;width: 50%;">
+        <vs-button style="margin-left:auto;margin-right: auto;width: 20%;font-size: 20px;"  @click="CreateStandingMatch()">
+          <i class="fas fa-play-circle"></i> ສ້າງເເມັດ
+        </vs-button>
+      </div>
       <span class="btn-add">
             <vs-button class="btn-icon" circle icon flat @click="OpenModalAdd()">
                 <i class="fas fa-plus"></i>
@@ -63,76 +65,41 @@
     </div>
     <ModalAdd>
       <template v-slot="{ close }">
-        <AddTeam @close="close" :list_teams="teams" @success="FetchData()" />
+        <AddTeam v-if="showTeamStanding" @close="close" :list_teams="teams" @success="FetchData()" />
+        <CreateMatch v-if="showCreateMatch"  @close="close" :CreateMatch_Standing="ListteamStanding"  @success="FetchData()" />
       </template>
     </ModalAdd>
-<!--    <ModalEdit>-->
-<!--      <template v-slot="{ close }">-->
-<!--        <EditGroup  @close="close" :EditGroup ="Groups" @success="FetchData()" />-->
-<!--      </template>-->
-<!--    </ModalEdit>-->
-
-<!--    <ModalDelete>-->
-<!--      <template v-slot="{ close }">-->
-<!--        <DeleteGroup @close="close" :Group_Delete="groupId" @success="FetchData()" />-->
-<!--      </template>-->
-<!--    </ModalDelete>-->
   </div>
 </template>
 
 <script>
 import AddTeam from './CRUD/AddTeaminStanding'
+import CreateMatch from './CRUD/CreateMatchStanding'
 export default {
   components: {
-    AddTeam
-    // EditGroup,
-    // DeleteGroup
+    AddTeam,
+    CreateMatch
   },
   data: () => ({
-    // active: 1,
     page: 1,
     max: 5,
     teams:[],
     ListteamStanding:[],
-
-
+    showCreateMatch:false,
+    showTeamStanding:false,
   }),
   methods: {
     OpenModalAdd() {
+      this.showTeamStanding = true
+      this.showCreateMatch=false
       this.$store.commit("modalAdd_State", true);
     },
 
-    // filterGroup(GroupID) {
-    //   return (
-    //       this.ListGroup.filter((item) => {
-    //         return item.id == GroupID;
-    //       })[0] || {}
-    //   );
-    // },
-    // OpenModalEdit(groupId) {
-    //   this.Groups = {
-    //     ...this.filterGroup(groupId)
-    //   };
-    //   this.$store.commit("modalEdit_State", true);
-    // },
-    // OpenModalDelete(groupId) {
-    //   this.groupId = groupId
-    //   this.$store.commit("modalDelete_State", true);
-    // },
-
-    // // insert team to group
-    // Addmember(groupId){
-    //   //console.log(this.$route.params.tournament_id)
-    //   this.$router.push({
-    //     name: "groupmember",
-    //     params: {
-    //       tournament_id: this.$route.params.tournament_id,
-    //       group_id: groupId,
-    //
-    //     }
-    //   });
-    //
-    // },
+    CreateStandingMatch(){
+      this.showTeamStanding = false
+      this.showCreateMatch=true
+      this.$store.commit('modalAdd_State',true)
+    },
 
     FetchData() {
       this.$axios.get('team').then(res => {
@@ -156,7 +123,7 @@ export default {
         }, 200);
         setTimeout(() => {
           this.ListteamStanding = res.data;
-          console.log(this.ListteamStanding)
+          // console.log(this.ListteamStanding)
         }, 100);
       }).catch(() => {
 
