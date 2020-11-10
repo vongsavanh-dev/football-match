@@ -104,7 +104,7 @@
             // },
             OpenModalDelete(groupmember_id) {
                 this.groupmember_id = groupmember_id
-                console.log(this.groupmember_id)
+                // console.log(this.groupmember_id)
                 this.$store.commit("modalDelete_State", true);
             },
 

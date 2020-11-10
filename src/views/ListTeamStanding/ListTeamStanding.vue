@@ -65,8 +65,8 @@
     </div>
     <ModalAdd>
       <template v-slot="{ close }">
-        <AddTeam v-if="showTeamStanding" @close="close" :list_teams="teams" @success="FetchData()" />
-        <CreateMatch v-if="showCreateMatch"  @close="close" :CreateMatch_Standing="ListteamStanding"  @success="FetchData()" />
+        <AddTeam v-if="showTeamStanding" @close="close" :list_teams="teams" @success="FetchData();getTeamStanding()" />
+        <CreateMatch v-if="showCreateMatch"  @close="close" :CreateMatch_Standing="ListteamStanding"  @success="FetchData();getTeamStanding()" />
       </template>
     </ModalAdd>
   </div>

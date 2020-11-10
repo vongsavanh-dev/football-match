@@ -179,7 +179,6 @@ export default {
         }, 200);
         setTimeout(() => {
           this.matchs = res.data.data;
-          console.log(this.matchs)
         }, 100);
       }).catch(() => {
 

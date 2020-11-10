@@ -12,9 +12,12 @@
 
         <div class="column is-2">
         <h3 style="margin-top: 40px;" >  {{listplayers_team.team_1_score}} - {{listplayers_team.team_2_score}}</h3>
-   <div class="container" style="margin-left: 50px;">
-     <vs-button style="text-align: center;" @click="FinishMatch()">
+   <div class="container" style="margin-left: 50px;" >
+     <vs-button style="text-align: center;" v-if="listplayers_match.group_id" @click="FinishMatch()">
        ບັນທີກຜົນ
+     </vs-button>
+     <vs-button style="text-align: center;" v-else @click="MatchTeamout()">
+       teamout
      </vs-button>
    </div>
 
@@ -197,13 +200,12 @@ export default {
       this.$axios
           .get("match/" + this.$route.params.match_id)
           .then((res) => {
+            console.log(res)
             setTimeout(() => {
               this.isLoading = false;
               this.$emit("close");
-            }, 200);
-            setTimeout(() => {
-              this.listplayers_match = res.data.data;
             }, 100);
+              this.listplayers_match = res.data.data;
           })
           .catch(() => {
           });
@@ -216,10 +218,8 @@ export default {
         setTimeout(() => {
           this.isLoading = false;
           this.$emit("close");
-        }, 200);
-        setTimeout(() => {
-          this.listplayers_team = res.data.data;
         }, 100);
+          this.listplayers_team = res.data.data;
       })
     },
 
@@ -258,10 +258,8 @@ export default {
             setTimeout(() => {
               this.isLoading = false;
               this.$emit("close");
-            }, 200);
-            setTimeout(() => {
-              this.player_Score = res.data.data
             }, 100);
+              this.player_Score = res.data.data
           })
           .catch(() => {
           });
@@ -271,7 +269,6 @@ export default {
       this.$axios
           .get(`match/${this.$route.params.match_id}/matchCardDetail`)
           .then((res) => {
-            console.log(res)
             setTimeout(() => {
               this.isLoading = false;
               this.$emit("close");
@@ -288,6 +285,26 @@ export default {
     FinishMatch(){
       this.$axios
           .get(`match/${this.$route.params.match_id}/finished`)
+          .then(() => {
+            setTimeout(() => {
+              this.$emit("close");
+            }, 200);
+            setTimeout(() => {
+              this.$emit('close');
+              this.$emit('success');
+              this.$notification.OpenNotification_AddItem_OnSuccess('top-right', 'primary', 3000);
+            }, 300);
+            this.$router.push({
+              name:'Match'
+            })
+          })
+          .catch(() => {
+          });
+    },
+    //Teamout
+    MatchTeamout(){
+      this.$axios
+          .get(`match/${this.$route.params.match_id}/team-out`)
           .then(() => {
             setTimeout(() => {
               this.$emit("close");

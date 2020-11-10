@@ -1,11 +1,15 @@
 <template>
   <div class="center con-selects">
     <div class="field">
-      <div class="header-title">
-        <i class="fas fa-info-circle"></i><span>ບັນທຶກ ຂໍ້ມູນ</span>
+      <div class="header-title" >
+        <i class="fas fa-info-circle"></i>
+        <span>
+        ບັນທຶກ ຂໍ້ມູນ
+      </span>
       </div>
-      <label for="lable" class="label">
+      <label for="lable" class="label" style="margin-top: 20px;">
         ເລືອກທີມເຂົ້າຮອບ
+        <span class="has-text-danger" style="font-size: 18px;">* {{errorMessage}}</span>
       </label>
       <vs-select
           filter
@@ -27,9 +31,25 @@
   </div>
 </template>
 <script>
+
+import {
+  Validator
+} from 'vee-validate'
+const dict = {
+  custom: {
+    errorMessage: {
+      required: '(ກດເກດເກດເກເກດເ...)',
+    },
+  }
+};
+Validator.localize('en', dict);
 export default {
   props: ['list_teams'],
   data: () => ({
+    server_errors: {
+      errorMessage: '',
+    },
+    errorMessage:'',
     selectedTeams: [],
     team_id: [],
   }),
@@ -48,23 +68,23 @@ export default {
             this.$emit('success');
             this.$notification.OpenNotification_AddItem_OnSuccess('top-right', 'primary', 3000);
           }, 300);
-          // this.$router.push({
-          //   name:'Match'
-          // })
         }
       }).catch((e) => {
          if(e && e.response) {
            const message = (e.response.data || {}).message;
-           console.log(message);
+         //      if (message == 'Standing teams can not be more than 2'){
+         //   this.errorMessage = 'ທີມຕ້ອງບໍ່ເກີນ'
+         // }
+           this.errorMessage = message
+
+           // console.log(this.errorMessage)
          }
       });
     }
   },
   created() {
 
-
   }
-
 }
 
 

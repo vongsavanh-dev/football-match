@@ -105,9 +105,6 @@ const dict = {
     match_date: {
       required: '(ກະລຸນາປ້ອນກ່ອນ...)',
     },
-    // status: {
-    //     required: '(ກະລຸນາປ້ອນກ່ອນ...)',
-    // }
   }
 };
 Validator.localize('en', dict);
