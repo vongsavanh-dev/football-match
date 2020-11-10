@@ -110,7 +110,7 @@
                         setTimeout(() => {
                             this.$emit('close');
                             this.$emit('success');
-                            this.$notification.OpenNotification_EditItem_OnSuccess('top-right', 'danger', 3000);
+                            this.$notification.OpenNotification_EditItem_OnSuccess('top-right', 'primary', 3000);
                         }, 300);
                     }
                 }).catch(() => {});
