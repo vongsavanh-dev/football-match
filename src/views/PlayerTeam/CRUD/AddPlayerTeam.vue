@@ -33,12 +33,12 @@
         <div class="control">
           <label for="" class="label">
             Name
-            <span class="has-text-danger">* {{ errors.first('eng_name') }}</span>
-            <span class="has-text-danger">
-              {{ server_errors.eng_name }}
-            </span>
+<!--            <span class="has-text-danger">* {{ errors.first('eng_name') }}</span>-->
+<!--            <span class="has-text-danger">-->
+<!--              {{ server_errors.eng_name }}-->
+<!--            </span>-->
           </label>
-          <input type="text" class="input" v-model="player_team.eng_name" name="eng_name" v-validate="'required'" placeholder="name..."  />
+          <input type="text" class="input" v-model="player_team.eng_name" name="eng_name"  placeholder="name..."  />
         </div>
       </div>
 
@@ -46,13 +46,13 @@
         <div class="control">
           <label  class="label">
             SurName
-            <span class="has-text-danger">* {{ errors.first('eng_surname') }}</span>
-            <span class="has-text-danger">
-              {{ server_errors.eng_surname }}
-            </span>
+<!--            <span class="has-text-danger">* {{ errors.first('eng_surname') }}</span>-->
+<!--            <span class="has-text-danger">-->
+<!--              {{ server_errors.eng_surname }}-->
+<!--            </span>-->
           </label>
           <input type="text" class="input" v-model="player_team.eng_surname" name="eng_surname"
-                 v-validate="'required'" placeholder="surname..."  />
+                 placeholder="surname..."  />
         </div>
       </div>
 
@@ -184,12 +184,12 @@ const dict = {
         sur_name: {
             required: '(ກະລຸນາປ້ອນກ່ອນ...)',
         },
-        eng_name: {
-            required: '(ກະລຸນາປ້ອນກ່ອນ...)',
-        },
-         eng_surname: {
-            required: '(ກະລຸນາປ້ອນກ່ອນ...)',
-        },
+        // eng_name: {
+        //     required: '(ກະລຸນາປ້ອນກ່ອນ...)',
+        // },
+        //  eng_surname: {
+        //     required: '(ກະລຸນາປ້ອນກ່ອນ...)',
+        // },
           date_of_birth: {
             required: '(ກະລຸນາປ້ອນກ່ອນ...)',
         },
@@ -224,8 +224,8 @@ export default {
     server_errors: {
       name: "",
       sur_name: "",
-      eng_name:"",
-      eng_surname:'',
+      // eng_name:"",
+      // eng_surname:'',
       date_of_birth: "",
       player_number: "",
       player_position: "",

@@ -38,15 +38,32 @@
                 <div class="control">
                     <label for="" class="label">
                         Name
-                        <span class="has-text-danger">* {{ errors.first('eng_name') }}</span>
-                        <span class="has-text-danger">
-              {{ server_errors.eng_name }}
-            </span>
+<!--                        <span class="has-text-danger">* {{ errors.first('eng_name') }}</span>-->
+<!--                        <span class="has-text-danger">-->
+<!--              {{ server_errors.eng_name }}-->
+<!--            </span>-->
                     </label>
                     <input type="text" class="input" v-model="listplayerteam.eng_name"
-                           name="eng_name" v-validate="'required'" placeholder="name..."/>
+                           name="eng_name"  placeholder="name..."/>
                 </div>
             </div>
+
+          <div class="field">
+            <div class="control">
+              <label for="" class="label">
+                SurName
+                <!--                        <span class="has-text-danger">* {{ errors.first('eng_name') }}</span>-->
+                <!--                        <span class="has-text-danger">-->
+                <!--              {{ server_errors.eng_name }}-->
+                <!--            </span>-->
+              </label>
+              <input type="text" class="input" v-model="listplayerteam.eng_surname"
+                     name="eng_surname"  placeholder="surname..."/>
+            </div>
+          </div>
+
+
+
 
             <div class="field">
                 <div class="control">
@@ -136,12 +153,12 @@
             sur_name: {
                 required: '(ກະລຸນາປ້ອນກ່ອນ...)',
             },
-            eng_name: {
-                required: '(ກະລຸນາປ້ອນກ່ອນ...)',
-            },
-            eng_surname: {
-                required: '(ກະລຸນາປ້ອນກ່ອນ...)',
-            },
+            // eng_name: {
+            //     required: '(ກະລຸນາປ້ອນກ່ອນ...)',
+            // },
+            // eng_surname: {
+            //     required: '(ກະລຸນາປ້ອນກ່ອນ...)',
+            // },
             date_of_birth: {
                 required: '(ກະລຸນາປ້ອນກ່ອນ...)',
             },
@@ -177,8 +194,8 @@
             server_errors: {
                 name: "",
                 sur_name: "",
-                eng_name: "",
-                eng_surname: '',
+                // eng_name: "",
+                // eng_surname: '',
                 date_of_birth: "",
                 player_number: "",
                 player_position: "",
