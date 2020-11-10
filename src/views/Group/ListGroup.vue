@@ -46,8 +46,6 @@
                             {{group.play}}
                         </vs-td>
 
-
-
                         <vs-td style="text-align: right; width: 100px">
                             <div class="buttons">
                                 <vs-button circle icon flat @click="Addmember(group.id)">
@@ -63,6 +61,10 @@
                         </vs-td>
                     </vs-tr>
                 </template>
+              <template #footer>
+                <vs-pagination v-model="page" :length="$vs.getLength(ListGroup, max)" />
+
+              </template>
             </vs-table>
         </div>
         <ModalAdd>
