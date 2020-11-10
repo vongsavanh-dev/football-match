@@ -68,7 +68,8 @@
 
       <div class="field btn">
         <div class="control">
-          <button class="button is-fullwidth" style="color: #ffff" @click="ValidateForm()">
+          <button class="button is-fullwidth" style="color: #ffff" @click="ValidateForm()"
+          :class="{'is-loading':btnLoading}">
             ບັນທຶກ ຂໍ້ມູນຄະແນນ
           </button>
         </div>
@@ -101,7 +102,7 @@ export default {
         player_id: '',
         time: '',
       },
-
+      btnLoading:false,
       player_team1: {},
       listteam:'',
 
@@ -127,6 +128,7 @@ export default {
     ValidateForm() {
       this.$validator.validateAll().then((result) => {
         if (result) {
+          this.btnLoading = true;
           this.SaveData();
         }
       });

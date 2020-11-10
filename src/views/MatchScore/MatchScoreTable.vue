@@ -4,7 +4,7 @@
       <h4>
         ບັນທຶກຄະແນນການແຂ່ງຂັນ
       </h4>
-      <div class="container" >
+      <div class="container">
       <div class="columns">
         <div class="column is-5 image-team-circle " >
           <img class="img-right" :src="listplayers_team.team1_logo" alt="">
@@ -34,7 +34,8 @@
             <vs-button class="btn-icon" circle icon flat @click="OpenModalAdd('first_score')">
                 <i class="fas fa-plus"></i>
             </vs-button>
-              <vs-button class="btn-icon" circle icon flat @click="OpenModalAdd('first_card')">
+              <vs-button class="btn-icon" circle icon flat
+                         @click="OpenModalAdd('first_card')">
                 <i class="fas fa-id-card-alt"></i>
             </vs-button>
         </span>
@@ -200,7 +201,6 @@ export default {
       this.$axios
           .get("match/" + this.$route.params.match_id)
           .then((res) => {
-            console.log(res)
             setTimeout(() => {
               this.isLoading = false;
               this.$emit("close");
@@ -236,17 +236,20 @@ export default {
         this.showModalCardSecondtTeam = false;
         this.showModalCardfirstTeam = false;
       }else if(value == 'first_card'){
-        this.showModalSecondScore = false;
-        this.showModalfirstScores = false;
-        this.showModalCardSecondtTeam = false;
-        this.showModalCardfirstTeam = true;
+          this.showModalSecondScore = false;
+          this.showModalfirstScores = false;
+          this.showModalCardSecondtTeam = false;
+          this.showModalCardfirstTeam = true;
       }else if(value == 'second_card'){
         this.showModalCardSecondtTeam = true;
         this.showModalSecondScore = false;
         this.showModalfirstScores = false;
         this.showModalCardfirstTeam = false;
       }
-      this.$store.commit("modalAdd_State", true);
+
+      if(this.player_Score.length) {
+        this.$store.commit("modalAdd_State", true);
+      }
     },
 
 

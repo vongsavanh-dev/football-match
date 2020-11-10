@@ -14,7 +14,7 @@
                     </span>
           </label>
           <div class="select" style="width: 100%">
-            <select style="width: 100%" v-model="AddCard_firstTeam.player_id" name="player_id" v-validate="'required'" >
+            <select style="width: 100%" v-model="selectedPlayTeam1.id" name="player_id" v-validate="'required'" >
               <option
                   :key="index"
                   v-for="(player, index) in player_team1"
@@ -59,7 +59,9 @@
 
       <div class="field btn">
         <div class="control">
-          <button class="button is-fullwidth" style="color: #ffff" @click="ValidateForm()">
+          <button class="button is-fullwidth" style="color: #ffff" @click="ValidateForm()"
+                  :class="{'is-loading': btnLoading}"
+          >
             ບັນທຶກຂໍ້ມູນ Card
           </button>
         </div>
@@ -88,11 +90,13 @@ export default {
 
   data() {
     return {
+      btnLoading:false,
       server_errors: {
         player_id: '',
         time: '',
       },
-      player_team1: {},
+      player_team1: [],
+      selectedPlayTeam1: {},
       listteam:'',
 
       AddCard_firstTeam: {
@@ -113,7 +117,7 @@ export default {
           .then((res) => {
             setTimeout(() => {
               this.player_team1 = res.data.player_lists;
-              // console.log(this.player_team1);
+              this.selectedPlayTeam1 = {...this.player_team1[0]};
             }, 100);
           })
           .catch(() => {});
@@ -121,16 +125,19 @@ export default {
     ValidateForm() {
       this.$validator.validateAll().then((result) => {
         if (result) {
+          this.btnLoading = true;
           this.SaveData();
         }
       });
     },
     SaveData() {
       const id = this.$route.params.match_id;
+      this.AddCard_firstTeam.player_id = this.selectedPlayTeam1.id;
       this.$axios.post(`match/${id}/matchCardDetail`, this.AddCard_firstTeam).then(res => {
         console.log(res)
         if (res) {
           setTimeout(() => {
+            this.btnLoading = false;
             this.$emit('close');
             this.$emit('success');
             this.$notification.OpenNotification_AddItem_OnSuccess('top-right', 'primary', 3000);

@@ -59,7 +59,8 @@
 
       <div class="field btn">
         <div class="control">
-          <button class="button is-fullwidth" style="color: #ffff" @click="ValidateForm()">
+          <button class="button is-fullwidth" style="color: #ffff" @click="ValidateForm()"
+                  :class="{'is-loading': btnLoading}">
             ບັນທຶກຂໍ້ມູນ Card
           </button>
         </div>
@@ -93,6 +94,7 @@ export default {
       },
       player_team2: {},
       listteam:'',
+      btnLoading:false,
 
       AddCard_secondTeam: {
         player_id: '',
@@ -120,6 +122,7 @@ export default {
     ValidateForm() {
       this.$validator.validateAll().then((result) => {
         if (result) {
+          this.btnLoading = true;
           this.SaveData();
         }
       });

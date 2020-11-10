@@ -160,6 +160,7 @@
             class="button is-fullwidth"
             style="color: #ffff"
             @click="ValidateForm()"
+            :class="{'loading':btnLoading}"
           >
             ບັນທຶກ ຂໍ້ມູນນັກເຕະ
           </button>
@@ -216,6 +217,7 @@ export default {
   props: ["listposition"],
 
   data: () => ({
+    btnLoading:false,
     value: "",
     time1: "",
     image: "",
@@ -276,6 +278,7 @@ export default {
     },
 
     SaveData() {
+      this.btnLoading = true;
       const id = this.$route.params.team_id;
       let formData = new FormData();
       formData.append('name',this.player_team.name)
@@ -292,6 +295,7 @@ export default {
           // console.log(res)
           if (res) {
             setTimeout(() => {
+              this.btnLoading = false;
               this.$emit("close");
               this.$emit("success");
               this.$notification.OpenNotification_AddItem_OnSuccess(
