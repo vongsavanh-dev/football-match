@@ -247,8 +247,9 @@ export default {
         this.showModalCardfirstTeam = false;
       }
 
-      if(this.player_Score.length) {
-        this.$store.commit("modalAdd_State", true);
+      if(this.player_Score.length){
+      this.$store.commit("modalAdd_State", true);
+
       }
     },
 
@@ -366,8 +367,5 @@ position: absolute;
 position: absolute;
   left: 0;
 }
-
-
-
 
 </style>

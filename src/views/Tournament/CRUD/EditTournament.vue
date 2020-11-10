@@ -24,7 +24,7 @@
             <div class="filed">
                 <div class="control">
                     <label for="label" class="label">
-                        ຈຳນວນມື້
+                        ຈຳນວນນັດທີ່ເຕະ
                         <span class="has-text-danger">* {{ errors.first('amount_matches') }}</span>
                         <span class="has-text-danger">
                         {{server_errors.amount_matches}}
@@ -40,7 +40,7 @@
             <div class="filed">
                 <div class="control">
                     <label for="label" class="label">
-                        ຈຳນວນມື້
+                        ຈຳນວນມື້ທັງໝົດ
                         <span class="has-text-danger">* {{ errors.first('amount_days') }}</span>
                         <span class="has-text-danger">
                         {{server_errors.amount_days}}
