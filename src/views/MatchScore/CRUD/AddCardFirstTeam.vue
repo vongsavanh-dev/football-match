@@ -33,8 +33,8 @@
           <label for="" class="label">Card</label>
           <div class="select" style="width: 100%">
             <select class="input" v-model="AddCard_firstTeam.card_type">
-              <option value="1">Yellow</option>
-              <option value="2">Red</option>
+              <option value="Yellow">Yellow</option>
+              <option value="Red">Red</option>
             </select>
           </div>
         </div>

@@ -5,9 +5,13 @@
                 ລາຍຊື່ທີມພາຍໃນກຸ່ມ
             </h4>
           <div class="create-match" style="margin-left:auto;margin-right: auto;width: 50%;">
-            <vs-button style="margin-left:auto;margin-right: auto;width: 20%;font-size: 20px;"  @click="CreateMatch()">
+            <vs-button style="margin-left:auto;margin-right: auto;width: 20%;font-size: 20px;"
+                       v-if="!btnstatusMatch"
+                       @click="CreateMatch()">
               <i class="fas fa-play-circle"></i> ສ້າງເເມັດ
             </vs-button>
+         <span v-else style="color:red">ກຸ່ມນີ້ມີເເມັດການແຂ່ງຂັນແລ້ວ</span>
+
           </div>
             <span class="btn-add">
         <vs-button class="btn-icon" circle icon flat @click="OpenModalAdd()">
@@ -81,6 +85,7 @@
 <script>
     import AddGroupMember from "./CRUD/AddGroupMember";
     import  DeleteGroupMember from './CRUD/DeleteGroupMember'
+    // import ListGroup from "@/views/Group/ListGroup";
     export default {
         components: {
             AddGroupMember,
@@ -94,6 +99,7 @@
             teams:[],
             groupmember_id:'',
             memberlist:[],
+            btnstatusMatch:''
         }),
         methods: {
             OpenModalAdd() {
@@ -114,11 +120,13 @@
                 const id = this.$route.params.group_id;
                 this.$axios.get(`tournament/${tournament_id}/group/${id}/group-member`,
                     this.GroupMember).then(res => {
+                  console.log(res)
                     setTimeout(() => {
                         this.$emit('close');
                     }, 200);
                     setTimeout(() => {
                         this.ListGroupMember = res.data.member;
+                        this.btnstatusMatch = res.data.create;
                     }, 100);
                 }).catch(() => {
 
@@ -130,17 +138,15 @@
                 const tournament_id = this.$route.params.tournament_id;
                 const id = this.$route.params.group_id;
                 this.$axios.get(`tournament/${tournament_id}/group/${id}/group-member/create-match`,
-                   ).then(res => {
-                    if (res) {
-                        setTimeout(() => {
-                            this.$emit('close');
-                            this.$emit('success');
-                            this.$notification.OpenNotification_AddItem_OnSuccess('top-right', 'primary', 3000);
-                        }, 300);
-                        this.$router.push({
-                          name:'Match'
-                        })
-                    }
+                   ).then(() => {
+                  setTimeout(() => {
+                    this.$emit('close');
+                    this.$emit('success');
+                    this.$notification.OpenNotification_AddItem_OnSuccess('top-right', 'primary', 3000);
+                  }, 300);
+                  this.$router.push({
+                    name:'Match'
+                  })
                 }).catch(() => {
 
                 });
