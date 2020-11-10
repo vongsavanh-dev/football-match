@@ -247,9 +247,8 @@ export default {
         this.showModalCardfirstTeam = false;
       }
 
-      if(this.player_Score.length){
-      this.$store.commit("modalAdd_State", true);
-
+      if(this.listplayers_team.team_1_id){
+        this.$store.commit("modalAdd_State", true);
       }
     },
 
