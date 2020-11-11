@@ -6,9 +6,11 @@
             ກົດຍືນຍັນ ເພື່ອລຶບຂໍ້ມູນ
         </span>
     </div>
+    <span class="has-text-danger" style="font-size: 16px;">{{errorMessage}}</span>
     <hr/>
+
     <div class="buttons btn">
-      <vs-button class="btn" transparent @click="DeleteTeam(Delete_Tournament)">
+      <vs-button class="btn" transparent @click="DeleteScore(Score_Delete)">
         ຢືນຢັນ
       </vs-button>
       <vs-button class="btn cancel" @click="$emit('close')" dark transparent>
@@ -20,26 +22,36 @@
 
 <script>
 export default {
-  props: ['Delete_Tournament'],
+  props: ['Score_Delete'],
   data() {
-    return {}
+    return {
+      errorMessage:'',
+    }
   },
   methods: {
-    DeleteTeam(TournamentId) {
-      this.$axios.delete('tournament/' + TournamentId).then(res => {
-        this.$emit('close');
-        this.$emit('success');
-        if (res && res.data) {
-          setTimeout(() => {
-            this.$notification.OpenNotification_DeleteItem_OnSuccess('top-right', 'danger', 3000);
-          }, 300);
+    DeleteScore(playerScoreId) {
+      this.$axios
+          .delete(`match/${this.$route.params.match_id}/matchscore/` + playerScoreId)
+          .then((res) => {
+            if (res) {
+              setTimeout(() => {
+                this.loading = false;
+                this.$emit('close');
+                this.$emit('success');
+                this.$notification.OpenNotification_DeleteItem_OnSuccess('top-right', 'danger', 3000);
+              }, 300);
+            }
+          }).catch((e) => {
+        if (e && e.response) {
+          const message = (e.response.data || {}).error;
+          this.errorMessage = message
+
         }
-      }).catch(() => {
       });
     }
   },
-  created() {
 
+  created() {
   }
 };
 </script>

@@ -12,7 +12,7 @@
     </div>
 
     <div class="center">
-        <vs-table>
+        <vs-table class="overflow-header">
             <template #thead>
                 <vs-tr class="table-header">
                     <vs-th id="table-index">

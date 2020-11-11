@@ -12,7 +12,7 @@
     </div>
 
     <div class="center">
-        <vs-table>
+        <vs-table class="overflow-header">
             <template #thead>
                 <vs-tr class="table-header">
                     <vs-th id="table-index">
@@ -55,21 +55,28 @@
                     <vs-td style="text-align: right">
                        {{ match.team_1 }}
                     </vs-td>
-                    <vs-td style="width:100px;">
+                    <vs-td style="width:80px;">
                     <img :src="match.team1_logo" alt="">
                     </vs-td>
                     <vs-td style="text-align: center">
                         {{ match.team_1_score }}  -  {{ match.team_2_score }}
                     </vs-td>
-                      <vs-td style="width:100px;">
+                      <vs-td style="width:80px;">
                         <img :src="match.team2_logo" alt="" >
                     </vs-td>
                     <vs-td style="text-align: left">
                       {{ match.team_2 }}
                     </vs-td>
-                    <vs-td>
+                    <vs-td >
+                    <div class="status-finished" v-if="match.status =='Finished'">
+                      {{ match.status }}
+                    </div>
+                      <div class="status-pending" v-else>
                         {{ match.status }}
+                      </div>
                     </vs-td>
+
+
                     <vs-td>
                         {{ match.match_date }}
                     </vs-td>
@@ -234,6 +241,19 @@ export default {
 #icon-menu{
     width:150px;
 }
+.status-finished{
+  background-color: #3380ff;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 10px;
+}
+.status-pending{
+  background-color: red;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 10px;
+}
+
 
 
 

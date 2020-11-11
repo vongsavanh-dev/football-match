@@ -4,28 +4,32 @@
       <h4>
         ບັນທຶກຄະແນນການແຂ່ງຂັນ
       </h4>
+      <span class="has-text-danger" style="font-size: 18px;color:red">
+                {{ errorMessage }}
+              </span>
       <div class="container">
-      <div class="columns">
-        <div class="column is-5 image-team-circle " >
-          <img class="img-right" :src="listplayers_team.team1_logo" alt="">
-        </div>
+        <div class="columns">
+          <div class="column is-5 image-team-circle ">
+            <img class="img-right" :src="listplayers_team.team1_logo" alt="">
+          </div>
 
-        <div class="column is-2">
-        <h3 style="margin-top: 40px;" >  {{listplayers_team.team_1_score}} - {{listplayers_team.team_2_score}}</h3>
-   <div class="container" style="margin-left: 50px;" >
-     <vs-button style="text-align: center;" v-if="listplayers_match.group_id" @click="FinishMatch()">
-       ບັນທີກຜົນ
-     </vs-button>
-     <vs-button style="text-align: center;" v-else @click="MatchTeamout()">
-       teamout
-     </vs-button>
-   </div>
+          <div class="column is-2">
+            <h3 style="margin-top: 40px;"> {{ listplayers_team.team_1_score }} -
+              {{ listplayers_team.team_2_score }}</h3>
+            <div class="container" style="margin-left: 50px;">
+              <vs-button style="text-align: center;" v-if="listplayers_match.group_id" @click="FinishMatch()">
+                ບັນທີກຜົນ
+              </vs-button>
+              <vs-button style="text-align: center;" v-else @click="MatchTeamout()">
+                teamout
+              </vs-button>
+            </div>
 
+          </div>
+          <div class="column is-5 image-team-circle">
+            <img class="img-left" :src="listplayers_team.team2_logo" alt="">
+          </div>
         </div>
-        <div class="column is-5 image-team-circle">
-          <img class="img-left" :src="listplayers_team.team2_logo" alt="">
-        </div>
-      </div>
       </div>
     </div>
     <div class="columns">
@@ -41,11 +45,8 @@
         </span>
         <vs-table>
           <template #thead>
-            <vs-tr class="table-header" >
-              <vs-th id="table-index">
-                ລຳດັບ
-              </vs-th>
-              <vs-th >
+            <vs-tr class="table-header">
+              <vs-th>
                 ຮູບພາບ
               </vs-th>
               <vs-th style="white-space: nowrap;text-align:left;">
@@ -57,14 +58,14 @@
               <vs-th style="white-space: nowrap;text-align:left;">
                 ຍິງໃນນາທີ
               </vs-th>
+              <vs-th>
+
+              </vs-th>
             </vs-tr>
           </template>
           <template #tbody>
             <vs-tr :key="index " v-for="(player, index) in $vs.getPage(player_Score, page, max)" :data="player">
               <vs-td>
-                {{ index + 1 }}
-              </vs-td>
-              <vs-td >
                 <img :src="player.team_logo" alt="" style="width: 50px;height:50px;">
               </vs-td>
               <vs-td style="  white-space: nowrap;text-align:left;">
@@ -75,6 +76,13 @@
               </vs-td>
               <vs-td style="  white-space: nowrap;text-align:left;">
                 {{ player.time }}
+              </vs-td>
+              <vs-td style="text-align: right; width: 100px">
+                <div class="buttons">
+                  <vs-button circle danger icon flat @click="OpenModalDelete(player.id, 'score')">
+                    <i class="fas fa-trash-alt"></i>
+                  </vs-button>
+                </div>
               </vs-td>
             </vs-tr>
           </template>
@@ -114,6 +122,9 @@
               <vs-th>
                 ນາທີ
               </vs-th>
+              <vs-th>
+
+              </vs-th>
             </vs-tr>
           </template>
           <template #tbody>
@@ -137,6 +148,13 @@
               <vs-td style="white-space: nowrap;text-align:left;">
                 {{ playercard.time }}
               </vs-td>
+              <vs-td style="text-align: right; width: 100px">
+                <div class="buttons">
+                  <vs-button circle danger icon flat @click="OpenModalDelete(playercard.id, 'card')">
+                    <i class="fas fa-trash-alt"></i>
+                  </vs-button>
+                </div>
+              </vs-td>
             </vs-tr>
           </template>
           <template #footer>
@@ -148,13 +166,24 @@
             <AddScorefirstTeam v-if="showModalfirstScores" @close="close"
                                :listplayer_firstTeam="listplayers_team"
                                @success="GetMatchScore();FetchDataSecondTeam() "/>
-            <AddCardFirstTeam  v-if="showModalCardfirstTeam" :Card_firstTeam="listplayers_team"  @close="close"  @success="GetMatchCard()"/>
-            <AddScoreSecondTeam  @close="close" :listplayer_scondTeam="listplayers_team"
+            <AddCardFirstTeam v-if="showModalCardfirstTeam" :Card_firstTeam="listplayers_team" @close="close"
+                              @success="GetMatchCard()"/>
+            <AddScoreSecondTeam @close="close" :listplayer_scondTeam="listplayers_team"
                                 @success="GetMatchScore();FetchDataSecondTeam()" v-if="showModalSecondScore"/>
 
-            <AddCardScondTeam  v-if="showModalCardSecondtTeam" :Card_secondTeam="listplayers_team"  @close="close" @success="GetMatchCard()"/>
+            <AddCardScondTeam v-if="showModalCardSecondtTeam" :Card_secondTeam="listplayers_team" @close="close"
+                              @success="GetMatchCard()"/>
           </template>
         </ModalAdd>
+
+        <ModalDelete>
+          <template v-slot="{ close }">
+            <DeleteScore v-if="playerScoreId" @close="close" :Score_Delete="playerScoreId"
+                         @success="GetMatchScore()"/>
+            <DeleteCard v-if="playerCardId" @close="close" :Card_Delete="playerCardId" @success="GetMatchCard()"/>
+          </template>
+        </ModalDelete>
+
       </div>
     </div>
 
@@ -167,6 +196,9 @@ import AddScorefirstTeam from './CRUD/AddScore'
 import AddScoreSecondTeam from './CRUD/AddScoreteamScond'
 import AddCardFirstTeam from './CRUD/AddCardFirstTeam'
 import AddCardScondTeam from './CRUD/AddCardScondTeam'
+import DeleteCard from "@/views/MatchScore/CRUD/DeleteCard";
+import DeleteScore from "@/views/MatchScore/CRUD/DeleteScore";
+
 
 export default {
   components: {
@@ -174,13 +206,15 @@ export default {
     AddScoreSecondTeam,
     AddCardFirstTeam,
     AddCardScondTeam,
+    DeleteScore,
+    DeleteCard,
   },
   data() {
     return {
 
       // active: 1,
       page: 1,
-      page2:1,
+      page2: 1,
       max: 5,
       showModalSecondScore: false,
       showModalCardfirstTeam: false,
@@ -190,8 +224,13 @@ export default {
       player_firstteam: [],
       player_scondteam: [],
       listplayers_match: [],
-      player_Score:[],
-      player_Card:[],
+      player_Score: [],
+      player_Card: [],
+      errorMessage: '',
+      playerScoreId: '',
+      playerCardId: '',
+      modalPlayerScore: false,
+      modalPlayerCard: false,
     }
   },
   methods: {
@@ -205,7 +244,7 @@ export default {
               this.isLoading = false;
               this.$emit("close");
             }, 100);
-              this.listplayers_match = res.data.data;
+            this.listplayers_match = res.data.data;
           })
           .catch(() => {
           });
@@ -219,42 +258,64 @@ export default {
           this.isLoading = false;
           this.$emit("close");
         }, 100);
-          this.listplayers_team = res.data.data;
+        this.listplayers_team = res.data.data;
       })
     },
 
     // Add Score firstTeam
     OpenModalAdd(value) {
-      if(value == 'first_score'){
+      if (value == 'first_score') {
         this.showModalfirstScores = true;
         this.showModalCardSecondtTeam = false;
         this.showModalCardfirstTeam = false;
         this.showModalSecondScore = false;
-      }else if(value == 'second_score'){
+      } else if (value == 'second_score') {
         this.showModalSecondScore = true;
         this.showModalfirstScores = false;
         this.showModalCardSecondtTeam = false;
         this.showModalCardfirstTeam = false;
-      }else if(value == 'first_card'){
-          this.showModalSecondScore = false;
-          this.showModalfirstScores = false;
-          this.showModalCardSecondtTeam = false;
-          this.showModalCardfirstTeam = true;
-      }else if(value == 'second_card'){
+      } else if (value == 'first_card') {
+        this.showModalSecondScore = false;
+        this.showModalfirstScores = false;
+        this.showModalCardSecondtTeam = false;
+        this.showModalCardfirstTeam = true;
+      } else if (value == 'second_card') {
         this.showModalCardSecondtTeam = true;
         this.showModalSecondScore = false;
         this.showModalfirstScores = false;
         this.showModalCardfirstTeam = false;
       }
 
-      if(this.listplayers_team.team_1_id){
+      if (this.listplayers_team.team_1_id) {
         this.$store.commit("modalAdd_State", true);
       }
     },
 
+    // OpenModalDelete(playerScoreId) {
+    //   this.playerCardId = true;
+    //   this.playerScoreId = playerScoreId
+    //   this.$store.commit("modalDelete_State", true);
+    // },
+    // OpenModalDelete(playerCardId) {
+    //   this.playerCardId = playerCardId
+    //   this.$store.commit("modalDelete_State", true);
+    // },
+
+    OpenModalDelete(id, type) {
+      /// clear
+      this.playerCardId = null;
+      this.playerScoreId = null;
+      if (type === 'card') {
+        this.playerCardId = id
+      } else if (type === 'score') {
+        this.playerScoreId = id;
+      }
+      this.$store.commit("modalDelete_State", true);
+    },
+
 
     //get matchScore
-    GetMatchScore(){
+    GetMatchScore() {
       this.$axios
           .get(`match/${this.$route.params.match_id}/matchscore`)
           .then((res) => {
@@ -262,13 +323,13 @@ export default {
               this.isLoading = false;
               this.$emit("close");
             }, 100);
-              this.player_Score = res.data.data
+            this.player_Score = res.data.data
           })
           .catch(() => {
           });
     },
 
-    GetMatchCard(){
+    GetMatchCard() {
       this.$axios
           .get(`match/${this.$route.params.match_id}/matchCardDetail`)
           .then((res) => {
@@ -285,7 +346,7 @@ export default {
     },
 
     //FinishMatch
-    FinishMatch(){
+    FinishMatch() {
       this.$axios
           .get(`match/${this.$route.params.match_id}/finished`)
           .then(() => {
@@ -298,14 +359,19 @@ export default {
               this.$notification.OpenNotification_AddItem_OnSuccess('top-right', 'primary', 3000);
             }, 300);
             this.$router.push({
-              name:'Match'
+              name: 'Match'
             })
           })
-          .catch(() => {
+          .catch((e) => {
+            if (e && e.response) {
+              const message = (e.response.data || {}).error;
+              this.errorMessage = message
+            }
+
           });
     },
     //Teamout
-    MatchTeamout(){
+    MatchTeamout() {
       this.$axios
           .get(`match/${this.$route.params.match_id}/team-out`)
           .then(() => {
@@ -318,7 +384,7 @@ export default {
               this.$notification.OpenNotification_AddItem_OnSuccess('top-right', 'primary', 3000);
             }, 300);
             this.$router.push({
-              name:'Match'
+              name: 'Match'
             })
           })
           .catch(() => {
@@ -347,23 +413,27 @@ export default {
   font-size: 12px;
   float: right;
 }
-.image-team-circle{
+
+.image-team-circle {
   position: relative;
   margin-bottom: 100px;
 
 }
-.image-team-circle img{
+
+.image-team-circle img {
   border-radius: 50%;
   width: 120px;
   height: 120px;
 }
-.image-team-circle .img-right{
-position: absolute;
+
+.image-team-circle .img-right {
+  position: absolute;
   right: 0px;
 
 }
-.image-team-circle .img-left{
-position: absolute;
+
+.image-team-circle .img-left {
+  position: absolute;
   left: 0;
 }
 

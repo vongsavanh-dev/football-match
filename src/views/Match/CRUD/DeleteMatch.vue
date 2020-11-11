@@ -6,6 +6,7 @@
         ກົດຍືນຍັນ ເພື່ອລຶບຂໍ້ມູນ
       </span>
     </div>
+    <span class="has-text-danger" style="font-size: 16px;">{{errorMessage}}</span>
     <hr />
     <div class="buttons btn">
       <vs-button class="btn" transparent  @click="DeleteMatch(match_id)">
@@ -21,6 +22,11 @@
 <script>
 export default {
    props: ['match_id'],
+  data(){
+     return{
+       errorMessage:'',
+     }
+  },
   methods: {
         DeleteMatch(matchId) {
             this.$axios.delete('match/' + matchId).then(res => {
@@ -32,7 +38,12 @@ export default {
                         this.$notification.OpenNotification_DeleteItem_OnSuccess('top-right', 'danger', 3000);
                     }, 300);
                 }
-            }).catch(() => {});
+            }).catch((e) => {
+              if(e && e.response){
+                const message = (e.response.data ||{}).error
+                this.errorMessage = message
+              }
+            });
         }
     }
 };

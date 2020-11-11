@@ -88,7 +88,13 @@
                             this.$notification.OpenNotification_AddItem_OnSuccess('top-right', 'primary', 3000);
                         }, 300);
                     }
-                }).catch();
+                }).catch((e) =>{
+                  if(e && e.response){
+                    const message = (e.response.data || {}).team_id;
+                    this.errorMessage = message;
+                    console.log(this.errorMessage)
+                  }
+                });
             },
 
         },

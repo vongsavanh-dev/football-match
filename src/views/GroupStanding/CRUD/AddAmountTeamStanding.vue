@@ -78,6 +78,7 @@ export default {
         amount_team: '',
 
       },
+      errorMessage:'',
       TournamentName: [],
       standingTeamAmount:{
         tournament_id:'',
@@ -116,9 +117,12 @@ export default {
             this.$notification.OpenNotification_AddItem_OnSuccess('top-right', 'primary', 3000);
           }, 300);
         }
-      }).catch(
-
-      );
+      }).catch((e)=>{
+        if(e && e.response){
+          const message  = (e.response.data || {}).error;
+          this.errorMessage = message;
+        }
+      })
     },
 
   },

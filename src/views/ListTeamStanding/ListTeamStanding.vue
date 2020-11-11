@@ -36,12 +36,13 @@
           </vs-tr>
         </template>
         <template #tbody>
-          <vs-tr v-for="(teamstanding ,index) in ListteamStanding" :key="index" >
+          <vs-tr :key="index"  v-for="(teamstanding ,index) in $vs.getPage(ListteamStanding, page, max)"
+                 :data="teamstanding">
             <vs-td>
             {{index + 1}}
             </vs-td>
             <vs-td>
-              <img :src="teamstanding.logo_url" alt="" style="width:100px;height: 100px;">
+              <img :src="teamstanding.logo_url" alt="" style="width:80px;">
             </vs-td>
             <vs-td>
               {{teamstanding.team_name}}
@@ -60,6 +61,9 @@
               </div>
             </vs-td>
           </vs-tr>
+        </template>
+        <template #footer>
+          <vs-pagination v-model="page" :length="$vs.getLength(ListteamStanding, max)" />
         </template>
       </vs-table>
     </div>

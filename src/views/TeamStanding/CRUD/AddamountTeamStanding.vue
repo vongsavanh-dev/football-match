@@ -1,7 +1,12 @@
 <template>
   <div>
     <div class="header-title">
-      <i class="fas fa-info-circle"></i><span>ບັນທຶກ ຂໍ້ມູນທີມຜ່ານເຂົ້າຮອບ</span>
+      <i class="fas fa-info-circle"></i>
+      <span>ບັນທຶກ ຂໍ້ມູນທີມຜ່ານເຂົ້າຮອບ</span>
+     <div class="message-error">
+       <span class="has-text-danger" style="font-size: 18px;">{{errorMessage}}</span>
+     </div>
+
     </div>
     <div class="section-content">
       <div class="filed">
@@ -50,6 +55,7 @@ export default {
         amount_teams: '',
 
       },
+      errorMessage:'',
       Add_Teams:{
         teams:''
       }
@@ -74,9 +80,13 @@ export default {
             this.$notification.OpenNotification_AddItem_OnSuccess('top-right', 'primary', 3000);
           }, 300);
         }
-      }).catch(
+      }).catch((e) =>{
+        if(e && e.response){
+          const message = (e.response.data || {}).error;
+          this.errorMessage = message
+        }
 
-      );
+      })
     },
 
   }

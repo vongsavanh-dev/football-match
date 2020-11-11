@@ -69,7 +69,7 @@
                             this.$emit('close');
                             this.$emit('success');
                             this.$notification.OpenNotification_EditItem_OnSuccess('top-right',
-                                'success', 3000);
+                                'primary', 3000);
                         }, 300);
                     }
                 }).catch(() => {});
