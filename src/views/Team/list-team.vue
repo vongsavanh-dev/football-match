@@ -46,7 +46,7 @@
                         {{ team.initial_name }}
                     </vs-td>
 
-                    <vs-td style="text-align: right; width: 100px">
+                    <vs-td class="btn-action">
                         <div class="buttons">
                             <vs-button circle icon flat @click="OpenModalEdit(team.id)">
                                 <i class="fas fa-pencil-alt"></i>
@@ -54,9 +54,12 @@
                             <vs-button circle  danger icon flat @click="OpenModalDelete(team.id)">
                                 <i class="fas fa-trash-alt"></i>
                             </vs-button>
-                            <vs-button circle  icon flat @click="AddPlayer(team.id)">
-                                <i class="fas fa-user-plus"></i>
-                            </vs-button>
+                          <vs-button circle  icon flat @click="AddPlayer(team.id)">
+                            <i class="fas fa-user-plus"></i>
+                          </vs-button>
+                          <vs-button circle  icon flat @click="AddStaff(team.id)">
+                            <i class="fas fa-street-view" style="font-size: 18px;"></i>
+                          </vs-button>
                         </div>
                     </vs-td>
                 </vs-tr>
@@ -136,6 +139,14 @@ export default {
                 }
             });
         },
+      AddStaff(teamId){
+          this.$router.push({
+            name:"Staff",
+            params:{
+              team_id: teamId,
+            }
+          })
+      },
         FetchData() {
             /*   this.isLoading = true; */
             this.$axios.get('team').then(res => {
@@ -184,6 +195,7 @@ export default {
     margin-bottom: 20px;
     font-size: 18px;
     float: right;
+
 }
 
 #table-index {
@@ -193,7 +205,7 @@ export default {
 }
 
 #table-header-button {
-    width: 150px;
+    width: 200px;
 }
 
 #sponser {
@@ -204,5 +216,8 @@ export default {
     width: 60px;
     height:60px;
     margin-top: 8px;
+}
+.btn-action .buttons{
+  width: 200px;
 }
 </style>

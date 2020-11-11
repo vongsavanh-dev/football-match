@@ -27,24 +27,26 @@
                     <vs-th>
                         ນາມສະກຸນ
                     </vs-th>
-                        <vs-th>
-                        Name
-                    </vs-th>
-                    <vs-th>
-                        SurName
-                    </vs-th>
-                    <vs-th>
-                        ວັນເດືອນປີເກີດ
-                    </vs-th>
+
                     <vs-th>
                         ເບີເສື້ອ
                     </vs-th>
                     <vs-th>
                         ຕຳແໜ່ງ
                     </vs-th>
-                    <vs-th>
-                        ສັງກັດທີມ
-                    </vs-th>
+                  <vs-th>
+                    ປະຕູ
+                  </vs-th>
+                  <vs-th>
+                    ຊ່ວຍຍິງ
+                  </vs-th>
+                  <vs-th>
+                    ໃບແດງ
+                  </vs-th>
+                  <vs-th>
+                    ໃບເຫຼືອງ
+                  </vs-th>
+
 
                     <vs-th id="table-header-button"> </vs-th>
                 </vs-tr>
@@ -63,25 +65,28 @@
                     <vs-td>
                         {{ playerteam.sur_name }}
                     </vs-td>
-                       <vs-td>
-                        {{ playerteam.eng_name }}
-                    </vs-td>
-                    <vs-td>
-                        {{ playerteam.eng_surname }}
-                    </vs-td>
-                    <vs-td>
-                        {{ playerteam.date_of_birth }}
-                    </vs-td>
+
                     <vs-td>
                         {{ playerteam.player_number }}
                     </vs-td>
                     <vs-td>
                         {{ playerteam.player_position }}
                     </vs-td>
-                    <vs-td>
-                        {{ playerteam.team }}
-                    </vs-td>
-                    <vs-td>
+                  <vs-td>
+                    {{ playerteam.goal_score }}
+                  </vs-td>
+                  <vs-td>
+                    {{ playerteam.assist_score }}
+                  </vs-td>
+                  <vs-td>
+                    {{ playerteam.red_card }}
+                    {{ playerteam.yellow_card }}
+                  </vs-td>
+
+                  <vs-td>
+                  </vs-td>
+
+                  <vs-td>
                         <div class="buttons">
                                 <vs-button circle icon flat @click="ViewPlayer(playerteam.id)">
                                 <i class="fas fa-eye"></i>
@@ -188,6 +193,7 @@ export default {
             /*   this.isLoading = true; */
             const id = this.$route.params.team_id
             this.$axios.get(`team/${id}/player`).then(res => {
+              console.log(res)
                 setTimeout(() => {
                     this.playerteams = res.data.player_lists;
                     this.position = res.data.position;

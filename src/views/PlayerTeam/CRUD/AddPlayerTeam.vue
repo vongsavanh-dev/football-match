@@ -61,12 +61,12 @@
         <div class="control">
           <label for="" class="label">
             ວັນເດືອນປີເກີດ
-            <span class="has-text-danger"
-              >* {{ errors.first('date_of_birth') }}</span
-            >
-            <span class="has-text-danger">
-              {{ server_errors.date_of_birth }}
-            </span>
+<!--            <span class="has-text-danger"-->
+<!--              >* {{ errors.first('date_of_birth') }}</span-->
+<!--            >-->
+<!--            <span class="has-text-danger">-->
+<!--              {{ server_errors.date_of_birth }}-->
+<!--            </span>-->
           </label>
           <DatePicker class="date-time"
             style="width: 100%;"
@@ -76,7 +76,6 @@
             slot="activator"
             :popup-style="{ top: '100%', left: '15%' }"
             :append-to-body="false"
-            v-validate="'required'"
             name="date_of_birth"
             placeholder="ປ້ອນວັນເດືອນປີເກີດ..."
           ></DatePicker>
@@ -97,7 +96,7 @@
             type="text"
             class="input"
             v-model="player_team.player_number"
-            v-validate="'required|numeric'"
+            v-validate="'numeric'"
             name="player_number"
             placeholder="ປ້ອນເບີເສື້ອ..."
           />
@@ -128,18 +127,16 @@
           </div>
         </div>
       </div>
-
-
 <div class="filed">
 <div class="control">
   <label for="" class="label" style="font-size:18px;">
       ເລືອກຮູບພາບ
-         <span class="has-text-danger"
-              >* {{ errors.first('image') }}</span
-            >
-            <span class="has-text-danger">
-              {{ server_errors.image }}
-            </span>
+<!--         <span class="has-text-danger"-->
+<!--              >* {{ errors.first('image') }}</span-->
+<!--            >-->
+<!--            <span class="has-text-danger">-->
+<!--              {{ server_errors.image }}-->
+<!--            </span>-->
     </label>
 </div>
     </div>
@@ -149,7 +146,7 @@
       <div class="filed">
 
           <div class="control">
-            <input type="file" @change="previewImage" name="image" accept="image/*" class="input"  v-validate="'required'"/>
+            <input type="file" @change="previewImage" name="image" accept="image/*" class="input" />
           </div>
       </div>
 
@@ -191,18 +188,18 @@ const dict = {
         //  eng_surname: {
         //     required: '(ກະລຸນາປ້ອນກ່ອນ...)',
         // },
-          date_of_birth: {
-            required: '(ກະລຸນາປ້ອນກ່ອນ...)',
-        },
+        //   date_of_birth: {
+        //     required: '(ກະລຸນາປ້ອນກ່ອນ...)',
+        // },
             player_number: {
-            required: '(ກະລຸນາປ້ອນກ່ອນ...)', numeric: '(ປ້ອນສະເພາະຕົວເລກ...)',
+            numeric: '(ປ້ອນສະເພາະຕົວເລກ...)',
         },
             player_position: {
             required: '(ກະລຸນາປ້ອນກ່ອນ...)',
         },
-            image: {
-            required: '(ກະລຸນາປ້ອນກ່ອນ...)',
-        },
+        //     image: {
+        //     required: '(ກະລຸນາປ້ອນກ່ອນ...)',
+        // },
     }
 
 };
@@ -288,7 +285,9 @@ export default {
       formData.append('date_of_birth',this.player_team.date_of_birth)
       formData.append('player_number',this.player_team.player_number)
       formData.append('player_position',this.player_team.player_position)
-      formData.append('image',this.imageFile)
+      if (this.imageFile){
+        formData.append('image',this.imageFile)
+      }
       this.$axios
         .post(`team/${id}/player`, formData)
         .then((res) => {

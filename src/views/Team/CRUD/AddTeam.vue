@@ -113,7 +113,7 @@ export default {
           this.image = e.target.result;
         };
         reader.readAsDataURL(input.files[0]);
-         
+
       }
 
         },
@@ -129,7 +129,9 @@ export default {
             let formData = new FormData();
             formData.append('team_name', this.teams.team_name);
             formData.append('initial_name', this.teams.initial_name);
-            formData.append('logo', this.imageFile);
+            if(this.imageFile){
+              formData.append('logo', this.imageFile);
+            }
             // console.log(this.teams)
             // formData.append('file', this.file);
             this.$axios.post('team', formData, {
