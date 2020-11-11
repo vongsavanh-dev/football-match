@@ -47,7 +47,6 @@
                     ໃບເຫຼືອງ
                   </vs-th>
 
-
                     <vs-th id="table-header-button"> </vs-th>
                 </vs-tr>
             </template>
@@ -57,7 +56,7 @@
                         {{ index + 1}}
                     </vs-td>
                     <vs-td>
-                         <img :src="playerteam.image_url" alt="">
+                         <img :src="playerteam.image_url" alt="" style="width: 80px;height: 80px;">
                     </vs-td>
                     <vs-td>
                         {{ playerteam.name }}
@@ -80,12 +79,11 @@
                   </vs-td>
                   <vs-td>
                     {{ playerteam.red_card }}
-                    {{ playerteam.yellow_card }}
                   </vs-td>
 
                   <vs-td>
+                  {{ playerteam.yellow_card }}
                   </vs-td>
-
                   <vs-td>
                         <div class="buttons">
                                 <vs-button circle icon flat @click="ViewPlayer(playerteam.id)">

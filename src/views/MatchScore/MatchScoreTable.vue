@@ -6,7 +6,7 @@
       </h4>
       <span class="has-text-danger" style="font-size: 18px;color:red">
                 {{ errorMessage }}
-              </span>
+      </span>
       <div class="container">
         <div class="columns">
           <div class="column is-5 image-team-circle ">
@@ -21,7 +21,7 @@
                 ບັນທີກຜົນ
               </vs-button>
               <vs-button style="text-align: center;" v-else @click="MatchTeamout()">
-                teamout
+                ບັນທຶກ
               </vs-button>
             </div>
 

@@ -55,13 +55,13 @@
             <vs-td style="text-align: right">
               {{ match.team_1 }}
             </vs-td>
-            <vs-td style="width:200px;">
+            <vs-td style="width:80px;">
               <img :src="match.team1_logo" alt="" class="image-log-team">
             </vs-td>
             <vs-td style="text-align: center">
               {{ match.team_1_score }}  -  {{ match.team_2_score }}
             </vs-td>
-            <vs-td style="width:200px;">
+            <vs-td style="width:80px;">
               <img :src="match.team2_logo" alt="" class="image-log-team">
             </vs-td>
             <vs-td style="text-align: left">

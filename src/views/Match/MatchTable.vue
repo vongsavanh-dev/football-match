@@ -4,11 +4,11 @@
         <h4>
             ລາຍການແຂ່ງຂັນ ທັງໝົດ
         </h4>
-        <span class="btn-add">
-            <vs-button class="btn-icon" circle icon flat @click="OpenModalAdd()">
-                <i class="fas fa-plus"></i>
-            </vs-button>
-        </span>
+<!--        <span class="btn-add">-->
+<!--            <vs-button class="btn-icon" circle icon flat @click="OpenModalAdd()">-->
+<!--                <i class="fas fa-plus"></i>-->
+<!--            </vs-button>-->
+<!--        </span>-->
     </div>
 
     <div class="center">
