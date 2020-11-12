@@ -165,6 +165,7 @@
                     name: "Group",
                     params: {
                         tournament_id: TournamentId,
+
                     }
                 });
             },
