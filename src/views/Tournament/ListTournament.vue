@@ -176,7 +176,6 @@
                     // }, 200);
                     setTimeout(() => {
                         this.ListTournament = res.data.data;
-                        // console.log(this.ListTournament)
                     }, 100);
                 }).catch(() => {
 

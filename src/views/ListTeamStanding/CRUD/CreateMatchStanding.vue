@@ -19,7 +19,7 @@
           </label>
           <div class="select" style="width: 100%">
             <select style="width: 100%" v-model="matchs.team1">
-              <option v-bind:value="team.id" :key="index " v-for="(team, index) in CreateMatch_Standing" :data="team">{{team.team_name}}</option>
+              <option v-bind:value="team.team_id" :key="index " v-for="(team, index) in CreateMatch_Standing" :data="team">{{team.team_name}}</option>
             </select>
           </div>
         </div>
@@ -35,7 +35,7 @@
           </label>
           <div class="select" style="width: 100%">
             <select style="width: 100%" v-model="matchs.team2">
-              <option v-bind:value="team.id" :key="index " v-for="(team, index) in CreateMatch_Standing" :data="team">{{team.team_name}}</option>
+              <option v-bind:value="team.team_id" :key="index " v-for="(team, index) in CreateMatch_Standing" :data="team">{{team.team_name}}</option>
             </select>
           </div>
         </div>
