@@ -37,6 +37,7 @@ props:['Player_View'],
         return{
             player_id:'',
             playerStatic:[],
+          playerpreview:{},
         }
     },
     methods:{
@@ -55,6 +56,8 @@ props:['Player_View'],
     },
     created(){
     this.getPlayerStatic();
+    this.playerpreview = this.Player_View;
+      console.log(this.playerpreview)
     }
 }
 

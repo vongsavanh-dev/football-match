@@ -4,10 +4,11 @@
       <h4>
         ລາຍການແຂ່ງຂັນ ທີມທີ່ຜ່ານເຂົ້າຮອບ
       </h4>
+      <hr>
       <span class="btn-add">
-            <vs-button class="btn-icon" circle icon flat @click="OpenModalAdd()">
-                <i class="fas fa-plus"></i>
-            </vs-button>
+<!--            <vs-button class="btn-icon" circle icon flat @click="OpenModalAdd()">-->
+<!--                <i class="fas fa-plus"></i>-->
+<!--            </vs-button>-->
         </span>
     </div>
 
@@ -68,7 +69,13 @@
               {{ match.team_2 }}
             </vs-td>
             <vs-td>
-              {{ match.status }}
+              <div class="status-finished" v-if="match.status =='Finished'">
+                {{ match.status }}
+              </div>
+              <div class="status-pending" v-else>
+                {{ match.status }}
+              </div>
+          
             </vs-td>
             <vs-td>
               {{ match.match_date }}

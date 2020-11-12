@@ -1,7 +1,11 @@
 <template>
   <div>
     <div class="header-title">
-      <i class="fas fa-info-circle"></i><span>ບັນທຶກ ຂໍ້ມູນການແຂ່ງຂັນ</span>
+      <i class="fas fa-info-circle"></i>
+      <span>ບັນທຶກ ຂໍ້ມູນການແຂ່ງຂັນ</span>
+      <div>
+        <span class="has-text-danger" style="font-size: 18px;">{{errorMessage}}</span>
+      </div>
     </div>
     <div class="section-content" style="margin-top: 40px">
       <div class="field">
@@ -99,6 +103,7 @@ export default {
   props:['CreateMatch_Standing'],
   data() {
     return {
+      errorMessage:'',
       mstanding:[],
       active: false,
       value: "",
@@ -151,12 +156,17 @@ export default {
             this.$emit('success');
             this.$notification.OpenNotification_AddItem_OnSuccess('top-right', 'primary', 3000);
           }, 300);
-          this.$router.push({
-            name:"MatchStanding"
-          })
+          // this.$router.push({
+          //   name:"MatchStanding"
+          // })
         }
-      }).catch(
-      );
+      }).catch((e) =>{
+        if(e && e.response){
+          const  message = (e.response.data ||{}).error;
+          this.errorMessage = message;
+        }
+      })
+
     },
 
     BtnLoading() {

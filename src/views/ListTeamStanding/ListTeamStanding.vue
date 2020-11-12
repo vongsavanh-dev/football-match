@@ -48,7 +48,24 @@
               {{teamstanding.team_name}}
             </vs-td>
             <vs-td>
-              {{teamstanding.status}}
+           <div class="stand" v-if="teamstanding.status == 'Stand'">
+             {{teamstanding.status}}
+           </div>
+              <div class="Wait" v-if="teamstanding.status == 'Wait'">
+                {{teamstanding.status}}
+              </div>
+              <div class="Out" v-if="teamstanding.status == 'Out'">
+                {{teamstanding.status}}
+              </div>
+              <div class="first" v-if="teamstanding.status == '1st'">
+                {{teamstanding.status}}
+              </div>
+              <div class="second" v-if="teamstanding.status == '2nd'">
+                {{teamstanding.status}}
+              </div>
+              <div class="third" v-if="teamstanding.status == '3rd'">
+                {{teamstanding.status}}
+              </div>
             </vs-td>
             <vs-td style="text-align: right; width: 100px">
               <div class="buttons">
@@ -178,5 +195,46 @@ export default {
 #table-header-button {
   width: 150px;
 }
-
+.stand{
+  background-color: #3366ff;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 10px;
+  width: 80px;
+}
+.Wait{
+  background-color: #ffdc00;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 10px;
+  width: 80px;
+}
+.Out{
+  background-color: #ff0000;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 10px;
+  width: 80px;
+}
+.first{
+  background-color: #F2BD40;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 10px;
+  width: 80px;
+  }
+.second{
+  background-color: #CDCDCD;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 10px;
+  width: 80px;
+}
+.third{
+  background-color: #F3895E;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 10px;
+  width: 80px;
+}
 </style>

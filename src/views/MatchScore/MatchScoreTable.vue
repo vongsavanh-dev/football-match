@@ -7,6 +7,10 @@
       <span class="has-text-danger" style="font-size: 18px;color:red">
                 {{ errorMessage }}
       </span>
+      <span class="text-danger" style="font-size: 18px;color:red">
+                {{matchTeamouterror}}
+      </span>
+
       <div class="container">
         <div class="columns">
           <div class="column is-5 image-team-circle ">
@@ -23,6 +27,7 @@
               <vs-button style="text-align: center;" v-else @click="MatchTeamout()">
                 ບັນທຶກ
               </vs-button>
+
             </div>
 
           </div>
@@ -231,6 +236,7 @@ export default {
       playerCardId: '',
       modalPlayerScore: false,
       modalPlayerCard: false,
+      matchTeamouterror:'',
     }
   },
   methods: {
@@ -384,10 +390,14 @@ export default {
               this.$notification.OpenNotification_AddItem_OnSuccess('top-right', 'primary', 3000);
             }, 300);
             this.$router.push({
-              name: 'Match'
+              name: 'MatchStanding'
             })
           })
-          .catch(() => {
+          .catch((e) => {
+            if(e && e.response){
+              const message =(e.response.data || {}).error;
+              this.matchTeamouterror = message;
+            }
           });
     }
   },

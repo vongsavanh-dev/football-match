@@ -1,7 +1,11 @@
 <template>
   <div>
     <div class="header-title">
-      <i class="fas fa-info-circle"></i><span>ບັນທຶກຂໍ້ມູນ Card</span>
+      <i class="fas fa-info-circle"></i>
+      <span>ບັນທຶກຂໍ້ມູນ Card</span>
+      <div>
+        <span class="has-text-danger" style="font-size: 16px">{{errorMessage}}</span>
+      </div>
     </div>
     <div class="section-content">
       <div class="field">
@@ -92,6 +96,7 @@ export default {
         player_id: '',
         time: '',
       },
+      errorMessage:'',
       player_team2: {},
       listteam:'',
       btnLoading:false,
@@ -139,14 +144,13 @@ export default {
             this.$notification.OpenNotification_AddItem_OnSuccess('top-right', 'primary', 3000);
           }, 300);
         }
-      }).catch(error => {
-        if (error.response.status == 422) {
-          var obj = error.response.data.errors; // ໃຊ້ການລູບຂໍ້ມູນເພາະວ່າຂໍ້ມູນ errors ທີ່ສົ່ງມາຈາກ Server ນັ້ນເປັນ Array Object
-          for (let [key, value] of Object.entries(obj)) {
-            this.server_errors[key] = value[0];
-          }
+      }).catch((e) =>{
+        if(e && e.response){
+          const message =(e.response.data ||{}).error;
+          this.errorMessage = message;
         }
-      });
+      })
+
     },
   },
   created() {

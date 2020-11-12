@@ -195,7 +195,7 @@ export default {
                 setTimeout(() => {
                     this.playerteams = res.data.player_lists;
                     this.position = res.data.position;
-                    // console.log(this.position)
+                    console.log(this.playerteams)
                 }, 100);
             }).catch(() => {
 
