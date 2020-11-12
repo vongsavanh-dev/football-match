@@ -86,8 +86,8 @@
     </div>
     <ModalAdd>
       <template v-slot="{ close }">
-        <AddTeam v-if="showTeamStanding" @close="close" :list_teams="teams" @success="FetchData();getTeamStanding()" />
-        <CreateMatch v-if="showCreateMatch"  @close="close" :CreateMatch_Standing="ListteamStanding"  @success="FetchData();getTeamStanding()" />
+        <AddTeam v-if="showTeamStanding" @close="close" :list_teams="teams" @success="FetchData()" />
+        <CreateMatch v-if="showCreateMatch"  @close="close" :CreateMatch_Standing="ListteamStanding"  @success="FetchData()" />
       </template>
     </ModalAdd>
   </div>
@@ -122,20 +122,20 @@ export default {
       this.$store.commit('modalAdd_State',true)
     },
 
-    FetchData() {
-      this.$axios.get('team').then(res => {
-        setTimeout(() => {
-          this.$emit('close');
-        }, 200);
-        setTimeout(() => {
-          this.teams = res.data.data;
-        }, 100);
-      }).catch(() => {
+    // FetchData() {
+    //   this.$axios.get('team').then(res => {
+    //     setTimeout(() => {
+    //       this.$emit('close');
+    //     }, 200);
+    //     setTimeout(() => {
+    //       this.teams = res.data.data;
+    //     }, 100);
+    //   }).catch(() => {
+    //
+    //   });
+    // },
 
-      });
-    },
-
-    getTeamStanding(){
+    FetchData(){
       const tournament_id = this.$route.params.tournament_id;
       const id = this.$route.params.standing_id;
       this.$axios.get(`tournament/${tournament_id}/standing/${id}/all`).then(res =>{
@@ -143,8 +143,9 @@ export default {
           this.$emit('close');
         }, 200);
         setTimeout(() => {
-          this.ListteamStanding = res.data;
-          // console.log(this.ListteamStanding)
+          this.ListteamStanding = res.data.standing_teams;
+          this.teams = res.data.teams_in_group;
+          console.log(this.teams)
         }, 100);
       }).catch(() => {
 
@@ -154,7 +155,6 @@ export default {
 
   created() {
     this.FetchData();
-    this.getTeamStanding();
   }
 };
 </script>

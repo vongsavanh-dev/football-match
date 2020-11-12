@@ -19,7 +19,7 @@
 
       >
         <vs-option v-for="(team, idx) in list_teams" :key="idx"
-                   :label="team.team_name" :value="team.id">
+                   :label="team.team_name" :value="team.team_id">
           {{ team.team_name }}
         </vs-option>
       </vs-select>
@@ -37,9 +37,7 @@ import {
 } from 'vee-validate'
 const dict = {
   custom: {
-    errorMessage: {
-      required: '(ກດເກດເກດເກເກດເ...)',
-    },
+
   }
 };
 Validator.localize('en', dict);

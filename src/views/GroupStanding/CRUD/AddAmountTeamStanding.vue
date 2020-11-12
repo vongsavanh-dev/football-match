@@ -109,7 +109,6 @@ export default {
       const id = this.standingTeamAmount.tournament_id;
       this.$axios.post(`tournament/${id}/standing`, this.standingTeamAmount).then(res => {
         // this.$axios.post(`tournament/${id}/standing`, this.standingTeamAmount).then(res => {
-        console.log(res)
         if (res) {
           setTimeout(() => {
             this.$emit('close');
