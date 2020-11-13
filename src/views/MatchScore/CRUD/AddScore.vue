@@ -4,7 +4,7 @@
       <i class="fas fa-info-circle"></i>
       <span>ບັນທຶກ ຄະແນນ</span>
       <div>
-        <span class="has-text-danger" style="font-size: 16px">{{errorMessage}}</span>
+        <span class="has-text-danger" style="font-size: 16px">{{ errorMessage }}</span>
       </div>
     </div>
     <div class="section-content">
@@ -14,18 +14,20 @@
             ນັກເຕະຍິງປະຕູ
             <span class="has-text-danger">* {{ errors.first('player_id') }}</span>
             <span class="has-text-danger">
-                        {{server_errors.player_id}}
+                        {{ server_errors.player_id }}
                     </span>
           </label>
           <div class="select" style="width: 100%">
-            <select style="width: 100%" v-model="addteam_score.player_id" name="player_id" v-validate="'required'" >
-              <option
-                :key="index"
-                v-for="(player, index) in player_team1"
-                :data="player"
-                v-bind:value="player.id"
+            <select style="width: 100%" v-model="addteam_score.player_id" name="player_id" v-validate="'required'">
+              <option class="player-option"
+                      :key="index"
+                      v-for="(player, index) in player_team1"
+                      :data="player"
+                      v-bind:value="player.id"
               >
-                {{ player.name }}
+                <div class="player-number">
+                  <span id="player-number">{{ player.player_number }} </span> {{ player.name }}  {{player.sur_name}}
+                </div>
               </option>
             </select>
           </div>
@@ -37,16 +39,16 @@
           <label for="label" class="label">ນັກເຕະ Assist</label>
           <div class="select" style="width: 100%">
             <select
-              style="width: 100%"
-              v-model="addteam_score.assist_player_id"
+                style="width: 100%"
+                v-model="addteam_score.assist_player_id"
             >
               <option
-                :key="index"
-                v-for="(player, index) in player_team1"
-                :data="player"
-                 v-bind:value="player.id"
+                  :key="index"
+                  v-for="(player, index) in player_team1"
+                  :data="player"
+                  v-bind:value="player.id"
               >
-                {{ player.name }}
+                {{ player.player_number }} {{ player.name }} {{ player.sur_name }}
               </option>
             </select>
           </div>
@@ -65,7 +67,7 @@
               {{ server_errors.time }}
             </span>
           </label>
-          <input type="text" class="input" v-model="addteam_score.time" name="time"    v-validate="'required|numeric'"
+          <input type="text" class="input" v-model="addteam_score.time" name="time" v-validate="'required|numeric'"
                  placeholder="ປ້ອນເວລາ...">
         </div>
       </div>
@@ -73,7 +75,7 @@
       <div class="field btn">
         <div class="control">
           <button class="button is-fullwidth" style="color: #ffff" @click="ValidateForm()"
-          :class="{'is-loading':btnLoading}">
+                  :class="{'is-loading':btnLoading}">
             ບັນທຶກ ຂໍ້ມູນຄະແນນ
           </button>
         </div>
@@ -87,13 +89,14 @@
 import {
   Validator
 } from 'vee-validate'
+
 const dict = {
   custom: {
     player_id: {
       required: '(ກະລຸນາປ້ອນກ່ອນ...)',
     },
-   time: {
-      required: '(ກະລຸນາປ້ອນກ່ອນ...)',numeric: '(ປ້ອນສະເພາະຕົວເລກ...)',
+    time: {
+      required: '(ກະລຸນາປ້ອນກ່ອນ...)', numeric: '(ປ້ອນສະເພາະຕົວເລກ...)',
     },
   }
 };
@@ -106,15 +109,15 @@ export default {
         player_id: '',
         time: '',
       },
-      errorMessage:'',
-      btnLoading:false,
+      errorMessage: '',
+      btnLoading: false,
       player_team1: {},
-      listteam:'',
+      listteam: '',
 
       addteam_score: {
         player_id: '',
         assist_player_id: '',
-         time: "",
+        time: "",
       },
     };
   },
@@ -122,13 +125,14 @@ export default {
     //  get player team_1 from team
     getPlayer() {
       this.$axios
-        .get(`team/${this.listplayer_firstTeam.team_1_id}/player`)
-        .then((res) => {
-          setTimeout(() => {
-            this.player_team1 = res.data.player_lists;
-          }, 100);
-        })
-        .catch(() => {});
+          .get(`team/${this.listplayer_firstTeam.team_1_id}/player`)
+          .then((res) => {
+            setTimeout(() => {
+              this.player_team1 = res.data.player_lists;
+            }, 100);
+          })
+          .catch(() => {
+          });
     },
     ValidateForm() {
       this.$validator.validateAll().then((result) => {
@@ -139,29 +143,30 @@ export default {
       });
     },
     SaveData() {
-       const id = this.$route.params.match_id;
-          this.$axios.post(`match/${id}/matchscore`, this.addteam_score).then(res => {
-              if (res) {
-                  setTimeout(() => {
-                      this.$emit('close');
-                      this.$emit('success');
-                      this.$notification.OpenNotification_AddItem_OnSuccess('top-right', 'primary', 3000);
-                  }, 300);
-              }
-          }).catch((e) =>{
-            if(e && e.response){
-              const message = (e.response.data || {}).error;
-              this.errorMessage = message;
-            }
-          })
-      },
+      const id = this.$route.params.match_id;
+      this.$axios.post(`match/${id}/matchscore`, this.addteam_score).then(res => {
+        if (res) {
+          setTimeout(() => {
+            this.$emit('close');
+            this.$emit('success');
+            this.$notification.OpenNotification_AddItem_OnSuccess('top-right', 'primary', 3000);
+          }, 300);
+        }
+      }).catch((e) => {
+        if (e && e.response) {
+          const message = (e.response.data || {}).error;
+          this.errorMessage = message;
+        }
+      })
+    },
   },
   created() {
     this.getPlayer();
+    this.player = this.listplayer_firstTeam;
+    console.log(this.player)
   },
 };
 </script>
-
 
 
 <style scopde>
@@ -170,24 +175,29 @@ export default {
   color: blue;
   font-size: 22px;
 }
+
 .header-title span {
   margin: 10px;
   font-weight: bold;
   font-size: 22px;
 }
+
 .field .control label {
   font-size: 18px;
 }
+
 label {
   font-family: BoonBaan;
   text-align: left;
   font-weight: bold;
 }
+
 .upload-profile {
   margin-right: auto;
   margin-left: auto;
   width: 50%;
 }
+
 .upload-profile h2 {
   font-family: BoonBaan;
   margin-top: 10px;
@@ -195,6 +205,7 @@ label {
   font-size: 18px;
   font-weight: bold;
 }
+
 .btn button {
   font-family: BoonBaan;
   margin-top: 20px;
@@ -202,5 +213,19 @@ label {
   font-weight: bold;
   background-color: #3380ff;
   color: #ffff;
+}
+
+.player-option {
+  color: black;
+}
+
+.player-option span {
+  color: red;
+}
+.player-option .player-number span{
+  color: red;
+}
+#player-number{
+  color: red;
 }
 </style>

@@ -2,12 +2,19 @@
   <div class="container">
     <div class="box-title">
       <h4>
-        ລາຍຊື່  Staff
+        ລາຍຊື່ Staff
       </h4>
       <span class="btn-add">
+        <vs-tooltip primary border style="float: right">
             <vs-button class="btn-icon" circle icon flat @click="OpenModalAdd()">
                 <i class="fas fa-plus"></i>
             </vs-button>
+          <template #tooltip>
+            <div class="text-tooltip">
+              ເພີ່ມຂໍ້ມູນ
+            </div>
+          </template>
+            </vs-tooltip>
         </span>
     </div>
 
@@ -30,58 +37,73 @@
             <vs-th id="sponser">
               ຕຳແໜ່ງ
             </vs-th>
-            <vs-th id="table-header-button"> </vs-th>
+            <vs-th id="table-header-button"></vs-th>
           </vs-tr>
         </template>
         <template #tbody>
-          <vs-tr :key="index" v-for="(staff, index) in $vs.getPage(listStaff, page, max)" :data="staff" >
+          <vs-tr :key="index" v-for="(staff, index) in $vs.getPage(listStaff, page, max)" :data="staff">
             <vs-td>
-              {{index  +1}}
+              {{ index + 1 }}
             </vs-td>
             <vs-td>
               <img :src="staff.image_url" alt="" style="width:60px;height: 60px;">
             </vs-td>
             <vs-td>
-            {{staff.name}}
+              {{ staff.name }}
             </vs-td>
             <vs-td>
-              {{staff.sur_name}}
+              {{ staff.sur_name }}
             </vs-td>
             <vs-td>
-              {{staff.player_position}}
+              {{ staff.player_position }}
             </vs-td>
 
             <vs-td style="text-align: right; width: 200px">
               <div class="buttons">
-                <vs-button circle icon flat @click="OpenModalEdit(staff.id)">
-                  <i class="fas fa-pencil-alt"></i>
-                </vs-button>
-                <vs-button circle  danger icon flat @click="OpenModalDelete(staff.id)">
-                  <i class="fas fa-trash-alt"></i>
-                </vs-button>
+                <vs-tooltip warn border>
+                  <vs-button circle icon flat @click="OpenModalEdit(staff.id)">
+                    <i class="fas fa-pencil-alt"></i>
+                  </vs-button>
+                  <template #tooltip>
+                    <div class="text-tooltip">
+                      ແກ້ໄຂຂໍ້ມູນ
+                    </div>
+                  </template>
+                </vs-tooltip>
+                <vs-tooltip danger border>
+                  <vs-button circle danger icon flat @click="OpenModalDelete(staff.id)">
+                    <i class="fas fa-trash-alt"></i>
+                  </vs-button>
+                  <template #tooltip>
+                    <div class="text-tooltip">
+                      ລຶບຂໍ້ມູນ
+                    </div>
+                  </template>
+                </vs-tooltip>
+
               </div>
             </vs-td>
           </vs-tr>
         </template>
         <template #footer>
-          <vs-pagination v-model="page" :length="$vs.getLength(listStaff, max)" />
+          <vs-pagination v-model="page" :length="$vs.getLength(listStaff, max)"/>
         </template>
       </vs-table>
     </div>
     <ModalAdd>
       <template v-slot="{ close }">
-        <AddStaff @close="close" :Staff_position ="staffPosition" @success="FetchData()" />
+        <AddStaff @close="close" :Staff_position="staffPosition" @success="FetchData()"/>
       </template>
     </ModalAdd>
 
     <ModalEdit>
       <template v-slot="{ close }">
-        <EditStaff :Staff ="staffs" :listposition="staffPosition" @close="close" @success="FetchData()" />
+        <EditStaff :Staff="staffs" :listposition="staffPosition" @close="close" @success="FetchData()"/>
       </template>
     </ModalEdit>
     <ModalDelete>
       <template v-slot="{ close }">
-        <DeleteStaff @close="close" :Delete_staff="staffId" @success="FetchData()" />
+        <DeleteStaff @close="close" :Delete_staff="staffId" @success="FetchData()"/>
       </template>
     </ModalDelete>
   </div>
@@ -91,6 +113,7 @@
 import AddStaff from "@/views/Staff/CRUD/AddStaff";
 import DeleteStaff from "@/views/Staff/CRUD/DeleteStaff";
 import EditStaff from "@/views/Staff/CRUD/EditStaff";
+
 export default {
   components: {
     AddStaff,
@@ -101,10 +124,10 @@ export default {
     // active: 1,
     page: 1,
     max: 5,
-    staffPosition:[],
-    listStaff:[],
-    staffs:{},
-    staffId:'',
+    staffPosition: [],
+    listStaff: [],
+    staffs: {},
+    staffId: '',
   }),
   methods: {
     OpenModalAdd() {
@@ -129,7 +152,7 @@ export default {
       this.$store.commit("modalDelete_State", true);
     },
     FetchData() {
-      const  id = this.$route.params.team_id;
+      const id = this.$route.params.team_id;
       this.$axios.get(`team/${id}/staff`).then(res => {
         setTimeout(() => {
           this.$emit('close');
@@ -142,9 +165,9 @@ export default {
       });
     },
 
-    getStaffPosition(){
-      const  id = this.$route.params.team_id;
-      this.$axios.get(`team/${id}/staff`).then((res) =>{
+    getStaffPosition() {
+      const id = this.$route.params.team_id;
+      this.$axios.get(`team/${id}/staff`).then((res) => {
         this.staffPosition = res.data.position
       })
     },
@@ -202,7 +225,7 @@ export default {
 
 .image-log-team {
   width: 60px;
-  height:60px;
+  height: 60px;
   margin-top: 8px;
 }
 </style>

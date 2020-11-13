@@ -5,9 +5,17 @@
         ທີມເຂົ້າຮອບ
       </h4>
       <span class="btn-add">
-        <vs-button class="btn-icon" circle icon flat @click="OpenModalAdd()">
+        <vs-tooltip  primary border style="float:right">
+           <vs-button class="btn-icon" circle icon flat @click="OpenModalAdd()">
           <i class="fas fa-plus"></i>
         </vs-button>
+          <template #tooltip>
+            <div class="text-tooltip">
+              ເພີ່ມຈຳນວນທີມຜ່ານເຂົ້າຮອບ
+            </div>
+          </template>
+        </vs-tooltip>
+
       </span>
     </div>
 
@@ -35,15 +43,15 @@
 
             <vs-td style="text-align: right; width: 100px">
               <div class="buttons">
-                <vs-button circle icon flat @click="AddTeamInStanding(standing.id)">
-                  <i class="fas fa-plus"></i>
-                </vs-button>
-                <vs-button circle icon flat @click="OpenModalEdit()">
-                  <i class="fas fa-pencil-alt"></i>
-                </vs-button>
-                <vs-button circle danger icon flat @click="OpenModalDelete()">
-                  <i class="fas fa-trash-alt"></i>
-                </vs-button>
+                  <vs-button circle icon flat @click="AddTeamInStanding(standing.id)">
+                    <i class="fas fa-plus"></i>
+                  </vs-button>
+<!--                <vs-button circle icon flat @click="OpenModalEdit()">-->
+<!--                  <i class="fas fa-pencil-alt"></i>-->
+<!--                </vs-button>-->
+<!--                <vs-button circle danger icon flat @click="OpenModalDelete()">-->
+<!--                  <i class="fas fa-trash-alt"></i>-->
+<!--                </vs-button>-->
               </div>
             </vs-td>
           </vs-tr>
@@ -112,15 +120,22 @@ export default {
     //   this.$store.commit("modalDelete_State", true);
     // },
     AddTeamInStanding(standingId){
+      const { addTooltip } = this.$refs;
+      if(addTooltip && addTooltip[0]) {
+        addTooltip.forEach(function (item) {
+          item.removeTooltip()
+        })
+      }
+      setTimeout(() => {
       this.$router.push({
         name: "ListTeamStanding",
         params: {
           // tournament_id: TournamentId,
           tournament_id: this.$route.params.tournament_id,
           standing_id :standingId,
-
         }
       });
+      })
     }
 
   },

@@ -63,29 +63,29 @@
       </div>
 
 
-      <div class="field">
-        <div class="control">
-          <label for="" class="label">
-            ວັນເດືອນປີເກີດ
-            <span class="has-text-danger">* {{ errors.first('date_of_birth') }}</span>
-            <span class="has-text-danger">
-                        {{ server_errors.date_of_birth }}
-                </span>
-          </label>
-          <!--          <input type="text" class="input" v-model="listplayerteam.date_of_birth" />-->
+<!--      <div class="field">-->
+<!--        <div class="control">-->
+<!--          <label for="" class="label">-->
+<!--            ວັນເດືອນປີເກີດ-->
+<!--            <span class="has-text-danger">* {{ errors.first('date_of_birth') }}</span>-->
+<!--            <span class="has-text-danger">-->
+<!--                        {{ server_errors.date_of_birth }}-->
+<!--                </span>-->
+<!--          </label>-->
+<!--          &lt;!&ndash;          <input type="text" class="input" v-model="listplayerteam.date_of_birth" />&ndash;&gt;-->
 
-          <DatePicker class="date-time" style="width:100%;"
-                      v-validate="'required'"
-                      name="date_of_birth"
-                      placeholder="ປ້ອນວັນເດືອນປີເກີດ..."
-                      type="date" v-model="listplayerteam.date_of_birth"
-                      valueType="format" slot="activator"
-                      :popup-style="{ top: '100%', left: '15%' }"
-                      :append-to-body="false">
+<!--          <DatePicker class="date-time" style="width:100%;"-->
+<!--                      v-validate="'required'"-->
+<!--                      name="date_of_birth"-->
+<!--                      placeholder="ປ້ອນວັນເດືອນປີເກີດ..."-->
+<!--                      type="date" v-model="listplayerteam.date_of_birth"-->
+<!--                      valueType="format" slot="activator"-->
+<!--                      :popup-style="{ top: '100%', left: '15%' }"-->
+<!--                      :append-to-body="false">-->
 
-          </DatePicker>
-        </div>
-      </div>
+<!--          </DatePicker>-->
+<!--        </div>-->
+<!--      </div>-->
       <div class="field">
         <div class="control">
           <label for="" class="label">ເບີເສື້ອ</label>
@@ -137,8 +137,8 @@
 </template>
 
 <script>
-import DatePicker from "vue2-datepicker";
-import "vue2-datepicker/index.css";
+// import DatePicker from "vue2-datepicker";
+// import "vue2-datepicker/index.css";
 import {
   Validator
 } from 'vee-validate';
@@ -177,7 +177,7 @@ Validator.localize('en', dict);
 
 export default {
   components: {
-    DatePicker,
+    // DatePicker,
   },
   props: [
     'listplayerteam',

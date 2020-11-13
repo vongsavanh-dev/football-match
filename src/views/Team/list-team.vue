@@ -5,9 +5,17 @@
             ລາຍຊື່ທີມທັງໝົດ
         </h4>
         <span class="btn-add">
-            <vs-button class="btn-icon" circle icon flat @click="OpenModalAdd()">
+          <vs-tooltip primary border style="float: right">
+              <vs-button class="btn-icon" circle icon flat @click="OpenModalAdd()">
                 <i class="fas fa-plus"></i>
             </vs-button>
+            <template #tooltip>
+              <div class="text-tooltip">
+                ເພີ່ມນັກເຕະ
+              </div>
+            </template>
+          </vs-tooltip>
+
         </span>
     </div>
 
@@ -48,18 +56,50 @@
 
                     <vs-td class="btn-action">
                         <div class="buttons">
+                          <vs-tooltip border warn>
                             <vs-button circle icon flat @click="OpenModalEdit(team.id)">
                                 <i class="fas fa-pencil-alt"></i>
                             </vs-button>
+                            <template #tooltip>
+                             <div class="text-tooltip">
+                               ແກ້ໄຂທີມ
+                             </div>
+                            </template>
+                          </vs-tooltip>
+
+                          <vs-tooltip danger border>
                             <vs-button circle  danger icon flat @click="OpenModalDelete(team.id)">
                                 <i class="fas fa-trash-alt"></i>
                             </vs-button>
-                          <vs-button circle  icon flat @click="AddPlayer(team.id)">
-                            <i class="fas fa-user-plus"></i>
-                          </vs-button>
-                          <vs-button circle  icon flat @click="AddStaff(team.id)">
-                            <i class="fas fa-street-view" style="font-size: 18px;"></i>
-                          </vs-button>
+                            <template #tooltip>
+                              <div class="text-tooltip">
+                                ລືບທີມ
+                              </div>
+                            </template>
+                          </vs-tooltip>
+
+                          <vs-tooltip primary border ref="addTooltip">
+                            <vs-button  circle  icon flat @click="AddPlayer(team.id)">
+                              <i class="fas fa-user-plus"></i>
+                            </vs-button>
+                            <template #tooltip>
+                              <div class="text-tooltip">
+                                ເພີມນັກເຕະ
+                              </div>
+                            </template>
+                          </vs-tooltip>
+
+                          <vs-tooltip primary border ref="addTooltip" >
+                            <vs-button circle  icon flat @click="AddStaff(team.id)">
+                              <i class="fas fa-street-view" style="font-size: 18px;"></i>
+                            </vs-button>
+                            <template #tooltip>
+                              <div class="text-tooltip">
+                                ເພີ່ມທີມງານ
+                              </div>
+                            </template>
+                          </vs-tooltip>
+
                         </div>
                     </vs-td>
                 </vs-tr>
@@ -131,20 +171,41 @@ export default {
             this.teamId = teamId
             this.$store.commit("modalDelete_State", true);
         },
+
+
         AddPlayer(teamId) {
+          const { addTooltip } = this.$refs;
+          if(addTooltip && addTooltip[0]) {
+            addTooltip.forEach(function (item) {
+              item.removeTooltip()
+            })
+          }
+          setTimeout(() => {
             this.$router.push({
-                name: "playerteam",
-                params: {
-                    team_id: teamId,
-                }
+              name: "playerteam",
+              params: {
+                team_id: teamId,
+              }
             });
+          })
         },
+
+
       AddStaff(teamId){
-          this.$router.push({
-            name:"Staff",
-            params:{
-              team_id: teamId,
-            }
+          const {addTooltip} = this.$refs;
+          if (addTooltip && addTooltip[0]){
+            addTooltip[0].removeTooltip()
+            addTooltip.forEach(function (item){
+              item.removeTooltip();
+            })
+          }
+          setTimeout(() =>{
+            this.$router.push({
+              name:"Staff",
+              params:{
+                team_id: teamId,
+              }
+            })
           })
       },
         FetchData() {

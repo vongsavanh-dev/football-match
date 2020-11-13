@@ -10,9 +10,17 @@
         </vs-button>
       </div>
       <span class="btn-add">
+        <vs-tooltip primary border style="float: right;">
             <vs-button class="btn-icon" circle icon flat @click="OpenModalAdd()">
                 <i class="fas fa-plus"></i>
             </vs-button>
+           <template #tooltip>
+          <div class="text-tooltip">
+            ເພີ່ມຂໍ້ມູນທີມ
+          </div>
+        </template>
+        </vs-tooltip>
+
         </span>
     </div>
 

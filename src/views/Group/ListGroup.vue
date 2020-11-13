@@ -5,9 +5,14 @@
                 ລາຍຊື່ກຸ່ມ
             </h4>
             <span class="btn-add">
+               <vs-tooltip primary style="float: right" border>
             <vs-button class="btn-icon" circle icon flat @click="OpenModalAdd()">
                 <i class="fas fa-plus"></i>
             </vs-button>
+                   <template #tooltip>
+            ເພີ່ມກຸ່ມ
+        </template>
+                  </vs-tooltip>
         </span>
         </div>
 
@@ -48,15 +53,38 @@
 
                         <vs-td style="text-align: right; width: 100px">
                             <div class="buttons">
+                              <vs-tooltip ref="addTooltip"  primary border>
                                 <vs-button circle icon flat @click="Addmember(group.id)">
                                     <i class="fas fa-plus"></i>
                                 </vs-button>
+                                <template #tooltip>
+                                  <div class="text-tooltip">
+                                    ເພີ່ມທີມ
+                                  </div>
+                                </template>
+                              </vs-tooltip>
+
+                              <vs-tooltip warn  border>
                                 <vs-button circle icon flat @click="OpenModalEdit(group.id)">
                                     <i class="fas fa-pencil-alt"></i>
                                 </vs-button>
+                                <template #tooltip>
+                                  <div class="text-tooltip">
+                                    ແກ້ໄຂກຸ່ມ
+                                  </div>
+                                </template>
+                              </vs-tooltip>
+
+                              <vs-tooltip danger border>
                                 <vs-button circle danger icon flat @click="OpenModalDelete(group.id)">
                                     <i class="fas fa-trash-alt"></i>
                                 </vs-button>
+                                <template #tooltip>
+                                  <div class="text-tooltip">
+                                    ລຶບກຸ່ມ
+                                  </div>
+                                </template>
+                              </vs-tooltip>
                             </div>
                         </vs-td>
                     </vs-tr>
@@ -132,14 +160,21 @@
             // // insert team to group
             Addmember(groupId){
                 //console.log(this.$route.params.tournament_id)
+              const { addTooltip } = this.$refs;
+              if(addTooltip && addTooltip[0]) {
+                addTooltip.forEach(function (item) {
+                  item.removeTooltip()
+                })
+              }
+              setTimeout(() => {
                 this.$router.push({
                     name: "groupmember",
                     params: {
                         tournament_id: this.$route.params.tournament_id,
                         group_id: groupId,
-
                     }
                 });
+              })
 
             },
 

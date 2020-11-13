@@ -21,7 +21,7 @@
             <h3 style="margin-top: 40px;"> {{ listplayers_team.team_1_score }} -
               {{ listplayers_team.team_2_score }}</h3>
             <div class="container" style="margin-left: 50px;">
-              <vs-button style="text-align: center;" v-if="listplayers_match.group_id" @click="FinishMatch()">
+              <vs-button style="text-align: center;" v-if="listplayers_match.group_id" @click="FinishMatch('finishmatch')">
                 ບັນທີກຜົນ
               </vs-button>
               <vs-button style="text-align: center;" v-else @click="MatchTeamout()">
@@ -40,7 +40,7 @@
     <div class="columns">
       <div class="column is-6">
         <span class="btn-add">
-            <vs-button class="btn-icon" circle icon flat @click="OpenModalAdd('first_score')">
+            <vs-button class="btn-icon" circle icon flat @click="OpenModalAdd()">
                 <i class="fas fa-plus"></i>
             </vs-button>
               <vs-button class="btn-icon" circle icon flat

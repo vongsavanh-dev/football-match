@@ -26,7 +26,7 @@
                   :data="player"
                   v-bind:value="player.id"
               >
-                {{ player.name }}
+                {{ player.player_number }}   {{ player.name }}    {{ player.sur_name }}
               </option>
             </select>
           </div>

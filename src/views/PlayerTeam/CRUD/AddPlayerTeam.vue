@@ -57,30 +57,30 @@
       </div>
 
 
-      <div class="field">
-        <div class="control">
-          <label for="" class="label">
-            ວັນເດືອນປີເກີດ
-<!--            <span class="has-text-danger"-->
-<!--              >* {{ errors.first('date_of_birth') }}</span-->
-<!--            >-->
-<!--            <span class="has-text-danger">-->
-<!--              {{ server_errors.date_of_birth }}-->
-<!--            </span>-->
-          </label>
-          <DatePicker class="date-time"
-            style="width: 100%;"
-            type="date"
-            v-model="player_team.date_of_birth"
-            valueType="format"
-            slot="activator"
-            :popup-style="{ top: '100%', left: '15%' }"
-            :append-to-body="false"
-            name="date_of_birth"
-            placeholder="ປ້ອນວັນເດືອນປີເກີດ..."
-          ></DatePicker>
-        </div>
-      </div>
+<!--      <div class="field">-->
+<!--        <div class="control">-->
+<!--          <label for="" class="label">-->
+<!--            ວັນເດືອນປີເກີດ-->
+<!--&lt;!&ndash;            <span class="has-text-danger"&ndash;&gt;-->
+<!--&lt;!&ndash;              >* {{ errors.first('date_of_birth') }}</span&ndash;&gt;-->
+<!--&lt;!&ndash;            >&ndash;&gt;-->
+<!--&lt;!&ndash;            <span class="has-text-danger">&ndash;&gt;-->
+<!--&lt;!&ndash;              {{ server_errors.date_of_birth }}&ndash;&gt;-->
+<!--&lt;!&ndash;            </span>&ndash;&gt;-->
+<!--          </label>-->
+<!--          <DatePicker class="date-time"-->
+<!--            style="width: 100%;"-->
+<!--            type="date"-->
+<!--            v-model="player_team.date_of_birth"-->
+<!--            valueType="format"-->
+<!--            slot="activator"-->
+<!--            :popup-style="{ top: '100%', left: '15%' }"-->
+<!--            :append-to-body="false"-->
+<!--            name="date_of_birth"-->
+<!--            placeholder="ປ້ອນວັນເດືອນປີເກີດ..."-->
+<!--          ></DatePicker>-->
+<!--        </div>-->
+<!--      </div>-->
       <div class="field">
         <div class="control">
           <label for="" class="label">
@@ -168,8 +168,8 @@
 </template>
 
 <script>
-import DatePicker from "vue2-datepicker";
-import "vue2-datepicker/index.css";
+// import DatePicker from "vue2-datepicker";
+// import "vue2-datepicker/index.css";
 import {
     Validator
 } from 'vee-validate';
@@ -209,7 +209,7 @@ Validator.localize('en', dict);
 
 export default {
   components: {
-    DatePicker,
+    // DatePicker,
   },
   props: ["listposition"],
 
@@ -242,7 +242,7 @@ export default {
       sur_name: "",
       eng_name:'',
       eng_surname:'',
-      date_of_birth: "",
+      // date_of_birth: "",
       player_number: "",
       player_position: "",
       image:'',
@@ -282,7 +282,7 @@ export default {
       formData.append('sur_name',this.player_team.sur_name)
       formData.append('eng_name',this.player_team.eng_name)
       formData.append('eng_surname',this.player_team.eng_surname)
-      formData.append('date_of_birth',this.player_team.date_of_birth)
+      // formData.append('date_of_birth',this.player_team.date_of_birth)
       formData.append('player_number',this.player_team.player_number)
       formData.append('player_position',this.player_team.player_position)
       if (this.imageFile){

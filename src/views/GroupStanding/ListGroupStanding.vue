@@ -31,9 +31,16 @@
 
             <vs-td id="table-header-button" >
               <div class="buttons">
-                <vs-button circle   icon flat @click="AddStandingTeam(tournament.id)">
-                  <i class="fas fa-folder-plus"></i>
-                </vs-button>
+                <vs-tooltip primary border ref="addTooltip">
+                  <vs-button circle   icon flat @click="AddStandingTeam(tournament.id)">
+                    <i class="fas fa-folder-plus"></i>
+                  </vs-button>
+                  <template #tooltip>
+                    <div class="text-tooltip">
+                      ສ້າງຮອບຕັດເຊືອກ
+                    </div>
+                  </template>
+                </vs-tooltip>
               </div>
             </vs-td>
           </vs-tr>
@@ -83,12 +90,18 @@ export default {
     },
 
     AddStandingTeam(TournamentId){
+      const { addTooltip } = this.$refs;
+      if(addTooltip && addTooltip[0]) {
+        addTooltip[0].removeTooltip()
+      }
+      setTimeout(() => {
       this.$router.push({
         name: "Standing",
         params: {
           tournament_id: TournamentId,
         }
       });
+      })
     }
   },
   created() {
