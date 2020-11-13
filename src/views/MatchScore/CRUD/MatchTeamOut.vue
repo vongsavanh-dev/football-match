@@ -4,15 +4,11 @@
         <span>
             ກົດຍືນຍັນ ເພື່ອບັນທຶກຂໍ້ມູນ
         </span>
-     <div>
-       <hr>
-       <span style="font-size: 16px; color: red;">(ຖ້າບັນທຶກແລ້ວ ບໍ່ສາມາດກັບມາແກ້ໄຂໄດ້ອີກ)</span>
-     </div>
     </div>
     <span class="has-text-danger" style="font-size: 16px;">{{errorMessage}}</span>
     <hr/>
     <div class="buttons btn">
-      <vs-button class="btn" transparent @click="SuccessMatch()">
+      <vs-button class="btn" transparent @click="MatchTeamOut()">
         ຢືນຢັນ
       </vs-button>
       <vs-button class="btn cancel" @click="$emit('close')" dark transparent>
@@ -30,31 +26,29 @@ export default {
     }
   },
   methods: {
-    SuccessMatch() {
+    MatchTeamOut() {
       this.$axios
-          .get(`match/${this.$route.params.match_id}/finished`)
-          .then(() => {
-            setTimeout(() => {
-              this.$emit("close");
-            }, 200);
-            setTimeout(() => {
-              this.$emit('close');
-              this.$emit('success');
-              this.$notification.OpenNotification_AddItem_OnSuccess('top-right', 'primary', 300);
-            }, 300);
-            this.$router.push({
-              name: 'Match'
+            .get(`match/${this.$route.params.match_id}/team-out`)
+            .then(() => {
+              setTimeout(() => {
+                this.$emit("close");
+              }, 200);
+              setTimeout(() => {
+                this.$emit('close');
+                this.$emit('success');
+                this.$notification.OpenNotification_AddItem_OnSuccess('top-right', 'primary', 3000);
+              }, 300);
+              this.$router.push({
+                name: 'MatchStanding'
+              })
             })
+            .catch((e) => {
+              if(e && e.response){
+                const message =(e.response.data || {}).error;
+                this.matchTeamouterror = message;
+              }
+            });
 
-
-          })
-          .catch((e) => {
-            if (e && e.response) {
-              const message = (e.response.data || {}).error;
-              this.errorMessage = message
-            }
-
-          });
     }
   },
 

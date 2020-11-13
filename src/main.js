@@ -17,6 +17,7 @@ import * as Notification from './plugin/Notification'
 import ModalAdd from "./components/Modals/Add";
 import ModalEdit from './components/Modals/Edit'
 import ModalDelete from './components/Modals/Delete';
+import ModalSuccess from './components/Modals/Success';
 import ModalNotification from './components/Modals/Notification';
 /* End import Modal */
 
@@ -27,6 +28,7 @@ Vue.use(DatePicker)
 Vue.component("ModalAdd", ModalAdd);
 Vue.component('ModalEdit', ModalEdit);
 Vue.component('ModalDelete', ModalDelete);
+Vue.component('ModalSuccess', ModalSuccess);
 Vue.component('ModalNotification', ModalNotification);
 
 

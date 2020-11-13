@@ -21,11 +21,12 @@
             <h3 style="margin-top: 40px;"> {{ listplayers_team.team_1_score }} -
               {{ listplayers_team.team_2_score }}</h3>
             <div class="container" style="margin-left: 50px;">
-              <vs-button style="text-align: center;" v-if="listplayers_match.group_id" @click="FinishMatch('finishmatch')">
+              <vs-button style="text-align: center;" v-if="listplayers_match.group_id" @click="OpenModalSuccess('FinishMatch')">
                 ບັນທີກຜົນ
               </vs-button>
-              <vs-button style="text-align: center;" v-else @click="MatchTeamout()">
-                ບັນທຶກ
+
+              <vs-button style="text-align: center;" v-else @click="OpenModalSuccess('MatchTeamOut')">
+                ບັນທີກຜົນ
               </vs-button>
 
             </div>
@@ -40,7 +41,7 @@
     <div class="columns">
       <div class="column is-6">
         <span class="btn-add">
-            <vs-button class="btn-icon" circle icon flat @click="OpenModalAdd()">
+            <vs-button class="btn-icon" circle icon flat @click="OpenModalAdd('first_score')">
                 <i class="fas fa-plus"></i>
             </vs-button>
               <vs-button class="btn-icon" circle icon flat
@@ -50,9 +51,9 @@
         </span>
         <vs-table>
           <template #thead>
-            <vs-tr class="table-header">
+            <vs-tr >
               <vs-th>
-                ຮູບພາບ
+                ທີມທີ່ເຮັດປະຕູ
               </vs-th>
               <vs-th style="white-space: nowrap;text-align:left;">
                 ນັກເຕະທີ່ຍິງ
@@ -71,7 +72,7 @@
           <template #tbody>
             <vs-tr :key="index " v-for="(player, index) in $vs.getPage(player_Score, page, max)" :data="player">
               <vs-td>
-                <img :src="player.team_logo" alt="" style="width: 50px;height:50px;">
+                <img :src="player.team_logo" alt="" style="width: 60px;height:60px;">
               </vs-td>
               <vs-td style="  white-space: nowrap;text-align:left;">
                 {{ player.player_name }}
@@ -113,10 +114,7 @@
           <template #thead>
             <vs-tr class="table-header">
               <vs-th id="table-index">
-                ລຳດັບ
-              </vs-th>
-              <vs-th id="table-index">
-                ຮູບພາບ
+                ທີມທີ່ໄດ້ Card
               </vs-th>
               <vs-th>
                 ນັກເຕະ
@@ -134,12 +132,8 @@
           </template>
           <template #tbody>
             <vs-tr :key="index " v-for="(playercard, index) in $vs.getPage(player_Card, page2, max)" :data="playercard">
-
               <vs-td>
-                {{ index + 1 }}
-              </vs-td>
-              <vs-td>
-                <img :src="playercard.team_logo" alt="" style="width: 50px;height:50px;">
+                <img :src="playercard.team_logo" alt="" style="width: 60px;height:60px;">
               </vs-td>
               <vs-td style="white-space: nowrap;text-align:left;">
                 {{ playercard.player }}
@@ -166,6 +160,7 @@
             <vs-pagination v-model="page2" :length="$vs.getLength(player_Card, max)"/>
           </template>
         </vs-table>
+
         <ModalAdd>
           <template v-slot="{ close }">
             <AddScorefirstTeam v-if="showModalfirstScores" @close="close"
@@ -189,6 +184,12 @@
           </template>
         </ModalDelete>
 
+        <ModalSuccess>
+          <template v-slot="{ close }">
+            <MatchFinished v-if="showModalFinishMatch" @close="close"/>
+            <MatchTeamOut v-if="showModalMatchTeamOut" @close="close"/>
+          </template>
+        </ModalSuccess>
       </div>
     </div>
 
@@ -203,6 +204,9 @@ import AddCardFirstTeam from './CRUD/AddCardFirstTeam'
 import AddCardScondTeam from './CRUD/AddCardScondTeam'
 import DeleteCard from "@/views/MatchScore/CRUD/DeleteCard";
 import DeleteScore from "@/views/MatchScore/CRUD/DeleteScore";
+import MatchFinished from  "@/views/MatchScore/CRUD/Confirm"
+import MatchTeamOut from "@/views/MatchScore/CRUD/MatchTeamOut"
+
 
 
 export default {
@@ -213,6 +217,8 @@ export default {
     AddCardScondTeam,
     DeleteScore,
     DeleteCard,
+    MatchFinished,
+    MatchTeamOut
   },
   data() {
     return {
@@ -225,6 +231,10 @@ export default {
       showModalCardfirstTeam: false,
       showModalCardSecondtTeam: false,
       showModalfirstScores: false,
+      showModalFinishMatch:false,
+      showModalMatchTeamOut:false,
+      modalPlayerScore: false,
+      modalPlayerCard: false,
       listplayers_team: [],
       player_firstteam: [],
       player_scondteam: [],
@@ -234,8 +244,6 @@ export default {
       errorMessage: '',
       playerScoreId: '',
       playerCardId: '',
-      modalPlayerScore: false,
-      modalPlayerCard: false,
       matchTeamouterror:'',
     }
   },
@@ -268,7 +276,6 @@ export default {
       })
     },
 
-    // Add Score firstTeam
     OpenModalAdd(value) {
       if (value == 'first_score') {
         this.showModalfirstScores = true;
@@ -281,10 +288,10 @@ export default {
         this.showModalCardSecondtTeam = false;
         this.showModalCardfirstTeam = false;
       } else if (value == 'first_card') {
+        this.showModalCardfirstTeam = true;
         this.showModalSecondScore = false;
         this.showModalfirstScores = false;
         this.showModalCardSecondtTeam = false;
-        this.showModalCardfirstTeam = true;
       } else if (value == 'second_card') {
         this.showModalCardSecondtTeam = true;
         this.showModalSecondScore = false;
@@ -352,54 +359,68 @@ export default {
     },
 
     //FinishMatch
-    FinishMatch() {
-      this.$axios
-          .get(`match/${this.$route.params.match_id}/finished`)
-          .then(() => {
-            setTimeout(() => {
-              this.$emit("close");
-            }, 200);
-            setTimeout(() => {
-              this.$emit('close');
-              this.$emit('success');
-              this.$notification.OpenNotification_AddItem_OnSuccess('top-right', 'primary', 3000);
-            }, 300);
-            this.$router.push({
-              name: 'Match'
-            })
-          })
-          .catch((e) => {
-            if (e && e.response) {
-              const message = (e.response.data || {}).error;
-              this.errorMessage = message
-            }
 
-          });
-    },
-    //Teamout
-    MatchTeamout() {
-      this.$axios
-          .get(`match/${this.$route.params.match_id}/team-out`)
-          .then(() => {
-            setTimeout(() => {
-              this.$emit("close");
-            }, 200);
-            setTimeout(() => {
-              this.$emit('close');
-              this.$emit('success');
-              this.$notification.OpenNotification_AddItem_OnSuccess('top-right', 'primary', 3000);
-            }, 300);
-            this.$router.push({
-              name: 'MatchStanding'
-            })
-          })
-          .catch((e) => {
-            if(e && e.response){
-              const message =(e.response.data || {}).error;
-              this.matchTeamouterror = message;
-            }
-          });
+    OpenModalSuccess(value) {
+      if (value == 'FinishMatch'){
+        this.showModalFinishMatch = true;
+        this.showModalMatchTeamOut = false;
+        this.$store.commit("modalSuccess_State", true);
     }
+      else if (value == 'MatchTeamOut'){
+        this.showModalMatchTeamOut = true;
+        this.showModalFinishMatch = false;
+        this.$store.commit("modalSuccess_State", true);
+      }
+    },
+
+    // FinishMatch() {
+    // this.$axios
+    //     .get(`match/${this.$route.params.match_id}/finished`)
+    //     .then(() => {
+    //       setTimeout(() => {
+    //         this.$emit("close");
+    //       }, 200);
+    //       setTimeout(() => {
+    //         this.$emit('close');
+    //         this.$emit('success');
+    //         this.$notification.OpenNotification_AddItem_OnSuccess('top-right', 'primary', 3000);
+    //       }, 300);
+    //       this.$router.push({
+    //         name: 'Match'
+    //       })
+    //     })
+    //     .catch((e) => {
+    //       if (e && e.response) {
+    //         const message = (e.response.data || {}).error;
+    //         this.errorMessage = message
+    //       }
+    //
+    //     });
+
+    //Teamout
+    // MatchTeamout() {
+    //   this.$axios
+    //       .get(`match/${this.$route.params.match_id}/team-out`)
+    //       .then(() => {
+    //         setTimeout(() => {
+    //           this.$emit("close");
+    //         }, 200);
+    //         setTimeout(() => {
+    //           this.$emit('close');
+    //           this.$emit('success');
+    //           this.$notification.OpenNotification_AddItem_OnSuccess('top-right', 'primary', 3000);
+    //         }, 300);
+    //         this.$router.push({
+    //           name: 'MatchStanding'
+    //         })
+    //       })
+    //       .catch((e) => {
+    //         if(e && e.response){
+    //           const message =(e.response.data || {}).error;
+    //           this.matchTeamouterror = message;
+    //         }
+    //       });
+    // }
   },
   created() {
     this.FetchData();

@@ -19,15 +19,14 @@
           </label>
           <div class="select" style="width: 100%">
             <select style="width: 100%" v-model="addteam_score.player_id" name="player_id" v-validate="'required'">
-              <option class="player-option"
+              <option
                       :key="index"
                       v-for="(player, index) in player_team1"
                       :data="player"
                       v-bind:value="player.id"
               >
-                <div class="player-number">
-                  <span id="player-number">{{ player.player_number }} </span> {{ player.name }}  {{player.sur_name}}
-                </div>
+                {{ player.player_number }} {{ player.name }}  {{player.sur_name}}
+
               </option>
             </select>
           </div>
@@ -67,7 +66,7 @@
               {{ server_errors.time }}
             </span>
           </label>
-          <input type="text" class="input" v-model="addteam_score.time" name="time" v-validate="'required|numeric'"
+          <input type="text" class="input" v-model="addteam_score.time" name="time" v-validate="'required'"
                  placeholder="ປ້ອນເວລາ...">
         </div>
       </div>
@@ -96,7 +95,7 @@ const dict = {
       required: '(ກະລຸນາປ້ອນກ່ອນ...)',
     },
     time: {
-      required: '(ກະລຸນາປ້ອນກ່ອນ...)', numeric: '(ປ້ອນສະເພາະຕົວເລກ...)',
+      required: '(ກະລຸນາປ້ອນກ່ອນ...)',
     },
   }
 };
@@ -111,7 +110,7 @@ export default {
       },
       errorMessage: '',
       btnLoading: false,
-      player_team1: {},
+      player_team1:{},
       listteam: '',
 
       addteam_score: {
@@ -162,8 +161,6 @@ export default {
   },
   created() {
     this.getPlayer();
-    this.player = this.listplayer_firstTeam;
-    console.log(this.player)
   },
 };
 </script>
@@ -213,19 +210,5 @@ label {
   font-weight: bold;
   background-color: #3380ff;
   color: #ffff;
-}
-
-.player-option {
-  color: black;
-}
-
-.player-option span {
-  color: red;
-}
-.player-option .player-number span{
-  color: red;
-}
-#player-number{
-  color: red;
 }
 </style>

@@ -25,7 +25,7 @@
                 :data="player"
                 v-bind:value="player.id"
               >
-               {{player.player_number}} {{ player.name }}  {{player.sur_name}}
+                  {{player.player_number}}  {{ player.name }}  {{player.sur_name}}
               </option>
             </select>
           </div>
@@ -68,7 +68,7 @@
             class="input"
             v-model="addscore_scondteam.time"
             name="time"
-            v-validate="'required|numeric'"
+            v-validate="'required'"
             placeholder="ປ້ອນເວລາ..."
 
           />
@@ -113,7 +113,7 @@ const dict = {
       required: '(ກະລຸນາປ້ອນກ່ອນ...)',
     },
     time: {
-      required: '(ກະລຸນາປ້ອນກ່ອນ...)', numeric: '(ປ້ອນສະເພາະຕົວເລກ...)',
+      required: '(ກະລຸນາປ້ອນກ່ອນ...)'
     },
   }
 };
@@ -142,7 +142,6 @@ export default {
 
     //  get player team_1 from team
     getPlayerSecondTeam() {
-      // this.player_team = this.listplayer_scondTeam;
       this.$axios
         .get(`team/${this.listplayer_scondTeam.team_2_id}/player`)
         .then((res) => {
@@ -234,5 +233,11 @@ label {
   font-weight: bold;
   background-color: #3380ff;
   color: #ffff;
+}
+select option {
+  color:black;
+}
+select option span{
+  color:red;
 }
 </style>

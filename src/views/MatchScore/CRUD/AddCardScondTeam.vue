@@ -56,7 +56,7 @@
               {{ server_errors.time }}
             </span>
           </label>
-          <input type="text" class="input" v-model="AddCard_secondTeam.time" name="time"  v-validate="'required|numeric'"
+          <input type="text" class="input" v-model="AddCard_secondTeam.time" name="time"  v-validate="'required'"
                  placeholder="ປ້ອນເວລາ...">
         </div>
       </div>
@@ -83,7 +83,7 @@ const dict = {
       required: '(ກະລຸນາປ້ອນກ່ອນ...)',
     },
     time: {
-      required: '(ກະລຸນາປ້ອນກ່ອນ...)',numeric: '(ປ້ອນສະເພາະຕົວເລກ...)',
+      required: '(ກະລຸນາປ້ອນກ່ອນ...)'
     },
   }
 };
