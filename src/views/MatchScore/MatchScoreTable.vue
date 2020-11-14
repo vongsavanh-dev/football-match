@@ -102,7 +102,7 @@
       <!--Table team 2-->
       <div class="column is-6">
            <span class="btn-add">
-                  <vs-button class="btn-right" circle icon flat @click="OpenModalAdd('second_card')">
+                  <vs-button class="btn-right"  circle icon flat @click="OpenModalAdd('second_card')">
                   <i class="fas fa-id-card-alt"></i>
             </vs-button>
             <vs-button class="btn-right" circle icon flat @click="OpenModalAdd('second_score')">
@@ -184,10 +184,10 @@
           </template>
         </ModalDelete>
 
-        <ModalSuccess>
+        <ModalSuccess v-if="showModalFinishMatch && showModalMatchTeamOut == false" @close="close">
           <template v-slot="{ close }">
-            <MatchFinished v-if="showModalFinishMatch" @close="close"/>
-            <MatchTeamOut v-if="showModalMatchTeamOut" @close="close"/>
+            <MatchFinished v-if="showModalFinishMatch" @close="close" />
+            <MatchTeamOut v-if="showModalMatchTeamOut" @close="close" />
           </template>
         </ModalSuccess>
       </div>

@@ -10,6 +10,7 @@ export default {
       set(val) {
         this.$store.commit("modalSuccess_State", val);
       },
+
       get() {
         return this.$store.state.modalSuccessState;
       },

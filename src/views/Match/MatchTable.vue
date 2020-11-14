@@ -87,15 +87,39 @@
 
                     <vs-td style="text-align: right; width: 100px">
                         <div class="buttons">
+                          <vs-tooltip primary border>
                             <vs-button circle icon flat @click="OpenModalEdit(match.id)">
-                                <i class="fas fa-pencil-alt"></i>
+                              <i class="fas fa-pencil-alt"></i>
                             </vs-button>
+                            <template #tooltip>
+                              <div class="text-tooltip">
+                                ແກ້ໄຂຂໍ້ມູນເເມັດ
+                              </div>
+                            </template>
+                          </vs-tooltip>
+
+                          <vs-tooltip danger border>
                             <vs-button circle danger icon flat @click="OpenModalDelete(match.id)">
-                                <i class="fas fa-trash-alt"></i>
+                              <i class="fas fa-trash-alt"></i>
                             </vs-button>
+                            <template #tooltip>
+                              <div class="text-tooltip">
+                                ລຶບແມັດ
+                              </div>
+                            </template>
+                          </vs-tooltip>
+
+                          <vs-tooltip border primary left ref="addTooltip">
                             <vs-button circle icon flat @click="AddScore(match.id)">
-                                <i class="far fa-calendar-plus"></i>
+                              <i class="far fa-calendar-plus"></i>
                             </vs-button>
+                            <template #tooltip>
+                              <div class="text-tooltip">
+                                ບັນທຶກຜົນການແຂ່ງຂັນ
+                              </div>
+                            </template>
+                          </vs-tooltip>
+
                         </div>
                     </vs-td>
                 </vs-tr>
@@ -154,13 +178,23 @@ export default {
                 })[0] || {}
             );
         },
+
         AddScore(matchId) {
+          const {addTooltip} = this.$refs;
+          if(addTooltip && addTooltip[0]){
+            addTooltip.forEach(function (item){
+              item.removeTooltip()
+            })
+          }
+          setTimeout(() =>{
             this.$router.push({
-                name: "MatchScore",
-                params: {
-                    match_id: matchId,
-                }
+              name: "MatchScore",
+              params: {
+                match_id: matchId,
+              }
             });
+          })
+
         },
         OpenModalAdd() {
             this.$store.commit("modalAdd_State", true);

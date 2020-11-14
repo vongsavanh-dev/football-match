@@ -6,13 +6,13 @@
         </span>
      <div>
        <hr>
-       <span style="font-size: 16px; color: red;">(ຖ້າບັນທຶກແລ້ວ ບໍ່ສາມາດກັບມາແກ້ໄຂໄດ້ອີກ)</span>
+       <span style="font-size: 16px; color: #ff0000;">(ຖ້າບັນທຶກແລ້ວ ບໍ່ສາມາດກັບມາແກ້ໄຂໄດ້ອີກ)</span>
      </div>
     </div>
     <span class="has-text-danger" style="font-size: 16px;">{{errorMessage}}</span>
     <hr/>
     <div class="buttons btn">
-      <vs-button class="btn" transparent @click="SuccessMatch()">
+      <vs-button class="btn"  transparent @click="SuccessMatch()">
         ຢືນຢັນ
       </vs-button>
       <vs-button class="btn cancel" @click="$emit('close')" dark transparent>

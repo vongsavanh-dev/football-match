@@ -18,6 +18,9 @@
 import SideBar from "./components/Sidebar";
 import NavBar from "./components/Navbar";
 
+import  '../public/css/font.css';
+import '../src/assets/scss/main.scss'
+
 export default {
     components: {
         SideBar,
