@@ -8,7 +8,7 @@
                 {{ errorMessage }}
       </span>
       <span class="text-danger" style="font-size: 18px;color:red">
-                {{matchTeamouterror}}
+                {{ matchTeamouterror }}
       </span>
 
       <div class="container">
@@ -21,7 +21,8 @@
             <h3 style="margin-top: 40px;"> {{ listplayers_team.team_1_score }} -
               {{ listplayers_team.team_2_score }}</h3>
             <div class="container" style="margin-left: 50px;">
-              <vs-button style="text-align: center;" v-if="listplayers_match.group_id" @click="OpenModalSuccess('FinishMatch')">
+              <vs-button style="text-align: center;" v-if="listplayers_match.group_id"
+                         @click="OpenModalSuccess('FinishMatch')">
                 ບັນທີກຜົນ
               </vs-button>
 
@@ -41,17 +42,32 @@
     <div class="columns">
       <div class="column is-6">
         <span class="btn-add">
-            <vs-button class="btn-icon" circle icon flat @click="OpenModalAdd('first_score')">
+          <vs-tooltip primary border style="float: left">
+             <vs-button class="btn-icon" circle icon flat @click="OpenModalAdd('first_score')">
                 <i class="fas fa-plus"></i>
             </vs-button>
-              <vs-button class="btn-icon" circle icon flat
-                         @click="OpenModalAdd('first_card')">
+            <template #tooltip>
+              <div class="text-tooltip">
+                ຄະແນນທີມ1
+              </div>
+            </template>
+          </vs-tooltip>
+ <vs-tooltip primary border style="float: left">
+     <vs-button class="btn-icon" circle icon flat
+                @click="OpenModalAdd('first_card')">
                 <i class="fas fa-id-card-alt"></i>
             </vs-button>
+   <template #tooltip>
+     <div class="text-tooltip">
+       ໃບແດງໃບເຫຼືອງທີມ1
+     </div>
+   </template>
+ </vs-tooltip>
+
         </span>
         <vs-table>
           <template #thead>
-            <vs-tr >
+            <vs-tr>
               <vs-th>
                 ທີມທີ່ເຮັດປະຕູ
               </vs-th>
@@ -102,12 +118,27 @@
       <!--Table team 2-->
       <div class="column is-6">
            <span class="btn-add">
-                  <vs-button class="btn-right"  circle icon flat @click="OpenModalAdd('second_card')">
+             <vs-tooltip primary border style="float: right;">
+               <vs-button class="btn-right" circle icon flat @click="OpenModalAdd('second_card')">
                   <i class="fas fa-id-card-alt"></i>
             </vs-button>
-            <vs-button class="btn-right" circle icon flat @click="OpenModalAdd('second_score')">
+               <template #tooltip>
+                 <div class="text-tooltip">
+                   ໃບແດງໃບເຫຼືອງທີມ2
+                 </div>
+               </template>
+             </vs-tooltip>
+<vs-tooltip primary border style="float: right">
+       <vs-button class="btn-right" circle icon flat @click="OpenModalAdd('second_score')">
                 <i class="fas fa-plus"></i>
             </vs-button>
+  <template #tooltip>
+    <div class="text-tooltip">
+      ຄະແນນທີມ2
+    </div>
+  </template>
+</vs-tooltip>
+
 
         </span>
         <vs-table>
@@ -186,8 +217,8 @@
 
         <ModalSuccess v-if="showModalFinishMatch && showModalMatchTeamOut == false" @close="close">
           <template v-slot="{ close }">
-            <MatchFinished v-if="showModalFinishMatch" @close="close" />
-            <MatchTeamOut v-if="showModalMatchTeamOut" @close="close" />
+            <MatchFinished v-if="showModalFinishMatch" @close="close"/>
+            <MatchTeamOut v-if="showModalMatchTeamOut" @close="close"/>
           </template>
         </ModalSuccess>
       </div>
@@ -204,9 +235,8 @@ import AddCardFirstTeam from './CRUD/AddCardFirstTeam'
 import AddCardScondTeam from './CRUD/AddCardScondTeam'
 import DeleteCard from "@/views/MatchScore/CRUD/DeleteCard";
 import DeleteScore from "@/views/MatchScore/CRUD/DeleteScore";
-import MatchFinished from  "@/views/MatchScore/CRUD/Confirm"
+import MatchFinished from "@/views/MatchScore/CRUD/Confirm"
 import MatchTeamOut from "@/views/MatchScore/CRUD/MatchTeamOut"
-
 
 
 export default {
@@ -231,8 +261,8 @@ export default {
       showModalCardfirstTeam: false,
       showModalCardSecondtTeam: false,
       showModalfirstScores: false,
-      showModalFinishMatch:false,
-      showModalMatchTeamOut:false,
+      showModalFinishMatch: false,
+      showModalMatchTeamOut: false,
       modalPlayerScore: false,
       modalPlayerCard: false,
       listplayers_team: [],
@@ -244,7 +274,7 @@ export default {
       errorMessage: '',
       playerScoreId: '',
       playerCardId: '',
-      matchTeamouterror:'',
+      matchTeamouterror: '',
     }
   },
   methods: {
@@ -361,12 +391,11 @@ export default {
     //FinishMatch
 
     OpenModalSuccess(value) {
-      if (value == 'FinishMatch'){
+      if (value == 'FinishMatch') {
         this.showModalFinishMatch = true;
         this.showModalMatchTeamOut = false;
         this.$store.commit("modalSuccess_State", true);
-    }
-      else if (value == 'MatchTeamOut'){
+      } else if (value == 'MatchTeamOut') {
         this.showModalMatchTeamOut = true;
         this.showModalFinishMatch = false;
         this.$store.commit("modalSuccess_State", true);
