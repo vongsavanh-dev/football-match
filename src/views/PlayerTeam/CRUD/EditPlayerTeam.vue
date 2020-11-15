@@ -157,9 +157,9 @@ const dict = {
     // eng_surname: {
     //     required: '(ກະລຸນາປ້ອນກ່ອນ...)',
     // },
-    date_of_birth: {
-      required: '(ກະລຸນາປ້ອນກ່ອນ...)',
-    },
+    // date_of_birth: {
+    //   required: '(ກະລຸນາປ້ອນກ່ອນ...)',
+    // },
     player_number: {
       required: '(ກະລຸນາປ້ອນກ່ອນ...)',
     },
@@ -235,7 +235,7 @@ export default {
       const {eng_name, eng_surname} = this.listplayerteam;
       formData.append('eng_name', eng_name|| '')
       formData.append('eng_surname', eng_surname|| '')
-      formData.append('date_of_birth', this.listplayerteam.date_of_birth)
+      // formData.append('date_of_birth', this.listplayerteam.date_of_birth)
       formData.append('player_number', this.listplayerteam.player_number)
       formData.append('player_position', this.listplayerteam.player_position)
       if (this.imageFile) {
@@ -263,7 +263,7 @@ export default {
   },
   created() {
     this.player = this.listplayerteam;
-    // console.log(this.player)
+    console.log(this.player)
   }
 };
 </script>

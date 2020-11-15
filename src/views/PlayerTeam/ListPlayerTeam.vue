@@ -221,11 +221,11 @@ export default {
       /*   this.isLoading = true; */
       const id = this.$route.params.team_id
       this.$axios.get(`team/${id}/player`).then(res => {
-        console.log(res)
+        // console.log(res)
         setTimeout(() => {
           this.playerteams = res.data.player_lists;
           this.position = res.data.position;
-          console.log(this.playerteams)
+          // console.log(this.playerteams)
         }, 100);
       }).catch(() => {
 
