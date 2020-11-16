@@ -23,7 +23,9 @@
         </div>
         <div class="field btn">
             <div class="control">
-                <button class="button is-fullwidth" style="color:#ffff" @click="ValidateForm()">
+                <button class="button is-fullwidth" style="color:#ffff"
+                        :class="{'is-loading':btnLoading}"
+                        @click="ValidateForm()">
                     ບັນທຶກ ຂໍ້ມູນກຸ່ມ
                 </button>
             </div>
@@ -48,6 +50,7 @@
     export default {
         data(){
             return{
+              btnLoading:false,
                 server_errors: {
                    name: '',
 
@@ -61,7 +64,8 @@
             ValidateForm() {
                 this.$validator.validateAll().then((result) => {
                     if (result) {
-                        this.SaveData();
+                      this.btnLoading  = true;
+                      this.SaveData();
                     }
                 });
             },

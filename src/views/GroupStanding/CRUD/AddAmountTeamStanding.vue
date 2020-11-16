@@ -46,7 +46,9 @@
     </div>
     <div class="field btn">
       <div class="control">
-        <button class="button is-fullwidth" style="color:#ffff" @click="ValidateForm()">
+        <button class="button is-fullwidth"
+                :class="{'is-loading':btnLoading}"
+                style="color:#ffff" @click="ValidateForm()">
           ບັນທຶກ ຂໍ້ມູນທີມ
         </button>
       </div>
@@ -73,6 +75,7 @@ Validator.localize('en', dict);
 export default {
   data() {
     return {
+      btnLoading:false,
       server_errors: {
         tournament_name: '',
         amount_team: '',
@@ -91,6 +94,7 @@ export default {
     ValidateForm() {
       this.$validator.validateAll().then((result) => {
         if (result) {
+          this.btnLoading = true
           this.SaveData();
         }
       });

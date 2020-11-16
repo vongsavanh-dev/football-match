@@ -43,7 +43,7 @@
                     </vs-th>
 
                     <vs-th> </vs-th>
-                    <vs-th id="icon-menu"> </vs-th>
+                    <vs-th id="table-header-button"> </vs-th>
 
                 </vs-tr>
             </template>
@@ -85,7 +85,7 @@
 
                     </vs-td>
 
-                    <vs-td style="text-align: right; width: 100px">
+                    <vs-td class="btn-action">
                         <div class="buttons">
                           <vs-tooltip primary border>
                             <vs-button circle icon flat @click="OpenModalEdit(match.id)">
@@ -116,6 +116,17 @@
                             <template #tooltip>
                               <div class="text-tooltip">
                                 ບັນທຶກຜົນການແຂ່ງຂັນ
+                              </div>
+                            </template>
+                          </vs-tooltip>
+
+                          <vs-tooltip border primary left ref="addTooltip">
+                            <vs-button circle danger icon flat @click="AddhightLight(match.id)">
+                              <i class="fab fa-youtube"></i>
+                            </vs-button>
+                            <template #tooltip>
+                              <div class="text-tooltip">
+                              hightlight
                               </div>
                             </template>
                           </vs-tooltip>
@@ -196,6 +207,29 @@ export default {
           })
 
         },
+
+      AddhightLight(matchId) {
+        const {addTooltip} = this.$refs;
+        if(addTooltip && addTooltip[0]){
+          addTooltip.forEach(function (item){
+            item.removeTooltip()
+          })
+        }
+        setTimeout(() =>{
+          this.$router.push({
+            name: "MatchHightLight",
+            params: {
+              match_id: matchId,
+            }
+          });
+        })
+
+      },
+
+
+
+
+
         OpenModalAdd() {
             this.$store.commit("modalAdd_State", true);
         },
@@ -233,6 +267,14 @@ export default {
 </script>
 
 <style>
+.btn-action .buttons{
+  width: 200px;
+}
+#table-header-button {
+  width: 150px;
+
+}
+
 .container {
     width: 100%;
     height: auto;
@@ -256,10 +298,6 @@ export default {
     margin-bottom: 20px;
     font-size: 18px;
     float: right;
-}
-.image-log-team {
-    width: 100%;
-    margin-top: 8px;
 }
 
 #table-index {

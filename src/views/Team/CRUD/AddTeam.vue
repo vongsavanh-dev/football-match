@@ -48,7 +48,9 @@
         </div>
         <div class="field btn">
             <div class="control">
-                <button class="button is-fullwidth" style="color:#ffff" @click="ValidateForm()">
+                <button class="button is-fullwidth" style="color:#ffff"
+                        :class="{'is-loading':btnLoading}"
+                        @click="ValidateForm()">
                     ບັນທຶກ ຂໍ້ມູນທີມ
                 </button>
             </div>
@@ -79,6 +81,7 @@ Validator.localize('en', dict);
 
 export default {
     data: () => ({
+      btnLoading:false,
         active: false,
          imageFile: null,
          image:'',
@@ -120,6 +123,7 @@ export default {
         ValidateForm() {
             this.$validator.validateAll().then((result) => {
                 if (result) {
+                  this.btnLoading = true
                     this.SaveData();
                 }
             });

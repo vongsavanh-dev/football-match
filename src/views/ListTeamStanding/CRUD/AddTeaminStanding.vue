@@ -25,7 +25,9 @@
       </vs-select>
 
     </div>
-    <vs-button style="width:100%;font-size: 20px;" @click="SaveData()">
+    <vs-button style="width:100%;font-size: 20px;"
+               :class="{'is-loading':btnLoading}"
+               @click="SaveData()">
       ບັນທຶກຂໍ້ມູນທີມ
     </vs-button>
   </div>
@@ -44,6 +46,7 @@ Validator.localize('en', dict);
 export default {
   props: ['list_teams'],
   data: () => ({
+    btnLoading:false,
     server_errors: {
       errorMessage: '',
     },
@@ -61,6 +64,7 @@ export default {
       this.$axios.post(`tournament/${tournament_id}/standing/${id}`, payload
       ).then(res => {
         if (res) {
+          this.btnLoading = true;
           setTimeout(() => {
             this.$emit('close');
             this.$emit('success');

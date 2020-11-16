@@ -79,7 +79,9 @@
 
       <div class="field btn">
         <div class="control">
-          <button class="button is-fullwidth" style="color:#ffff;" @click="ValidateForm()">
+          <button class="button is-fullwidth"
+                  :class="{'is-loading':btnLoading}"
+                  style="color:#ffff;" @click="ValidateForm()">
             ບັນທຶກ ຂໍ້ມູນການແຂ່ງຂັນ
           </button>
         </div>
@@ -114,6 +116,7 @@ export default {
   },
   data() {
     return {
+      btnLoading:false,
       active: false,
       value: "",
       match_date: '',
@@ -142,6 +145,7 @@ export default {
     ValidateForm() {
       this.$validator.validateAll().then((result) => {
         if (result) {
+          this.btnLoading = true
           this.SaveData();
         }
       });

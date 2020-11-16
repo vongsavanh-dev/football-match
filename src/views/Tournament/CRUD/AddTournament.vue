@@ -53,7 +53,9 @@
         </div>
             <div class="field btn">
                 <div class="control">
-                    <button class="button is-fullwidth" style="color:#ffff" @click="ValidateForm()">
+                    <button class="button is-fullwidth" style="color:#ffff"
+                            :class="{'is-loading':btnLoading}"
+                            @click="ValidateForm()">
                       ບັນທຶກ ຂໍ້ມູນທົວນາເມັ້ນ
                     </button>
                 </div>
@@ -84,6 +86,7 @@
     export default {
 data(){
     return{
+      btnLoading :false,
         server_errors: {
             tournament_name: '',
             amount_matchs:'',
@@ -101,6 +104,7 @@ methods:{
     ValidateForm() {
                 this.$validator.validateAll().then((result) => {
                     if (result) {
+                      this.btnLoading = true
                    this.SaveData();
                 }
           });

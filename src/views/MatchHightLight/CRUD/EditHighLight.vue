@@ -1,35 +1,48 @@
 <template>
   <div>
     <div class="header-title">
-      <i class="fas fa-info-circle"></i>
-      <span>ບັນທຶກ ຂໍ້ມູນທີມຜ່ານເຂົ້າຮອບ</span>
-     <div class="message-error">
-       <span class="has-text-danger" style="font-size: 18px;">{{errorMessage}}</span>
-     </div>
-
+      <i class="fas fa-info-circle"></i><span>ອັບເດດ ຂໍ້ມູນ HighLight</span>
     </div>
     <div class="section-content">
       <div class="filed">
         <div class="control">
           <label for="label" class="label">
-            ຈຳນວນທິມຜ່ານເຂົ້າຮອບ
-            <span class="has-text-danger">* {{ errors.first('amount_teams') }}</span>
+            ຫົວຂໍ້
+            <span class="has-text-danger">* {{ errors.first('title') }}</span>
             <span class="has-text-danger">
-                        {{server_errors.amount_teams}}
-                    </span>
+                        {{ server_errors.title }}
+            </span>
           </label>
-          <input type="text" class="input" name="amount_teams"
-                 v-model="Add_Teams.teams"
-                 v-validate="'required'" />
+          <input type="text" class="input" name="title"
+                 v-validate="'required'"
+                 placeholder="ຫົວຂໍ້..."
+                 v-model="EditHighlight.title"
+          />
+        </div>
+      </div>
+      <div class="filed">
+        <div class="control">
+          <label for="label" class="label">
+            Video_URL
+            <span class="has-text-danger">* {{ errors.first('video_url') }}</span>
+            <span class="has-text-danger">
+            {{ server_errors.video_url }}
+            </span>
+          </label>
+          <input type="text" class="input" name="video_url"
+                 v-validate="'required'"
+                 placeholder="video url..."
+                 v-model="EditHighlight.video_url"
+          />
         </div>
       </div>
     </div>
     <div class="field btn">
       <div class="control">
         <button class="button is-fullwidth" style="color:#ffff"
-                :class="{'is-loading':btnLoading}"
+                :class="{'is-loading': btnLoading}"
                 @click="ValidateForm()">
-          ບັນທຶກ ຂໍ້ມູນ
+          ອັບເດດ ຂໍ້ມູນ
         </button>
       </div>
     </div>
@@ -43,40 +56,40 @@ import {
 
 const dict = {
   custom: {
-    amount_teams: {
+    title: {
       required: '(ກະລຸນາປ້ອນກ່ອນ...)',
     },
 
+    video_url: {
+      required: '(ກະລຸນາປ້ອນກ່ອນ...)'
+    }
   }
 };
 Validator.localize('en', dict);
 export default {
-  data(){
-    return{
+  props:['EditHighlight'],
+  data() {
+    return {
       btnLoading:false,
       server_errors: {
-        amount_teams: '',
+        title: '',
+        video_url: '',
 
       },
-      errorMessage:'',
-      Add_Teams:{
-        teams:''
-      }
     }
   },
-  methods:{
+  methods: {
     ValidateForm() {
       this.$validator.validateAll().then((result) => {
         if (result) {
-          this.btnLoading = true
-          this.SaveData();
+          this.btnLoading = true;
+          this.UpdateData();
         }
       });
     },
-    SaveData() {
-      const id = this.$route.params.tournament_id;
-      this.$axios.post(`tournament/${id}/standing`, this.Add_Teams).then(res => {
-        console.log(res)
+    UpdateData() {
+      const id = this.$route.params.match_id;
+      this.$axios.put(`match/${id}/highligth/${this.EditHighlight.id}`, this.EditHighlight).then(res => {
         if (res) {
           setTimeout(() => {
             this.$emit('close');
@@ -84,18 +97,10 @@ export default {
             this.$notification.OpenNotification_AddItem_OnSuccess('top-right', 'primary', 3000);
           }, 300);
         }
-      }).catch((e) =>{
-        if(e && e.response){
-          const message = (e.response.data || {}).error;
-          this.errorMessage = message
-        }
-
-      })
+      }).catch({});
     },
 
   }
-
-
 
 
 }
@@ -128,8 +133,18 @@ label {
   width: 100%;
 }
 
+.upload-profile h2 {
+  font-family: BoonBaan;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+}
 
-
+.file-cta {
+  width: 100%;
+}
 
 .file-cta .file-icon {
   margin-left: auto;
@@ -146,6 +161,7 @@ label {
   background-color: #3380ff;
   color: #ffff;
 }
+
 label {
   font-family: BoonBaan;
   text-align: left;
