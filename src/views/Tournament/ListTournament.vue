@@ -85,7 +85,7 @@
             <vs-td>
               {{ tournament.status }}
             </vs-td>
-            <vs-td id="table-header-button">
+            <vs-td class="btn-action">
               <div class="buttons">
                 <vs-tooltip ref="addTooltip" top primary border>
                   <vs-button circle icon flat @click="AddTournament(tournament.id)">
@@ -116,6 +116,19 @@
                   <template #tooltip>
                     <div class="text-tooltip">
                       ລຶບທົວນາເມັ້ນ
+                    </div>
+                  </template>
+                </vs-tooltip>
+
+
+                <vs-tooltip primary border ref="addTooltip">
+                  <vs-button circle danger icon flat
+                             @click="AddhightLight(tournament.id)">
+                    <i class="fab fa-youtube"></i>
+                  </vs-button>
+                  <template #tooltip>
+                    <div class="text-tooltip">
+                      highlight
                     </div>
                   </template>
                 </vs-tooltip>
@@ -204,6 +217,28 @@ export default {
         });
       })
     },
+
+
+    AddhightLight(TournamentId) {
+      const {addTooltip} = this.$refs;
+      if(addTooltip && addTooltip[0]){
+        addTooltip.forEach(function (item){
+          item.removeTooltip()
+        })
+      }
+      setTimeout(() =>{
+        this.$router.push({
+          name: "MatchHightLight",
+          params: {
+            tournament_id: TournamentId,
+          }
+        });
+      })
+
+    },
+
+
+
     FetchData() {
       this.$axios.get('tournament').then(res => {
         // setTimeout(() => {
@@ -260,6 +295,9 @@ export default {
 
 .text-tooltip {
   font-size: 16px;
+}
+.btn-action .buttons{
+  width: 200px;
 }
 
 

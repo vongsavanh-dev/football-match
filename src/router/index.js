@@ -166,7 +166,7 @@ const routes = [{
         }
     },
     {
-        path: '/admin-matchhight/:match_id',
+        path: '/admin-matchhight/:tournament_id',
         name: 'MatchHightLight',
         component: Hightlight,
         meta: {

@@ -88,8 +88,8 @@ export default {
       });
     },
     UpdateData() {
-      const id = this.$route.params.match_id;
-      this.$axios.put(`match/${id}/highligth/${this.EditHighlight.id}`, this.EditHighlight).then(res => {
+      const id = this.$route.params.tournament_id;
+      this.$axios.put(`tournament/${id}/highligth/${this.EditHighlight.id}`, this.EditHighlight).then(res => {
         if (res) {
           setTimeout(() => {
             this.$emit('close');

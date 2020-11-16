@@ -29,8 +29,8 @@ export default {
   },
   methods: {
     Highlight(Highlight_ID) {
-      const id = this.$route.params.match_id
-      this.$axios.delete(`match/${id}/highligth/` + Highlight_ID).then(res => {
+      const id = this.$route.params.tournament_id
+      this.$axios.delete(`tournament/${id}/highligth/` + Highlight_ID).then(res => {
         if (res) {
           setTimeout(() => {
             this.loading = false;

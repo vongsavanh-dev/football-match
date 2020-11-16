@@ -138,8 +138,8 @@ export default {
     },
 
     FetchData() {
-      const id = this.$route.params.match_id;
-      this.$axios.get(`match/${id}/highligth`,).then(res => {
+      const id = this.$route.params.tournament_id;
+      this.$axios.get(`tournament/${id}/highligth`,).then(res => {
         if (res) {
           this.highlights = res.data
         }

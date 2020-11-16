@@ -120,16 +120,16 @@
                             </template>
                           </vs-tooltip>
 
-                          <vs-tooltip border primary left ref="addTooltip">
-                            <vs-button circle danger icon flat @click="AddhightLight(match.id)">
-                              <i class="fab fa-youtube"></i>
-                            </vs-button>
-                            <template #tooltip>
-                              <div class="text-tooltip">
-                              hightlight
-                              </div>
-                            </template>
-                          </vs-tooltip>
+<!--                          <vs-tooltip border primary left ref="addTooltip">-->
+<!--                            <vs-button circle danger icon flat @click="AddhightLight(match.id)">-->
+<!--                              <i class="fab fa-youtube"></i>-->
+<!--                            </vs-button>-->
+<!--                            <template #tooltip>-->
+<!--                              <div class="text-tooltip">-->
+<!--                              hightlight-->
+<!--                              </div>-->
+<!--                            </template>-->
+<!--                          </vs-tooltip>-->
 
                         </div>
                     </vs-td>
@@ -208,23 +208,23 @@ export default {
 
         },
 
-      AddhightLight(matchId) {
-        const {addTooltip} = this.$refs;
-        if(addTooltip && addTooltip[0]){
-          addTooltip.forEach(function (item){
-            item.removeTooltip()
-          })
-        }
-        setTimeout(() =>{
-          this.$router.push({
-            name: "MatchHightLight",
-            params: {
-              match_id: matchId,
-            }
-          });
-        })
-
-      },
+      // AddhightLight(matchId) {
+      //   const {addTooltip} = this.$refs;
+      //   if(addTooltip && addTooltip[0]){
+      //     addTooltip.forEach(function (item){
+      //       item.removeTooltip()
+      //     })
+      //   }
+      //   setTimeout(() =>{
+      //     this.$router.push({
+      //       name: "MatchHightLight",
+      //       params: {
+      //         match_id: matchId,
+      //       }
+      //     });
+      //   })
+      //
+      // },
 
 
 

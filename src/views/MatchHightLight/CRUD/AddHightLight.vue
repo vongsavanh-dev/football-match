@@ -91,8 +91,8 @@ export default {
       });
     },
     SaveData() {
-      const id = this.$route.params.match_id;
-      this.$axios.post(`match/${id}/highligth`, this.hightLight).then(res => {
+      const id = this.$route.params.tournament_id;
+      this.$axios.post(`tournament/${id}/highligth`, this.hightLight).then(res => {
         if (res) {
           setTimeout(() => {
             this.$emit('close');
