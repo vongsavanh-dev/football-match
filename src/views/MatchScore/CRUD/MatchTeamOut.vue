@@ -5,7 +5,11 @@
             ກົດຍືນຍັນ ເພື່ອບັນທຶກຂໍ້ມູນ
         </span>
     </div>
-    <span class="has-text-danger" style="font-size: 16px;">{{errorMessage}}</span>
+    <div>
+      <hr>
+      <span style="font-size: 16px; color: #ff0000;">(ຖ້າບັນທຶກແລ້ວ ບໍ່ສາມາດກັບມາແກ້ໄຂໄດ້ອີກ)</span>
+    </div>
+    <span class="has-text-danger" style="font-size: 16px;">{{matchTeamouterror}}</span>
     <hr/>
     <div class="buttons btn">
       <vs-button class="btn" transparent @click="MatchTeamOut()">
@@ -22,32 +26,31 @@
 export default {
   data() {
     return {
-      errorMessage:'',
+      matchTeamouterror:'',
     }
   },
   methods: {
     MatchTeamOut() {
-      this.$axios
-            .get(`match/${this.$route.params.match_id}/team-out`)
-            .then(() => {
-              setTimeout(() => {
-                this.$emit("close");
-              }, 200);
-              setTimeout(() => {
-                this.$emit('close');
-                this.$emit('success');
-                this.$notification.OpenNotification_AddItem_OnSuccess('top-right', 'primary', 3000);
-              }, 300);
-              this.$router.push({
-                name: 'MatchStanding'
-              })
-            })
-            .catch((e) => {
-              if(e && e.response){
-                const message =(e.response.data || {}).error;
-                this.matchTeamouterror = message;
-              }
+      this.$axios.get(`match/${this.$route.params.match_id}/team-out`).then((res) => {
+        if (res) {
+          setTimeout(() => {
+            this.$router.push({
+              name: 'MatchStanding'
             });
+            this.$emit('close');
+            this.$emit('success');
+            this.$notification.OpenNotification_AddItem_OnSuccess('top-right', 'primary', 3000);
+          }, 300)
+              .catch((e) => {
+                        if(e && e.response){
+                          const message =(e.response.data || {}).error;
+                          this.matchTeamouterror = message;
+                          // console.log( this.matchTeamouterror)
+                        }
+                      });
+        }
+
+      })
 
     }
   },

@@ -215,7 +215,8 @@
           </template>
         </ModalDelete>
 
-        <ModalSuccess v-if="showModalFinishMatch && showModalMatchTeamOut == false" @close="close">
+<!--        <ModalSuccess v-if="showModalFinishMatch && showModalMatchTeamOut == false" @close="close">-->
+        <ModalSuccess>
           <template v-slot="{ close }">
             <MatchFinished v-if="showModalFinishMatch" @close="close"/>
             <MatchTeamOut v-if="showModalMatchTeamOut" @close="close"/>

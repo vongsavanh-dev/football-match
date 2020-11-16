@@ -157,15 +157,15 @@ export default {
                 }
             });
         },
-        BtnLoading() {
-            return this.$vs.loading({
-                target: this.$refs.button,
-                scale: '0.6',
-                background: 'primary',
-                opacity: 1,
-                color: '#fff'
-            });
-        }
+        // BtnLoading() {
+        //     return this.$vs.loading({
+        //         target: this.$refs.button,
+        //         scale: '0.6',
+        //         background: 'primary',
+        //         opacity: 1,
+        //         color: '#fff'
+        //     });
+        // }
 
     },
 
