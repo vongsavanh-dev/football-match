@@ -25,7 +25,7 @@
                       :data="player"
                       v-bind:value="player.id"
               >
-                {{ player.player_number }} {{ player.name }}  {{player.sur_name}}
+               <span id="player-number">{{player.player_number }}</span>  {{ player.name }}  {{player.sur_name}}
 
               </option>
             </select>
@@ -118,6 +118,7 @@ export default {
         assist_player_id: '',
         time: "",
       },
+
     };
   },
   methods: {
