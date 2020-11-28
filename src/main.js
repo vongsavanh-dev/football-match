@@ -21,7 +21,6 @@ import ModalSuccess from './components/Modals/Success';
 import ModalNotification from './components/Modals/Notification';
 /* End import Modal */
 
-
 Vue.use(VeeValidate);
 Vue.use(Vuesax, {});
 Vue.use(DatePicker)

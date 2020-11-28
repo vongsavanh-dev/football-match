@@ -9,11 +9,12 @@
           <label for="" class="label">
             ຊື່ນັກເຕະ
             <span class="has-text-danger">* {{ errors.first('name') }}</span>
-                    <span class="has-text-danger">
-                        {{server_errors.name}}
+            <span class="has-text-danger">
+                        {{ server_errors.name }}
                     </span>
           </label>
-          <input type="text" class="input" v-model="player_team.name" name="name"  v-validate="'required'" placeholder="ປ້ອນຊື່ນັກເຕະ..." />
+          <input type="text" class="input" v-model="player_team.name" name="name" v-validate="'required'"
+                 placeholder="ປ້ອນຊື່ນັກເຕະ..."/>
         </div>
       </div>
       <div class="field">
@@ -25,7 +26,8 @@
               {{ server_errors.sur_name }}
             </span>
           </label>
-          <input type="text" class="input" v-model="player_team.sur_name" name="sur_name" v-validate="'required'" placeholder="ປ້ອນນາມສະກຸນ..." />
+          <input type="text" class="input" v-model="player_team.sur_name" name="sur_name" v-validate="'required'"
+                 placeholder="ປ້ອນນາມສະກຸນ..."/>
         </div>
       </div>
 
@@ -33,72 +35,72 @@
         <div class="control">
           <label for="" class="label">
             Name
-<!--            <span class="has-text-danger">* {{ errors.first('eng_name') }}</span>-->
-<!--            <span class="has-text-danger">-->
-<!--              {{ server_errors.eng_name }}-->
-<!--            </span>-->
+            <!--            <span class="has-text-danger">* {{ errors.first('eng_name') }}</span>-->
+            <!--            <span class="has-text-danger">-->
+            <!--              {{ server_errors.eng_name }}-->
+            <!--            </span>-->
           </label>
-          <input type="text" class="input" v-model="player_team.eng_name" name="eng_name"  placeholder="name..."  />
+          <input type="text" class="input" v-model="player_team.eng_name" name="eng_name" placeholder="name..."/>
         </div>
       </div>
 
-     <div class="field">
+      <div class="field">
         <div class="control">
-          <label  class="label">
+          <label class="label">
             SurName
-<!--            <span class="has-text-danger">* {{ errors.first('eng_surname') }}</span>-->
-<!--            <span class="has-text-danger">-->
-<!--              {{ server_errors.eng_surname }}-->
-<!--            </span>-->
+            <!--            <span class="has-text-danger">* {{ errors.first('eng_surname') }}</span>-->
+            <!--            <span class="has-text-danger">-->
+            <!--              {{ server_errors.eng_surname }}-->
+            <!--            </span>-->
           </label>
           <input type="text" class="input" v-model="player_team.eng_surname" name="eng_surname"
-                 placeholder="surname..."  />
+                 placeholder="surname..."/>
         </div>
       </div>
 
 
-<!--      <div class="field">-->
-<!--        <div class="control">-->
-<!--          <label for="" class="label">-->
-<!--            ວັນເດືອນປີເກີດ-->
-<!--&lt;!&ndash;            <span class="has-text-danger"&ndash;&gt;-->
-<!--&lt;!&ndash;              >* {{ errors.first('date_of_birth') }}</span&ndash;&gt;-->
-<!--&lt;!&ndash;            >&ndash;&gt;-->
-<!--&lt;!&ndash;            <span class="has-text-danger">&ndash;&gt;-->
-<!--&lt;!&ndash;              {{ server_errors.date_of_birth }}&ndash;&gt;-->
-<!--&lt;!&ndash;            </span>&ndash;&gt;-->
-<!--          </label>-->
-<!--          <DatePicker class="date-time"-->
-<!--            style="width: 100%;"-->
-<!--            type="date"-->
-<!--            v-model="player_team.date_of_birth"-->
-<!--            valueType="format"-->
-<!--            slot="activator"-->
-<!--            :popup-style="{ top: '100%', left: '15%' }"-->
-<!--            :append-to-body="false"-->
-<!--            name="date_of_birth"-->
-<!--            placeholder="ປ້ອນວັນເດືອນປີເກີດ..."-->
-<!--          ></DatePicker>-->
-<!--        </div>-->
-<!--      </div>-->
+      <!--      <div class="field">-->
+      <!--        <div class="control">-->
+      <!--          <label for="" class="label">-->
+      <!--            ວັນເດືອນປີເກີດ-->
+      <!--&lt;!&ndash;            <span class="has-text-danger"&ndash;&gt;-->
+      <!--&lt;!&ndash;              >* {{ errors.first('date_of_birth') }}</span&ndash;&gt;-->
+      <!--&lt;!&ndash;            >&ndash;&gt;-->
+      <!--&lt;!&ndash;            <span class="has-text-danger">&ndash;&gt;-->
+      <!--&lt;!&ndash;              {{ server_errors.date_of_birth }}&ndash;&gt;-->
+      <!--&lt;!&ndash;            </span>&ndash;&gt;-->
+      <!--          </label>-->
+      <!--          <DatePicker class="date-time"-->
+      <!--            style="width: 100%;"-->
+      <!--            type="date"-->
+      <!--            v-model="player_team.date_of_birth"-->
+      <!--            valueType="format"-->
+      <!--            slot="activator"-->
+      <!--            :popup-style="{ top: '100%', left: '15%' }"-->
+      <!--            :append-to-body="false"-->
+      <!--            name="date_of_birth"-->
+      <!--            placeholder="ປ້ອນວັນເດືອນປີເກີດ..."-->
+      <!--          ></DatePicker>-->
+      <!--        </div>-->
+      <!--      </div>-->
       <div class="field">
         <div class="control">
           <label for="" class="label">
             ເບີເສື້ອ
             <span class="has-text-danger"
-              >* {{ errors.first('player_number') }}</span
+            >* {{ errors.first('player_number') }}</span
             >
             <span class="has-text-danger">
               {{ server_errors.player_number }}
             </span>
           </label>
           <input
-            type="text"
-            class="input"
-            v-model="player_team.player_number"
-            v-validate="'numeric'"
-            name="player_number"
-            placeholder="ປ້ອນເບີເສື້ອ..."
+              type="text"
+              class="input"
+              v-model="player_team.player_number"
+              v-validate="'numeric'"
+              name="player_number"
+              placeholder="ປ້ອນເບີເສື້ອ..."
           />
         </div>
       </div>
@@ -108,18 +110,19 @@
           <label for="" class="label">
             ຕຳແໜ່ງ
             <span class="has-text-danger"
-              >* {{ errors.first('player_position') }}</span
+            >* {{ errors.first('player_position') }}</span
             >
             <span class="has-text-danger">
               {{ server_errors.player_position }}
             </span>
           </label>
           <div class="select" style="width: 100%">
-            <select style="width: 100%" v-model="player_team.player_position" name="player_position" v-validate="'required'">
+            <select style="width: 100%" v-model="player_team.player_position" name="player_position"
+                    v-validate="'required'">
               <option
-                v-for="(position, index) in listposition"
-                :key="index"
-                :value="position.name"
+                  v-for="(position, index) in listposition"
+                  :key="index"
+                  :value="position.name"
               >
                 {{ position_Laoname[position.name] }}
               </option>
@@ -127,37 +130,29 @@
           </div>
         </div>
       </div>
-<div class="filed">
-<div class="control">
-  <label for="" class="label" style="font-size:18px;">
-      ເລືອກຮູບພາບ
-<!--         <span class="has-text-danger"-->
-<!--              >* {{ errors.first('image') }}</span-->
-<!--            >-->
-<!--            <span class="has-text-danger">-->
-<!--              {{ server_errors.image }}-->
-<!--            </span>-->
-    </label>
-</div>
-    </div>
+      <div class="filed">
+        <div class="control">
+          <label for="" class="label" style="font-size:18px;">
+            ເລືອກຮູບພາບ
+          </label>
+        </div>
+      </div>
       <div class="image-preview" v-if="image.length > 0">
         <img class="preview" :src="image"/>
       </div>
       <div class="filed">
 
-          <div class="control">
-            <input type="file" @change="previewImage" name="image" accept="image/*" class="input" />
-          </div>
+        <div class="control">
+          <input type="file" @change="previewImage" name="image" accept="image/*" class="input"/>
+        </div>
       </div>
-
-
       <div class="field btn">
         <div class="control">
           <button
-            class="button is-fullwidth"
-            style="color: #ffff"
-            @click="ValidateForm()"
-            :class="{'loading':btnLoading}"
+              class="button is-fullwidth"
+              style="color: #ffff"
+              @click="ValidateForm()"
+              :class="{'loading':btnLoading}"
           >
             ບັນທຶກ ຂໍ້ມູນນັກເຕະ
           </button>
@@ -171,40 +166,39 @@
 // import DatePicker from "vue2-datepicker";
 // import "vue2-datepicker/index.css";
 import {
-    Validator
+  Validator
 } from 'vee-validate';
 
 const dict = {
-    custom: {
-        name: {
-            required: '(ກະລຸນາປ້ອນກ່ອນ...)',
-        },
-        sur_name: {
-            required: '(ກະລຸນາປ້ອນກ່ອນ...)',
-        },
-        // eng_name: {
-        //     required: '(ກະລຸນາປ້ອນກ່ອນ...)',
-        // },
-        //  eng_surname: {
-        //     required: '(ກະລຸນາປ້ອນກ່ອນ...)',
-        // },
-        //   date_of_birth: {
-        //     required: '(ກະລຸນາປ້ອນກ່ອນ...)',
-        // },
-            player_number: {
-            numeric: '(ປ້ອນສະເພາະຕົວເລກ...)',
-        },
-            player_position: {
-            required: '(ກະລຸນາປ້ອນກ່ອນ...)',
-        },
-        //     image: {
-        //     required: '(ກະລຸນາປ້ອນກ່ອນ...)',
-        // },
-    }
+  custom: {
+    name: {
+      required: '(ກະລຸນາປ້ອນກ່ອນ...)',
+    },
+    sur_name: {
+      required: '(ກະລຸນາປ້ອນກ່ອນ...)',
+    },
+    // eng_name: {
+    //     required: '(ກະລຸນາປ້ອນກ່ອນ...)',
+    // },
+    //  eng_surname: {
+    //     required: '(ກະລຸນາປ້ອນກ່ອນ...)',
+    // },
+    //   date_of_birth: {
+    //     required: '(ກະລຸນາປ້ອນກ່ອນ...)',
+    // },
+    player_number: {
+      numeric: '(ປ້ອນສະເພາະຕົວເລກ...)',
+    },
+    player_position: {
+      required: '(ກະລຸນາປ້ອນກ່ອນ...)',
+    },
+    //     image: {
+    //     required: '(ກະລຸນາປ້ອນກ່ອນ...)',
+    // },
+  }
 
 };
 Validator.localize('en', dict);
-
 
 
 export default {
@@ -214,7 +208,7 @@ export default {
   props: ["listposition"],
 
   data: () => ({
-    btnLoading:false,
+    btnLoading: false,
     value: "",
     time1: "",
     image: "",
@@ -240,12 +234,12 @@ export default {
     player_team: {
       name: "",
       sur_name: "",
-      eng_name:'',
-      eng_surname:'',
+      eng_name: '',
+      eng_surname: '',
       // date_of_birth: "",
       player_number: "",
       player_position: "",
-      image:'',
+      image: '',
     },
   }),
 
@@ -278,41 +272,41 @@ export default {
       this.btnLoading = true;
       const id = this.$route.params.team_id;
       let formData = new FormData();
-      formData.append('name',this.player_team.name)
-      formData.append('sur_name',this.player_team.sur_name)
-      formData.append('eng_name',this.player_team.eng_name)
-      formData.append('eng_surname',this.player_team.eng_surname)
+      formData.append('name', this.player_team.name)
+      formData.append('sur_name', this.player_team.sur_name)
+      formData.append('eng_name', this.player_team.eng_name)
+      formData.append('eng_surname', this.player_team.eng_surname)
       // formData.append('date_of_birth',this.player_team.date_of_birth)
-      formData.append('player_number',this.player_team.player_number)
-      formData.append('player_position',this.player_team.player_position)
-      if (this.imageFile){
-        formData.append('image',this.imageFile)
+      formData.append('player_number', this.player_team.player_number)
+      formData.append('player_position', this.player_team.player_position)
+      if (this.imageFile) {
+        formData.append('image', this.imageFile)
       }
       this.$axios
-        .post(`team/${id}/player`, formData)
-        .then((res) => {
-          // console.log(res)
-          if (res) {
-            setTimeout(() => {
-              this.btnLoading = false;
-              this.$emit("close");
-              this.$emit("success");
-              this.$notification.OpenNotification_AddItem_OnSuccess(
-                "top-right",
-                "primary",
-                3000
-              );
-            }, 300);
-          }
-        })
-        .catch((error) => {
-          if (error.response.status == 422) {
-            var obj = error.response.data.errors; // ໃຊ້ການລູບຂໍ້ມູນເພາະວ່າຂໍ້ມູນ errors ທີ່ສົ່ງມາຈາກ Server ນັ້ນເປັນ Array Object
-            for (let [key, value] of Object.entries(obj)) {
-              this.server_errors[key] = value[0];
+          .post(`team/${id}/player`, formData)
+          .then((res) => {
+            // console.log(res)
+            if (res) {
+              setTimeout(() => {
+                this.btnLoading = false;
+                this.$emit("close");
+                this.$emit("success");
+                this.$notification.OpenNotification_AddItem_OnSuccess(
+                    "top-right",
+                    "primary",
+                    3000
+                );
+              }, 300);
             }
-          }
-        });
+          })
+          .catch((error) => {
+            if (error.response.status == 422) {
+              var obj = error.response.data.errors; // ໃຊ້ການລູບຂໍ້ມູນເພາະວ່າຂໍ້ມູນ errors ທີ່ສົ່ງມາຈາກ Server ນັ້ນເປັນ Array Object
+              for (let [key, value] of Object.entries(obj)) {
+                this.server_errors[key] = value[0];
+              }
+            }
+          });
     },
     BtnLoading() {
       return this.$vs.loading({
@@ -377,11 +371,12 @@ label {
   color: #ffff;
 }
 
-.image-preview img{
- width:250px;
- height: 250px;
+.image-preview img {
+  width: 250px;
+  height: 250px;
 }
-.date-time ::placeholder{
+
+.date-time ::placeholder {
   font-family: BoonBaan;
 
 }

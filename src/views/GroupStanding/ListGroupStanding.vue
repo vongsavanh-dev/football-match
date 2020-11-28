@@ -41,6 +41,18 @@
                     </div>
                   </template>
                 </vs-tooltip>
+
+                <vs-tooltip primary border ref="addTooltip">
+                  <vs-button circle icon flat @click="ImageArtwork(tournament.id)">
+                    <i class="far fa-images"></i>
+                  </vs-button>
+                  <template #tooltip>
+                    <div class="text-tooltip">
+                      ເພີ່ມຮຸບ
+                    </div>
+                  </template>
+                </vs-tooltip>
+
               </div>
             </vs-td>
           </vs-tr>
@@ -101,6 +113,20 @@ export default {
           tournament_id: TournamentId,
         }
       });
+      })
+    },
+    ImageArtwork(TournamentId){
+      const {addTooltip} = this.$refs;
+      if(addTooltip && addTooltip[1]){
+        addTooltip[1].removeTooltip()
+      }
+      setTimeout(() =>{
+        this.$router.push({
+          name:"ImageArtwork",
+          params:{
+            tournament_id:TournamentId,
+          }
+        })
       })
     }
   },

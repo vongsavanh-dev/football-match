@@ -17,6 +17,7 @@ import ListTeamStanding from '../views/ListTeamStanding/ListTeamStanding'
 import MatchStanding from '../views/MatchStanding/MatchStandingTable'
 import Staff from '../views/Staff/ListStaff'
 import Hightlight from '../views/MatchHightLight/Matchheight'
+import ImageArtwork from '../views/ImageArtwork/ImageArtwork'
 
 
 Vue.use(VueRouter);
@@ -169,6 +170,14 @@ const routes = [{
         path: '/admin-matchhight/:tournament_id',
         name: 'MatchHightLight',
         component: Hightlight,
+        meta: {
+            middleware: [Middlewares.auth]
+        }
+    },
+    {
+        path:'/admin-image-artwork/:tournament_id',
+        name:'ImageArtwork',
+        component:ImageArtwork,
         meta: {
             middleware: [Middlewares.auth]
         }

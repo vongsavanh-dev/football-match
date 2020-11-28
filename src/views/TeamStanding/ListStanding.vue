@@ -5,7 +5,7 @@
         ທີມເຂົ້າຮອບ
       </h4>
       <span class="btn-add">
-        <vs-tooltip  primary border style="float:right">
+        <vs-tooltip primary border style="float:right">
            <vs-button class="btn-icon" circle icon flat @click="OpenModalAdd()">
           <i class="fas fa-plus"></i>
         </vs-button>
@@ -29,29 +29,23 @@
             <vs-th>
               ຈຳນວນທີມເຂົ້າຮອບ
             </vs-th>
-            <vs-th id="table-header-button"> </vs-th>
+            <vs-th id="table-header-button"></vs-th>
           </vs-tr>
         </template>
         <template #tbody>
-          <vs-tr >
+          <vs-tr>
             <vs-td>
-              {{standing.tournament_name}}
+              {{ standing.tournament_name }}
             </vs-td>
             <vs-td>
-              {{standing.teams}} ທີມ
+              {{ standing.teams }} ທີມ
             </vs-td>
 
             <vs-td style="text-align: right; width: 100px">
               <div class="buttons">
-                  <vs-button circle icon flat @click="AddTeamInStanding(standing.id)">
-                    <i class="fas fa-plus"></i>
-                  </vs-button>
-<!--                <vs-button circle icon flat @click="OpenModalEdit()">-->
-<!--                  <i class="fas fa-pencil-alt"></i>-->
-<!--                </vs-button>-->
-<!--                <vs-button circle danger icon flat @click="OpenModalDelete()">-->
-<!--                  <i class="fas fa-trash-alt"></i>-->
-<!--                </vs-button>-->
+                <vs-button circle icon flat @click="AddTeamInStanding(standing.id)">
+                  <i class="fas fa-plus"></i>
+                </vs-button>
               </div>
             </vs-td>
           </vs-tr>
@@ -119,22 +113,22 @@ export default {
     //   this.TournamentId = TournamentId
     //   this.$store.commit("modalDelete_State", true);
     // },
-    AddTeamInStanding(standingId){
-      const { addTooltip } = this.$refs;
-      if(addTooltip && addTooltip[0]) {
+    AddTeamInStanding(standingId) {
+      const {addTooltip} = this.$refs;
+      if (addTooltip && addTooltip[0]) {
         addTooltip.forEach(function (item) {
           item.removeTooltip()
         })
       }
       setTimeout(() => {
-      this.$router.push({
-        name: "ListTeamStanding",
-        params: {
-          // tournament_id: TournamentId,
-          tournament_id: this.$route.params.tournament_id,
-          standing_id :standingId,
-        }
-      });
+        this.$router.push({
+          name: "ListTeamStanding",
+          params: {
+            // tournament_id: TournamentId,
+            tournament_id: this.$route.params.tournament_id,
+            standing_id: standingId,
+          }
+        });
       })
     }
 

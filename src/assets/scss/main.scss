@@ -1,46 +1,132 @@
 $datepickerZindex: 99100;
 .mx-datepicker-main {
-    z-index: $datepickerZindex;
-    padding-bottom: 10px;
+  z-index: $datepickerZindex;
+  padding-bottom: 10px;
 }
 
 .control {
-    margin-top: 20px;
-    width: 100%;
+  margin-top: 20px;
+  width: 100%;
 }
 
 .mx-datepicker-main {
-    position: relative;
+  position: relative;
 }
 
 .mx-datepicker-main .mx-datepicker-popup {
-    position: absolute;
-    top: 500px;
+  position: absolute;
+  top: 500px;
 }
-.vs-table__tr{
-    white-space: nowrap;
+
+.vs-table__tr {
+  white-space: nowrap;
 }
+
 //center table
-.vs-table__tr .vs-table__td{
-    vertical-align: middle;
-    white-space: nowrap;
+.vs-table__tr .vs-table__td {
+  vertical-align: middle;
+  white-space: nowrap;
 }
-.input{
-    font-family: BoonBaan;
+
+.input {
+  font-family: BoonBaan;
 }
-select{
-    font-family: BoonBaan;
+
+select {
+  font-family: BoonBaan;
 }
-.vs-button--icon .vs-button__content{
-    font-size: 16px;
+
+.vs-button--icon .vs-button__content {
+  font-size: 16px;
 }
+
 .label:not(:last-child) {
-    margin-bottom: 0.5em;
-    font-size: 19px;
+  margin-bottom: 0.5em;
+  font-size: 19px;
 }
-.overflow-header{
-    overflow: hidden;
+
+.overflow-header {
+  overflow: hidden;
 }
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+  &.position-relative {
+    &.text-center {
+      width: 100%;
+      height: 500px;
+    }
+  }
+
+}
+
+
+//.image-overlay {
+//  width: 500px;
+//  height: 500px;
+//
+//  &.position-relative {
+//    width: 500px;
+//    height: 500px;
+//
+//  }
+//
+//  &.full-width .full-height {
+//    width: 500px;
+//    height: 500px;
+//  }
+//}
+//show-image centered
+//.show-image{
+//
+//  &.centered{
+//
+//  }
+//  &.centered img{
+//    &.
+//  }
+//
+//
+//
+//}
+
+//.show-image{
+//   width: 800px;
+//  height: 400px;
+//  background-color: red;
+//
+//
+//  &.img-responsive{
+//    display: flex;
+//    justify-content: center;
+//    align-items: center;
+//
+//  }
+//}
+//
+//
+//.show-image{
+//height: 500px;
+//  img{
+//
+//    &.show-img{
+//
+//      &.img-responsive{
+//
+//      }
+//    }
+//  }
+//}
+
+
+
+
+
+
 
 
 
