@@ -134,7 +134,8 @@ export default {
 
   },
   created() {
-    this.FetchData();
+    this.FetchData()
+
   }
 };
 </script>
