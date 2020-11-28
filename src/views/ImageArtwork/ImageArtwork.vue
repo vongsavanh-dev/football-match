@@ -43,10 +43,10 @@ export default {
   data() {
     return {
       image: "",
-      chart_img:"",
+      chart_img: "",
       imageFile: null,
-      btnLoading:false,
-      errorMessage:'',
+      btnLoading: false,
+      errorMessage: '',
     }
   },
   methods: {
@@ -92,7 +92,8 @@ export default {
                     3000
                 );
               }, 300);
-            }this.$router.push({
+            }
+            this.$router.push({
               name: 'GroupStanding'
             })
           })
@@ -101,7 +102,7 @@ export default {
 }
 </script>
 <style scoped>
-.container{
+.container {
   margin-top: 60px;
   width: 900px;
   height: 500px;
@@ -110,12 +111,14 @@ export default {
   align-items: center;
   flex-direction: column;
 }
-.images-preview img{
+
+.images-preview img {
   width: 600px;
   height: 400px;
   object-fit: contain;
 }
-.images-file-upload{
+
+.images-file-upload {
   margin-top: 10px;
 }
 
