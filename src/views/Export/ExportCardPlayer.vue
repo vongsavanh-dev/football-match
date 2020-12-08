@@ -9,7 +9,7 @@
             <option value="">ເລືອກລາຍງານ...</option>
             <option value="Yellow">ລາຍງານຂໍ້ມູນໃບເຫຼືອງ</option>
             <option value="Red">ລາຍງານຂໍ້ມູນໃບແດງ</option>
-            <option value="Goal">ລາຍງານຂໍ້ມູນການຈຳນວນປະຕູ</option>
+            <option value="Goal">ລາຍງານຂໍ້ມູນສະຖິຕິການຍິງປະຕູ</option>
             <option value="Assist">ລາຍງານຂໍ້ມູນAssist</option>
           </select>
         </div>
