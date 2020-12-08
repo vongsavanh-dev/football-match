@@ -69,6 +69,26 @@
           </vs-sidebar-item>
         </div>
       </vs-sidebar-group>
+
+      <vs-sidebar-group>
+        <template #header>
+          <vs-sidebar-item id="info" arrow class="text-header-dashboard">
+            <template #icon>
+              <i class="fas fa-edit"></i>
+            </template>
+            <h2>ສະຖິຕິການແຂ່ງຂັນ</h2>
+          </vs-sidebar-item>
+        </template>
+
+        <div @click="PlayerStaticInfo()">
+          <vs-sidebar-item id="demo" class="text-header-dashboard">
+            <template #icon>
+              <i class="fas fa-calendar-check"></i>
+            </template>
+            <h2>ຂໍ້ມູນສະຖິຕິການແຂ່ງຂັນ</h2>
+          </vs-sidebar-item>
+        </div>
+      </vs-sidebar-group>
     </vs-sidebar>
 
   </div>
@@ -108,6 +128,13 @@ export default {
     MatchStandingTable(){
       this.$router.push({
         name:"MatchStanding"
+      }).catch(() =>{
+
+      })
+    },
+    PlayerStaticInfo(){
+      this.$router.push({
+        name:"PlayerStaticInfo"
       }).catch(() =>{
 
       })

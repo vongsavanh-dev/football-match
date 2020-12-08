@@ -18,6 +18,8 @@ import MatchStanding from '../views/MatchStanding/MatchStandingTable'
 import Staff from '../views/Staff/ListStaff'
 import Hightlight from '../views/MatchHightLight/Matchheight'
 import ImageArtwork from '../views/ImageArtwork/ImageArtwork'
+import Playerstaticinfo from '../views/PlayerStaticInfo/showPlayerstatic'
+import ExportCardPlayer from "@/views/Export/ExportCardPlayer";
 
 
 Vue.use(VueRouter);
@@ -181,7 +183,25 @@ const routes = [{
         meta: {
             middleware: [Middlewares.auth]
         }
+    },
+    {
+        path:'/admin-showstaticinfo',
+        name: 'PlayerStaticInfo',
+        component:Playerstaticinfo,
+        meta:{
+            middleware: [Middlewares.auth]
+        }
+    },
+
+    {
+        path:'/admin-export/:tournament_id',
+        name:'ExportCardPlayer',
+        component:ExportCardPlayer,
+        meta: {
+            middleware: [Middlewares.auth]
+        }
     }
+
 
 
 ];

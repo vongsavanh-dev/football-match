@@ -16,12 +16,31 @@
             </template>
           </vs-tooltip>
         </span>
+      <vs-tooltip primary border style="float: right">
+        <vs-button style="float: right"
+                   v-if="selected.length > 0"
+                   @click="PrintExcel(selected)">
+          <i class="far fa-file-pdf"></i>
+        </vs-button>
+        <template #tooltip>
+          <div class="text-tooltip">
+            ລາຍງານຂໍ້ມູນນັກເຕະ
+          </div>
+        </template>
+      </vs-tooltip>
     </div>
 
     <div class="center">
-      <vs-table class="overflow-header">
+      <vs-table class="overflow-header" v-model="selected">
         <template #thead>
           <vs-tr class="table-header">
+            <vs-th id="table-index">
+              <vs-checkbox
+                  :indeterminate="selected.length == playerteams.length"
+                  v-model="allCheck"
+                  @change="selected = $vs.checkAll(selected, playerteams)"
+              />
+            </vs-th>
             <vs-th id="table-index">
               ລຳດັບ
             </vs-th>
@@ -58,7 +77,11 @@
           </vs-tr>
         </template>
         <template #tbody>
-          <vs-tr :key="index" v-for="(playerteam, index) in $vs.getPage(playerteams, page, max)" :data="playerteam">
+          <vs-tr :key="index" v-for="(playerteam, index) in $vs.getPage(playerteams, page, max)" :data="playerteam"
+                 :is-selected="!!selected.includes(playerteam)">
+            <vs-td checkbox>
+              <vs-checkbox :val="playerteam" v-model="selected"/>
+            </vs-td>
             <vs-td>
               {{ index + 1 }}
             </vs-td>
@@ -132,6 +155,9 @@
           <vs-pagination v-model="page" :length="$vs.getLength(playerteams, max)"/>
         </template>
       </vs-table>
+
+      <PlayerTeamExport v-show="false" ref="PlayerPdfPrint"></PlayerTeamExport>
+
       <ModalAdd @close="handleModalAddClosed">
         <template v-slot="{ close }">
           <AddPlayerTeam v-if="!showPlayerPreview" @close="close"
@@ -161,6 +187,7 @@ import AddPlayerTeam from './CRUD/AddPlayerTeam'
 import EditPlayerTeam from './CRUD/EditPlayerTeam'
 import DeletePlayerTeam from './CRUD/DeletePlayerTeam'
 import ViewPlayer from './CRUD/ViewPlayer'
+import PlayerTeamExport from "@/components/Export/PlayerTeamExport";
 
 export default {
   components: {
@@ -168,6 +195,7 @@ export default {
     EditPlayerTeam,
     DeletePlayerTeam,
     ViewPlayer,
+    PlayerTeamExport
   },
   data() {
     return {
@@ -181,6 +209,8 @@ export default {
       // teamId: '',
       position: [],
       showPlayerPreview: false,
+      allCheck: false,
+      selected: [],
     }
   },
   methods: {
@@ -221,16 +251,23 @@ export default {
       /*   this.isLoading = true; */
       const id = this.$route.params.team_id
       this.$axios.get(`team/${id}/player`).then(res => {
-        // console.log(res)
         setTimeout(() => {
           this.playerteams = res.data.player_lists;
           this.position = res.data.position;
-          // console.log(this.playerteams)
+          console.log(this.playerteams)
         }, 100);
       }).catch(() => {
 
       });
     },
+
+    PrintExcel(selected) {
+      const ref = this.$refs["PlayerPdfPrint"];
+      if (ref) {
+        ref.PrintExcel(selected);
+      }
+    },
+
 
 
   },
