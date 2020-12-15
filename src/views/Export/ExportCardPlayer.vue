@@ -164,21 +164,6 @@ export default {
       }
     },
 
-    // FetchData() {
-    //   const tournament_id = this.$route.params.tournament_id;
-    //   this.$axios.post(`tournament/${tournament_id}/report-yellow`).then(res => {
-    //     console.log(res)
-    //     setTimeout(() => {
-    //       this.$emit('close');
-    //     }, 200);
-    //     setTimeout(() => {
-    //       // this.teams = res.data.data;
-    //     }, 100);
-    //   }).catch(() => {
-    //
-    //   });
-    // },
-
   },
   created() {
     // this.FetchData();

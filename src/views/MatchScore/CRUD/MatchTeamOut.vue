@@ -9,7 +9,7 @@
       <hr>
       <span style="font-size: 16px; color: #ff0000;">(ຖ້າບັນທຶກແລ້ວ ບໍ່ສາມາດກັບມາແກ້ໄຂໄດ້ອີກ)</span>
     </div>
-    <span class="has-text-danger" style="font-size: 16px;">{{matchTeamouterror}}</span>
+    <span class="has-text-danger" style="font-size: 16px;">{{ matchTeamouterror }}</span>
     <hr/>
     <div class="buttons btn">
       <vs-button class="btn" transparent @click="MatchTeamOut()">
@@ -26,7 +26,8 @@
 export default {
   data() {
     return {
-      matchTeamouterror:'',
+      matchTeamouterror: '',
+      message:'',
     }
   },
   methods: {
@@ -42,12 +43,11 @@ export default {
             this.$notification.OpenNotification_AddItem_OnSuccess('top-right', 'primary', 3000);
           }, 300)
               .catch((e) => {
-                        if(e && e.response){
-                          const message =(e.response.data || {}).error;
-                          this.matchTeamouterror = message;
-                          // console.log( this.matchTeamouterror)
-                        }
-                      });
+                if (e && e.response) {
+                  const message = (e.response.data || {}).error;
+                  this.matchTeamouterror = message;
+                }
+              });
         }
 
       })

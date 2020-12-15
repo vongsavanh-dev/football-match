@@ -30,6 +30,7 @@
                 ບັນທີກຜົນ
               </vs-button>
 
+
             </div>
 
           </div>
@@ -222,6 +223,12 @@
             <MatchTeamOut v-if="showModalMatchTeamOut" @close="close"/>
           </template>
         </ModalSuccess>
+
+        <ModalDrawScore>
+          <template v-slot="{ close }">
+            <AddDrawScore v-if="showModalDrawScore" @close="close" :match_data="matchData"/>
+          </template>
+        </ModalDrawScore>
       </div>
     </div>
 
@@ -238,6 +245,7 @@ import DeleteCard from "@/views/MatchScore/CRUD/DeleteCard";
 import DeleteScore from "@/views/MatchScore/CRUD/DeleteScore";
 import MatchFinished from "@/views/MatchScore/CRUD/Confirm"
 import MatchTeamOut from "@/views/MatchScore/CRUD/MatchTeamOut"
+import AddDrawScore from "@/views/MatchScore/CRUD/AddDrawScore";
 
 
 export default {
@@ -249,7 +257,8 @@ export default {
     DeleteScore,
     DeleteCard,
     MatchFinished,
-    MatchTeamOut
+    MatchTeamOut,
+    AddDrawScore
   },
   data() {
     return {
@@ -264,6 +273,7 @@ export default {
       showModalfirstScores: false,
       showModalFinishMatch: false,
       showModalMatchTeamOut: false,
+      showModalDrawScore:false,
       modalPlayerScore: false,
       modalPlayerCard: false,
       listplayers_team: [],
@@ -272,6 +282,7 @@ export default {
       listplayers_match: [],
       player_Score: [],
       player_Card: [],
+      matchData:[],
       errorMessage: '',
       playerScoreId: '',
       playerCardId: '',
@@ -290,6 +301,7 @@ export default {
               this.$emit("close");
             }, 100);
             this.listplayers_match = res.data.data;
+            this.matchData = res.data.data.both_teams;
           })
           .catch(() => {
           });
@@ -313,16 +325,19 @@ export default {
         this.showModalCardSecondtTeam = false;
         this.showModalCardfirstTeam = false;
         this.showModalSecondScore = false;
+
       } else if (value == 'second_score') {
         this.showModalSecondScore = true;
         this.showModalfirstScores = false;
         this.showModalCardSecondtTeam = false;
         this.showModalCardfirstTeam = false;
+
       } else if (value == 'first_card') {
         this.showModalCardfirstTeam = true;
         this.showModalSecondScore = false;
         this.showModalfirstScores = false;
         this.showModalCardSecondtTeam = false;
+
       } else if (value == 'second_card') {
         this.showModalCardSecondtTeam = true;
         this.showModalSecondScore = false;
@@ -395,11 +410,22 @@ export default {
       if (value == 'FinishMatch') {
         this.showModalFinishMatch = true;
         this.showModalMatchTeamOut = false;
+        this.showModalDrawScore = false;
         this.$store.commit("modalSuccess_State", true);
       } else if (value == 'MatchTeamOut') {
         this.showModalMatchTeamOut = true;
         this.showModalFinishMatch = false;
-        this.$store.commit("modalSuccess_State", true);
+        this.showModalDrawScore = false;
+        if(this.listplayers_team.team_1_score == this.listplayers_team.team_2_score){
+          this.showModalDrawScore = true;
+          this.showModalMatchTeamOut = false;
+          this.showModalFinishMatch = false;
+          this.$store.commit("modalDrawScore_State",true);
+        }
+        else {
+          this.$store.commit("modalSuccess_State", true);
+        }
+
       }
     },
 

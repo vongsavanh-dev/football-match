@@ -19,6 +19,7 @@ import ModalEdit from './components/Modals/Edit'
 import ModalDelete from './components/Modals/Delete';
 import ModalSuccess from './components/Modals/Success';
 import ModalNotification from './components/Modals/Notification';
+import ModalDrawScore from './components/Modals/DrawScore'
 /* End import Modal */
 
 Vue.use(VeeValidate);
@@ -29,6 +30,7 @@ Vue.component('ModalEdit', ModalEdit);
 Vue.component('ModalDelete', ModalDelete);
 Vue.component('ModalSuccess', ModalSuccess);
 Vue.component('ModalNotification', ModalNotification);
+Vue.component('ModalDrawScore', ModalDrawScore);
 
 
 

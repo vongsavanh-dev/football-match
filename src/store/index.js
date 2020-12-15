@@ -13,6 +13,7 @@ export default new Vuex.Store({
         modalEditState: false,
         modalDeleteState: false,
         modalNotificationState: false,
+        modalDrawScoreState:false,
     },
     mutations: {
         modalAdd_State(state, value) {
@@ -30,6 +31,10 @@ export default new Vuex.Store({
         modalNotification_State(state, value) {
             state.modalNotificationState = value;
         },
+        modalDrawScore_State(state,value){
+            state.modalDrawScoreState = value;
+        }
+
     },
     actions: {},
 
